@@ -20,9 +20,11 @@ export default function Dashboard() {
           <h1 className="text-3xl font-bold tracking-tight mb-1">Discover Classrooms</h1>
           <p className="text-neutral-400">Find and join communities or create your own.</p>
         </div>
-        <Button className="bg-purple-600 hover:bg-purple-700 text-white rounded-full">
-          <Plus className="mr-2 h-4 w-4" /> Create Classroom
-        </Button>
+        <div className="flex flex-wrap items-center gap-2 md:flex-row">
+          <Button variant="outline" className="bg-neutral-900 border-neutral-700 hover:bg-neutral-800 text-white shadow-sm font-medium h-10 px-4 py-2">
+            <Plus className="mr-2 h-4 w-4" /> Create Room
+          </Button>
+        </div>
       </div>
 
       <div className="relative mb-8 max-w-xl">
