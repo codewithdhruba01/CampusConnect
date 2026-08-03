@@ -22,7 +22,7 @@ export default function Dashboard() {
         </div>
         <div className="flex flex-wrap items-center gap-2 md:flex-row">
           <Button variant="outline" className="bg-neutral-900 border-neutral-700 hover:bg-neutral-800 text-white shadow-sm font-medium h-10 px-4 py-2">
-            <Plus className="mr-2 h-4 w-4" /> Create Room
+            <Plus className="mr-1 h-4 w-4" /> Create Room
           </Button>
         </div>
       </div>
