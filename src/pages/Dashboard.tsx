@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { SearchBar } from "@/components/ui/search-bar";
 import { ClassroomCard } from "@/features/classrooms/components/ClassroomCard";
 import type { Classroom } from "@/types";
 
@@ -28,10 +28,7 @@ export default function Dashboard() {
       </div>
 
       <div className="mb-8 max-w-sm">
-        <Input 
-          placeholder="Search Classroom..." 
-          className="h-10 px-4 bg-[#171717] border border-[#27272a] text-[#f4f4f5] placeholder:text-[#d1d1d7] rounded-xl focus-visible:ring-1 focus-visible:ring-[#3f3f46] focus-visible:border-[#3f3f46] shadow-sm font-medium"
-        />
+        <SearchBar placeholder="Search Classroom..." />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
