@@ -4,8 +4,6 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ClassroomView from "./pages/ClassroomView";
 import AppLayout from "./components/layout/AppLayout";
-// import Dashboard from "./pages/Dashboard";
-// import ClassroomView from "./pages/ClassroomView";
 
 function App() {
   return (
