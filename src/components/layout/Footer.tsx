@@ -2,7 +2,7 @@ import { BookOpen } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="relative z-20 bg-black text-neutral-400 py-16 border-t border-white/5">
+    <footer className="relative z-20 bg-neutral-900 text-neutral-400 py-16 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-start gap-12 md:gap-6">
         
         {/* Left Side */}
