@@ -2,9 +2,11 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { BookOpen, LogOut, Users } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
+import { useClassrooms } from "@/hooks/useClassrooms";
 
 export default function AppLayout() {
   const navigate = useNavigate();
+  const { classrooms } = useClassrooms();
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -38,9 +40,22 @@ export default function AppLayout() {
           <div className="px-2 py-1.5 text-xs font-semibold text-neutral-500 uppercase tracking-wider mt-6 mb-2">
             Your Classrooms
           </div>
-          <div className="px-3 py-2 text-sm font-medium text-neutral-600 italic">
-            No classrooms yet
-          </div>
+          {classrooms.length === 0 ? (
+            <div className="px-3 py-2 text-sm font-medium text-neutral-600 italic">
+              No classrooms yet
+            </div>
+          ) : (
+            classrooms.map((room) => (
+              <Link
+                key={room.id}
+                to={`/classroom/${room.id}`}
+                className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-neutral-400 hover:text-white hover:bg-white/5 transition-colors"
+              >
+                <span className={`w-2 h-2 rounded-full ${room.color || 'bg-blue-500'}`}></span>
+                {room.name}
+              </Link>
+            ))
+          )}
         </nav>
 
         <div className="p-4 border-t border-neutral-800">
