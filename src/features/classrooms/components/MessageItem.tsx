@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { CheckCheck } from "lucide-react";
+import { CheckCheck, FileText, Headphones, UserCircle } from "lucide-react";
 import type { Message } from "@/types";
 
 interface MessageItemProps {
@@ -46,15 +46,57 @@ export function MessageItem({ message, isOwnMessage }: MessageItemProps) {
               {message.user?.name}
             </div>
 
-            {/* Image attachment */}
-            {message.image_url && (
-              <div className="mb-2 mt-1 rounded-lg overflow-hidden border border-black/10">
-                <img 
-                  src={message.image_url} 
-                  alt="Attached" 
-                  className="max-h-60 w-auto rounded-lg object-contain" 
-                  loading="lazy"
-                />
+
+            
+            {/* Generic Attachment */}
+            {message.attachment && (
+              <div className="mb-2 mt-1">
+                {message.attachment.type === 'image' && (
+                  <div className="rounded-lg overflow-hidden border border-black/10">
+                    <img 
+                      src={message.attachment.url} 
+                      alt="Attached" 
+                      className="max-h-60 w-auto rounded-lg object-contain" 
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+                
+                {message.attachment.type === 'document' && (
+                  <div className={`flex items-center gap-3 p-3 rounded-xl border ${isOwnMessage ? 'bg-pink-600/30 border-pink-400/30 text-white' : 'bg-neutral-900 border-neutral-700 text-neutral-200'}`}>
+                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${isOwnMessage ? 'bg-pink-500/50' : 'bg-neutral-800'}`}>
+                      <FileText className="w-5 h-5" />
+                    </div>
+                    <div className="overflow-hidden">
+                      <p className="text-sm font-medium truncate max-w-[180px] sm:max-w-xs">{message.attachment.name}</p>
+                      <p className="text-xs opacity-70">Document</p>
+                    </div>
+                  </div>
+                )}
+                
+                {message.attachment.type === 'audio' && (
+                  <div className={`flex flex-col gap-2 p-3 rounded-xl border ${isOwnMessage ? 'bg-pink-600/30 border-pink-400/30 text-white' : 'bg-neutral-900 border-neutral-700 text-neutral-200'}`}>
+                    <div className="flex items-center gap-3">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${isOwnMessage ? 'bg-pink-500' : 'bg-purple-500'}`}>
+                        <Headphones className="w-4 h-4 text-white" />
+                      </div>
+                      <p className="text-sm font-medium truncate max-w-[150px]">{message.attachment.name}</p>
+                    </div>
+                    <audio controls className="h-8 max-w-[220px] rounded" src={message.attachment.url} />
+                  </div>
+                )}
+                
+                {message.attachment.type === 'contact' && (
+                  <div className={`flex items-center gap-3 p-3 rounded-xl border ${isOwnMessage ? 'bg-pink-600/30 border-pink-400/30 text-white' : 'bg-neutral-900 border-neutral-700 text-neutral-200'}`}>
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${isOwnMessage ? 'bg-pink-500/50' : 'bg-orange-500/20 text-orange-400'}`}>
+                      <UserCircle className="w-6 h-6" />
+                    </div>
+                    <div className="overflow-hidden">
+                      <p className="text-sm font-medium truncate max-w-[180px] sm:max-w-xs">{message.attachment.name}</p>
+                      <p className="text-xs opacity-70">Contact Card</p>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 

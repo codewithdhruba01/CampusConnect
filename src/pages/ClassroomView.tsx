@@ -24,7 +24,8 @@ export default function ClassroomView() {
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedAttachment, setSelectedAttachment] = useState<{ type: 'image' | 'document' | 'audio' | 'contact'; url: string; name?: string; size?: number } | null>(null);
+  const [attachmentType, setAttachmentType] = useState<'image' | 'document' | 'audio' | 'contact'>('image');
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [showAttachmentMenu, setShowAttachmentMenu] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -38,33 +39,58 @@ export default function ClassroomView() {
     scrollToBottom();
   }, [messages]);
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => setSelectedImage(reader.result as string);
+      reader.onloadend = () => {
+        setSelectedAttachment({
+          type: attachmentType,
+          url: reader.result as string,
+          name: file.name,
+          size: file.size
+        });
+      };
       reader.readAsDataURL(file);
     }
     if (e.target) e.target.value = '';
+    setShowAttachmentMenu(false);
+  };
+
+  const triggerFileInput = (type: 'image' | 'document' | 'audio' | 'contact') => {
+    setAttachmentType(type);
+    setTimeout(() => {
+      fileInputRef.current?.click();
+    }, 10);
+  };
+
+  const getAcceptType = () => {
+    switch (attachmentType) {
+      case 'image': return 'image/*';
+      case 'audio': return 'audio/*';
+      case 'document': return '.pdf,.doc,.docx,.txt,.xls,.xlsx,.csv';
+      case 'contact': return '.vcf,.csv';
+      default: return '*/*';
+    }
   };
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
-    if ((!newMessage.trim() && !selectedImage) || !currentClassroom) return;
+    if ((!newMessage.trim() && !selectedAttachment) || !currentClassroom) return;
 
     const newMsg: Message = {
       id: Date.now().toString(),
       classroom_id: currentClassroom.id,
       user_id: mockUser.id,
       content: newMessage,
-      image_url: selectedImage || undefined,
+      attachment: selectedAttachment || undefined,
       created_at: new Date().toISOString(),
       user: mockUser
     };
 
     setMessages([...messages, newMsg]);
     setNewMessage("");
-    setSelectedImage(null);
+    setSelectedAttachment(null);
     setShowEmojiPicker(false);
     setShowAttachmentMenu(false);
   };
@@ -161,16 +187,55 @@ export default function ClassroomView() {
         <div className="p-4 bg-neutral-900/50 border-t border-neutral-800 backdrop-blur-md flex-shrink-0">
           <div className="max-w-4xl mx-auto flex flex-col gap-3 relative">
             
-            {/* Image Preview */}
-            {selectedImage && (
-              <div className="relative self-start rounded-xl overflow-hidden border border-neutral-800 bg-neutral-900/80 p-2 shadow-lg backdrop-blur-sm animate-in fade-in slide-in-from-bottom-2">
+            {/* Attachment Preview */}
+            {selectedAttachment && (
+              <div className="relative self-start rounded-xl overflow-hidden border border-neutral-800 bg-neutral-900/80 p-3 shadow-lg backdrop-blur-sm animate-in fade-in slide-in-from-bottom-2 flex items-center gap-3 pr-12">
                 <button 
-                  onClick={() => setSelectedImage(null)}
-                  className="absolute top-3 right-3 p-1.5 bg-black/60 hover:bg-black text-white rounded-full transition-colors z-10"
+                  onClick={() => setSelectedAttachment(null)}
+                  className="absolute top-2 right-2 p-1 bg-black/60 hover:bg-black text-white rounded-full transition-colors z-10"
                 >
                   <X className="w-4 h-4" />
                 </button>
-                <img src={selectedImage} alt="Selected preview" className="max-h-48 rounded-lg object-contain border border-white/10" />
+                
+                {selectedAttachment.type === 'image' && (
+                  <img src={selectedAttachment.url} alt="Selected preview" className="max-h-48 rounded-lg object-contain border border-white/10" />
+                )}
+                
+                {selectedAttachment.type === 'document' && (
+                  <>
+                    <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400">
+                      <FileText className="w-5 h-5" />
+                    </div>
+                    <div className="overflow-hidden">
+                      <p className="text-sm font-medium text-white truncate max-w-xs">{selectedAttachment.name}</p>
+                      <p className="text-xs text-neutral-500">Document</p>
+                    </div>
+                  </>
+                )}
+                
+                {selectedAttachment.type === 'audio' && (
+                  <>
+                    <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400">
+                      <Headphones className="w-5 h-5" />
+                    </div>
+                    <div className="overflow-hidden">
+                      <p className="text-sm font-medium text-white truncate max-w-xs">{selectedAttachment.name}</p>
+                      <p className="text-xs text-neutral-500">Audio</p>
+                    </div>
+                  </>
+                )}
+                
+                {selectedAttachment.type === 'contact' && (
+                  <>
+                    <div className="w-10 h-10 rounded-lg bg-orange-500/20 flex items-center justify-center text-orange-400">
+                      <UserCircle className="w-5 h-5" />
+                    </div>
+                    <div className="overflow-hidden">
+                      <p className="text-sm font-medium text-white truncate max-w-xs">{selectedAttachment.name}</p>
+                      <p className="text-xs text-neutral-500">Contact Card</p>
+                    </div>
+                  </>
+                )}
               </div>
             )}
             
@@ -188,7 +253,7 @@ export default function ClassroomView() {
             {/* Attachment Menu */}
             {showAttachmentMenu && (
               <div className="absolute bottom-[70px] left-2 z-50 bg-[#1e1e24] border border-white/10 rounded-2xl p-2 shadow-2xl animate-in fade-in zoom-in-95 flex flex-col gap-1 w-48">
-                <button type="button" className="flex items-center gap-3 w-full p-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors text-left" onClick={() => setShowAttachmentMenu(false)}>
+                <button type="button" className="flex items-center gap-3 w-full p-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors text-left" onClick={() => triggerFileInput('document')}>
                   <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">
                     <FileText className="w-4 h-4" />
                   </div>
@@ -200,13 +265,13 @@ export default function ClassroomView() {
                   </div>
                   Poll
                 </button>
-                <button type="button" className="flex items-center gap-3 w-full p-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors text-left" onClick={() => setShowAttachmentMenu(false)}>
+                <button type="button" className="flex items-center gap-3 w-full p-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors text-left" onClick={() => triggerFileInput('contact')}>
                   <div className="w-8 h-8 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400">
                     <UserCircle className="w-4 h-4" />
                   </div>
                   Contact
                 </button>
-                <button type="button" className="flex items-center gap-3 w-full p-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors text-left" onClick={() => setShowAttachmentMenu(false)}>
+                <button type="button" className="flex items-center gap-3 w-full p-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors text-left" onClick={() => triggerFileInput('audio')}>
                   <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400">
                     <Headphones className="w-4 h-4" />
                   </div>
@@ -219,9 +284,9 @@ export default function ClassroomView() {
               <input 
                 type="file" 
                 ref={fileInputRef} 
-                accept="image/*" 
+                accept={getAcceptType()} 
                 className="hidden" 
-                onChange={handleImageChange} 
+                onChange={handleFileChange} 
               />
               
               <button 
@@ -242,7 +307,7 @@ export default function ClassroomView() {
               <div className="flex items-center gap-1 pr-1">
                 <button 
                   type="button" 
-                  onClick={() => fileInputRef.current?.click()}
+                  onClick={() => triggerFileInput('image')}
                   className="p-2 text-neutral-400 hover:text-indigo-400 transition-colors rounded-full hover:bg-white/5 flex-shrink-0"
                 >
                   <ImageIcon className="w-5 h-5" />
@@ -256,7 +321,7 @@ export default function ClassroomView() {
                 </button>
                 <button 
                   type="submit" 
-                  disabled={!newMessage.trim() && !selectedImage}
+                  disabled={!newMessage.trim() && !selectedAttachment}
                   className="p-2 text-indigo-500 hover:text-indigo-400 transition-colors rounded-full hover:bg-white/5 flex-shrink-0 disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-indigo-500"
                 >
                   <Send className="w-5 h-5 ml-0.5" />

@@ -22,7 +22,12 @@ export interface Message {
   classroom_id: string;
   user_id: string;
   content: string;
-  image_url?: string;
+  attachment?: {
+    type: 'image' | 'document' | 'audio' | 'contact';
+    url: string;
+    name?: string;
+    size?: number;
+  };
   created_at: string;
   user?: User;
 }
