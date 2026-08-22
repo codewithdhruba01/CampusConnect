@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Send, Users, Info, Hash, BookOpen, Paperclip, ImageIcon, Smile } from "lucide-react";
+import { Send, Users, Info, Hash, BookOpen, Paperclip, ImageIcon, Smile, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -23,7 +23,9 @@ export default function ClassroomView() {
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -33,21 +35,33 @@ export default function ClassroomView() {
     scrollToBottom();
   }, [messages]);
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => setSelectedImage(reader.result as string);
+      reader.readAsDataURL(file);
+    }
+    if (e.target) e.target.value = '';
+  };
+
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newMessage.trim() || !currentClassroom) return;
+    if ((!newMessage.trim() && !selectedImage) || !currentClassroom) return;
 
     const newMsg: Message = {
       id: Date.now().toString(),
       classroom_id: currentClassroom.id,
       user_id: mockUser.id,
       content: newMessage,
+      image_url: selectedImage || undefined,
       created_at: new Date().toISOString(),
       user: mockUser
     };
 
     setMessages([...messages, newMsg]);
     setNewMessage("");
+    setSelectedImage(null);
   };
 
   const [showUsers, setShowUsers] = useState(false);
@@ -136,35 +150,62 @@ export default function ClassroomView() {
 
         {/* Message Input */}
         <div className="p-4 bg-neutral-900/50 border-t border-neutral-800 backdrop-blur-md flex-shrink-0">
-          <form onSubmit={handleSendMessage} className="max-w-4xl mx-auto flex items-center bg-neutral-800/80 rounded-full px-2 py-1.5 shadow-sm border border-white/5">
+          <div className="max-w-4xl mx-auto flex flex-col gap-3">
             
-            <button type="button" className="p-2 text-neutral-400 hover:text-indigo-400 transition-colors rounded-full hover:bg-white/5 flex-shrink-0">
-              <Paperclip className="w-5 h-5" />
-            </button>
+            {/* Image Preview */}
+            {selectedImage && (
+              <div className="relative self-start rounded-xl overflow-hidden border border-neutral-800 bg-neutral-900/80 p-2 shadow-lg backdrop-blur-sm animate-in fade-in slide-in-from-bottom-2">
+                <button 
+                  onClick={() => setSelectedImage(null)}
+                  className="absolute top-3 right-3 p-1.5 bg-black/60 hover:bg-black text-white rounded-full transition-colors z-10"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+                <img src={selectedImage} alt="Selected preview" className="max-h-48 rounded-lg object-contain border border-white/10" />
+              </div>
+            )}
             
-            <Input 
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-              placeholder="Your message" 
-              className="flex-1 bg-transparent border-0 text-white placeholder:text-neutral-500 focus-visible:ring-0 shadow-none px-2 text-[15px]"
-            />
-            
-            <div className="flex items-center gap-1 pr-1">
+            <form onSubmit={handleSendMessage} className="flex items-center bg-neutral-800/80 rounded-full px-2 py-1.5 shadow-sm border border-white/5 relative">
+              <input 
+                type="file" 
+                ref={fileInputRef} 
+                accept="image/*" 
+                className="hidden" 
+                onChange={handleImageChange} 
+              />
+              
               <button type="button" className="p-2 text-neutral-400 hover:text-indigo-400 transition-colors rounded-full hover:bg-white/5 flex-shrink-0">
-                <ImageIcon className="w-5 h-5" />
+                <Paperclip className="w-5 h-5" />
               </button>
-              <button type="button" className="p-2 text-neutral-400 hover:text-indigo-400 transition-colors rounded-full hover:bg-white/5 flex-shrink-0">
-                <Smile className="w-5 h-5" />
-              </button>
-              <button 
-                type="submit" 
-                disabled={!newMessage.trim()}
-                className="p-2 text-indigo-500 hover:text-indigo-400 transition-colors rounded-full hover:bg-white/5 flex-shrink-0 disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-indigo-500"
-              >
-                <Send className="w-5 h-5 ml-0.5" />
-              </button>
-            </div>
-          </form>
+              
+              <Input 
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+                placeholder="Your message" 
+                className="flex-1 bg-transparent border-0 text-white placeholder:text-neutral-500 focus-visible:ring-0 shadow-none px-2 text-[15px]"
+              />
+              
+              <div className="flex items-center gap-1 pr-1">
+                <button 
+                  type="button" 
+                  onClick={() => fileInputRef.current?.click()}
+                  className="p-2 text-neutral-400 hover:text-indigo-400 transition-colors rounded-full hover:bg-white/5 flex-shrink-0"
+                >
+                  <ImageIcon className="w-5 h-5" />
+                </button>
+                <button type="button" className="p-2 text-neutral-400 hover:text-indigo-400 transition-colors rounded-full hover:bg-white/5 flex-shrink-0">
+                  <Smile className="w-5 h-5" />
+                </button>
+                <button 
+                  type="submit" 
+                  disabled={!newMessage.trim() && !selectedImage}
+                  className="p-2 text-indigo-500 hover:text-indigo-400 transition-colors rounded-full hover:bg-white/5 flex-shrink-0 disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-indigo-500"
+                >
+                  <Send className="w-5 h-5 ml-0.5" />
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
 

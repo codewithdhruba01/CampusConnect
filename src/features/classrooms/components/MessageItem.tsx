@@ -46,8 +46,22 @@ export function MessageItem({ message, isOwnMessage }: MessageItemProps) {
               {message.user?.name}
             </div>
 
+            {/* Image attachment */}
+            {message.image_url && (
+              <div className="mb-2 mt-1 rounded-lg overflow-hidden border border-black/10">
+                <img 
+                  src={message.image_url} 
+                  alt="Attached" 
+                  className="max-h-60 w-auto rounded-lg object-contain" 
+                  loading="lazy"
+                />
+              </div>
+            )}
+
             {/* Content */}
-            <div className="mb-1 text-[14px] sm:text-[15px]">{message.content}</div>
+            {message.content && (
+              <div className="mb-1 text-[14px] sm:text-[15px]">{message.content}</div>
+            )}
 
             {/* Time and Status */}
             <div className={`flex items-center gap-1 text-[11px] justify-end mt-1 ${isOwnMessage ? "text-pink-200" : "text-neutral-500"}`}>
