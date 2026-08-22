@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Send, Users, Info } from "lucide-react";
+import { Send, Users, Info, Hash, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MessageItem } from "@/features/classrooms/components/MessageItem";
+import { useClassrooms } from "@/hooks/useClassrooms";
 import type { Message } from "@/types";
 
 const mockUser = { id: "u-you", name: "You", email: "" };
@@ -19,6 +20,10 @@ const mockMessages: Message[] = [
 
 export default function ClassroomView() {
   const { id } = useParams();
+  const { classrooms } = useClassrooms();
+  
+  const currentClassroom = classrooms.find(c => c.id === id);
+
   const [messages, setMessages] = useState(mockMessages);
   const [newMessage, setNewMessage] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -33,11 +38,11 @@ export default function ClassroomView() {
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newMessage.trim()) return;
+    if (!newMessage.trim() || !currentClassroom) return;
 
     const newMsg: Message = {
       id: Date.now().toString(),
-      classroom_id: id || "unknown",
+      classroom_id: currentClassroom.id,
       user_id: mockUser.id,
       content: newMessage,
       created_at: new Date().toISOString(),
@@ -48,17 +53,43 @@ export default function ClassroomView() {
     setNewMessage("");
   };
 
+  if (!currentClassroom) {
+    return (
+      <div className="flex flex-col h-full bg-neutral-950/50 items-center justify-center text-neutral-500">
+        <BookOpen className="w-12 h-12 mb-4 opacity-50" />
+        <h2 className="text-xl font-semibold text-white">Classroom not found</h2>
+        <p>The classroom you're looking for doesn't exist.</p>
+      </div>
+    );
+  }
+
+  const color = currentClassroom.color || "bg-blue-500";
+
   return (
     <div className="flex flex-col h-full bg-neutral-950/50">
       {/* Header */}
       <header className="h-16 border-b border-neutral-800 bg-neutral-900/50 backdrop-blur-md flex items-center justify-between px-6 flex-shrink-0">
         <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center">
-            <span className="text-blue-400 font-bold">CS</span>
+          <div className={`w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center ${color}/20`}>
+            {currentClassroom.profile_pic ? (
+              <img src={currentClassroom.profile_pic} alt={currentClassroom.name} className="w-full h-full object-cover" />
+            ) : (
+              <span className={`text-${color.replace('bg-', '')} font-bold text-lg`}>
+                {currentClassroom.name.substring(0, 2).toUpperCase()}
+              </span>
+            )}
           </div>
           <div>
-            <h1 className="font-semibold text-white">Computer Science 101</h1>
-            <p className="text-xs text-neutral-400">124 members online</p>
+            <div className="flex items-center gap-2">
+              <h1 className="font-semibold text-white">{currentClassroom.name}</h1>
+              {currentClassroom.category && (
+                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center gap-1">
+                  <Hash className="w-3 h-3" />
+                  {currentClassroom.category}
+                </span>
+              )}
+            </div>
+            <p className="text-xs text-neutral-400">{currentClassroom.members_count} members</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -89,7 +120,7 @@ export default function ClassroomView() {
           <Input 
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
-            placeholder="Message Computer Science 101..." 
+            placeholder={`Message ${currentClassroom.name}...`} 
             className="w-full bg-white/5 border-white/10 text-white h-12 pl-4 pr-12 rounded-full focus-visible:ring-purple-500"
           />
           <Button 
