@@ -53,6 +53,8 @@ export default function ClassroomView() {
     setNewMessage("");
   };
 
+  const [showUsers, setShowUsers] = useState(false);
+
   if (!currentClassroom) {
     return (
       <div className="flex flex-col h-full bg-neutral-950/50 items-center justify-center text-neutral-500">
@@ -66,73 +68,103 @@ export default function ClassroomView() {
   const color = currentClassroom.color || "bg-blue-500";
 
   return (
-    <div className="flex flex-col h-full bg-neutral-950/50">
-      {/* Header */}
-      <header className="h-16 border-b border-neutral-800 bg-neutral-900/50 backdrop-blur-md flex items-center justify-between px-6 flex-shrink-0">
-        <div className="flex items-center gap-4">
-          <div className={`w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center ${color}/20`}>
-            {currentClassroom.profile_pic ? (
-              <img src={currentClassroom.profile_pic} alt={currentClassroom.name} className="w-full h-full object-cover" />
-            ) : (
-              <span className={`text-${color.replace('bg-', '')} font-bold text-lg`}>
-                {currentClassroom.name.substring(0, 2).toUpperCase()}
-              </span>
-            )}
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h1 className="font-semibold text-white">{currentClassroom.name}</h1>
-              {currentClassroom.category && (
-                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center gap-1">
-                  <Hash className="w-3 h-3" />
-                  {currentClassroom.category}
+    <div className="flex h-full w-full">
+      <div className="flex flex-col flex-1 min-w-0 bg-neutral-950/50">
+        {/* Header */}
+        <header className="h-16 border-b border-neutral-800 bg-neutral-900/50 backdrop-blur-md flex items-center justify-between px-6 flex-shrink-0">
+          <div className="flex items-center gap-4">
+            <div className={`w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center ${color}/20`}>
+              {currentClassroom.profile_pic ? (
+                <img src={currentClassroom.profile_pic} alt={currentClassroom.name} className="w-full h-full object-cover" />
+              ) : (
+                <span className={`text-${color.replace('bg-', '')} font-bold text-lg`}>
+                  {currentClassroom.name.substring(0, 2).toUpperCase()}
                 </span>
               )}
             </div>
-            <p className="text-xs text-neutral-400">{currentClassroom.members_count} members</p>
+            <div>
+              <div className="flex items-center gap-2">
+                <h1 className="font-semibold text-white">{currentClassroom.name}</h1>
+                {currentClassroom.category && (
+                  <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center gap-1">
+                    <Hash className="w-3 h-3" />
+                    {currentClassroom.category}
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-neutral-400">{currentClassroom.members_count} members</p>
+            </div>
           </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" className="text-neutral-400 hover:text-white">
-            <Users className="h-5 w-5" />
-          </Button>
-          <Button variant="ghost" size="icon" className="text-neutral-400 hover:text-white">
-            <Info className="h-5 w-5" />
-          </Button>
-        </div>
-      </header>
+          <div className="flex items-center gap-2">
+            <Button 
+              variant={showUsers ? "secondary" : "ghost"} 
+              size="icon" 
+              onClick={() => setShowUsers(!showUsers)}
+              className={showUsers ? "bg-white/10 text-white" : "text-neutral-400 hover:text-white"}
+            >
+              <Users className="h-5 w-5" />
+            </Button>
+            <Button variant="ghost" size="icon" className="text-neutral-400 hover:text-white">
+              <Info className="h-5 w-5" />
+            </Button>
+          </div>
+        </header>
 
-      {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-6">
-        {messages.map((msg) => (
-          <MessageItem 
-            key={msg.id} 
-            message={msg} 
-            isOwnMessage={msg.user_id === mockUser.id} 
-          />
-        ))}
-        <div ref={messagesEndRef} />
+        {/* Messages Area */}
+        <div className="flex-1 overflow-y-auto p-6 space-y-6">
+          {messages.map((msg) => (
+            <MessageItem 
+              key={msg.id} 
+              message={msg} 
+              isOwnMessage={msg.user_id === mockUser.id} 
+            />
+          ))}
+          <div ref={messagesEndRef} />
+        </div>
+
+        {/* Message Input */}
+        <div className="p-4 bg-neutral-900/50 border-t border-neutral-800 backdrop-blur-md flex-shrink-0">
+          <form onSubmit={handleSendMessage} className="max-w-4xl mx-auto relative flex items-center">
+            <Input 
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+              placeholder={`Message ${currentClassroom.name}...`} 
+              className="w-full bg-white/5 border-white/10 text-white h-12 pl-4 pr-12 rounded-full focus-visible:ring-purple-500"
+            />
+            <Button 
+              type="submit" 
+              size="icon"
+              disabled={!newMessage.trim()}
+              className="absolute right-1 w-10 h-10 rounded-full bg-purple-600 hover:bg-purple-700 text-white disabled:opacity-50"
+            >
+              <Send className="h-4 w-4" />
+            </Button>
+          </form>
+        </div>
       </div>
 
-      {/* Message Input */}
-      <div className="p-4 bg-neutral-900/50 border-t border-neutral-800 backdrop-blur-md flex-shrink-0">
-        <form onSubmit={handleSendMessage} className="max-w-4xl mx-auto relative flex items-center">
-          <Input 
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            placeholder={`Message ${currentClassroom.name}...`} 
-            className="w-full bg-white/5 border-white/10 text-white h-12 pl-4 pr-12 rounded-full focus-visible:ring-purple-500"
-          />
-          <Button 
-            type="submit" 
-            size="icon"
-            disabled={!newMessage.trim()}
-            className="absolute right-1 w-10 h-10 rounded-full bg-purple-600 hover:bg-purple-700 text-white disabled:opacity-50"
-          >
-            <Send className="h-4 w-4" />
-          </Button>
-        </form>
-      </div>
+      {/* Users Sidebar */}
+      {showUsers && (
+        <aside className="w-72 border-l border-neutral-800 bg-neutral-900/30 flex flex-col flex-shrink-0 backdrop-blur-md">
+          <div className="h-16 border-b border-neutral-800 flex items-center px-5 font-semibold text-white flex-shrink-0">
+            Members ({currentClassroom.members_count})
+          </div>
+          <div className="flex-1 overflow-y-auto p-5 space-y-4">
+            {/* Using mock users for now */}
+            {[mockUser, mockAlice, mockBob, mockCharlie].map((u) => (
+              <div key={u.id} className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold text-sm">
+                  {u.name.substring(0, 2).toUpperCase()}
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-white">{u.name}</p>
+                  <p className="text-xs text-neutral-500">{u.id === mockUser.id ? "You" : "Student"}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </aside>
+      )}
     </div>
   );
 }
