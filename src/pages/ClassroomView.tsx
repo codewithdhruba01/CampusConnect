@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import EmojiPicker from "emoji-picker-react";
 import { useParams } from "react-router-dom";
-import { Send, Users, Info, Hash, BookOpen, Paperclip, ImageIcon, Smile, X } from "lucide-react";
+import { Send, Users, Info, Hash, BookOpen, Paperclip, ImageIcon, Smile, X, FileText, BarChart2, UserCircle, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -26,6 +26,7 @@ export default function ClassroomView() {
   const [newMessage, setNewMessage] = useState("");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [showAttachmentMenu, setShowAttachmentMenu] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -65,6 +66,7 @@ export default function ClassroomView() {
     setNewMessage("");
     setSelectedImage(null);
     setShowEmojiPicker(false);
+    setShowAttachmentMenu(false);
   };
 
   const onEmojiClick = (emojiData: { emoji: string }) => {
@@ -157,7 +159,7 @@ export default function ClassroomView() {
 
         {/* Message Input */}
         <div className="p-4 bg-neutral-900/50 border-t border-neutral-800 backdrop-blur-md flex-shrink-0">
-          <div className="max-w-4xl mx-auto flex flex-col gap-3">
+          <div className="max-w-4xl mx-auto flex flex-col gap-3 relative">
             
             {/* Image Preview */}
             {selectedImage && (
@@ -173,7 +175,7 @@ export default function ClassroomView() {
             )}
             
             {showEmojiPicker && (
-              <div className="absolute bottom-[80px] right-4 z-50 animate-in fade-in zoom-in-95">
+              <div className="absolute bottom-[70px] right-4 z-50 animate-in fade-in zoom-in-95">
                 <EmojiPicker 
                   onEmojiClick={onEmojiClick} 
                   theme={"dark" as any} 
@@ -182,8 +184,38 @@ export default function ClassroomView() {
                 />
               </div>
             )}
+
+            {/* Attachment Menu */}
+            {showAttachmentMenu && (
+              <div className="absolute bottom-[70px] left-2 z-50 bg-[#1e1e24] border border-white/10 rounded-2xl p-2 shadow-2xl animate-in fade-in zoom-in-95 flex flex-col gap-1 w-48">
+                <button type="button" className="flex items-center gap-3 w-full p-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors text-left" onClick={() => setShowAttachmentMenu(false)}>
+                  <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">
+                    <FileText className="w-4 h-4" />
+                  </div>
+                  Document
+                </button>
+                <button type="button" className="flex items-center gap-3 w-full p-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors text-left" onClick={() => setShowAttachmentMenu(false)}>
+                  <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center text-green-400">
+                    <BarChart2 className="w-4 h-4" />
+                  </div>
+                  Poll
+                </button>
+                <button type="button" className="flex items-center gap-3 w-full p-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors text-left" onClick={() => setShowAttachmentMenu(false)}>
+                  <div className="w-8 h-8 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400">
+                    <UserCircle className="w-4 h-4" />
+                  </div>
+                  Contact
+                </button>
+                <button type="button" className="flex items-center gap-3 w-full p-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors text-left" onClick={() => setShowAttachmentMenu(false)}>
+                  <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400">
+                    <Headphones className="w-4 h-4" />
+                  </div>
+                  Audio
+                </button>
+              </div>
+            )}
             
-            <form onSubmit={handleSendMessage} className="flex items-center bg-neutral-800/80 rounded-full px-2 py-1.5 shadow-sm border border-white/5 relative">
+            <form onSubmit={handleSendMessage} className="flex items-center bg-neutral-800/80 rounded-full px-2 py-1.5 shadow-sm border border-white/5 relative z-40">
               <input 
                 type="file" 
                 ref={fileInputRef} 
@@ -192,7 +224,11 @@ export default function ClassroomView() {
                 onChange={handleImageChange} 
               />
               
-              <button type="button" className="p-2 text-neutral-400 hover:text-indigo-400 transition-colors rounded-full hover:bg-white/5 flex-shrink-0">
+              <button 
+                type="button" 
+                onClick={() => setShowAttachmentMenu(!showAttachmentMenu)}
+                className={`p-2 transition-colors rounded-full hover:bg-white/5 flex-shrink-0 ${showAttachmentMenu ? "text-indigo-400 bg-white/5" : "text-neutral-400 hover:text-indigo-400"}`}
+              >
                 <Paperclip className="w-5 h-5" />
               </button>
               
