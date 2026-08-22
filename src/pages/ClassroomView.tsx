@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import EmojiPicker from "emoji-picker-react";
 import { useParams } from "react-router-dom";
 import { Send, Users, Info, Hash, BookOpen, Paperclip, ImageIcon, Smile, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,7 @@ export default function ClassroomView() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -62,6 +64,11 @@ export default function ClassroomView() {
     setMessages([...messages, newMsg]);
     setNewMessage("");
     setSelectedImage(null);
+    setShowEmojiPicker(false);
+  };
+
+  const onEmojiClick = (emojiData: { emoji: string }) => {
+    setNewMessage(prev => prev + emojiData.emoji);
   };
 
   const [showUsers, setShowUsers] = useState(false);
@@ -165,6 +172,17 @@ export default function ClassroomView() {
               </div>
             )}
             
+            {showEmojiPicker && (
+              <div className="absolute bottom-[80px] right-4 z-50 animate-in fade-in zoom-in-95">
+                <EmojiPicker 
+                  onEmojiClick={onEmojiClick} 
+                  theme={"dark" as any} 
+                  width={320}
+                  height={400}
+                />
+              </div>
+            )}
+            
             <form onSubmit={handleSendMessage} className="flex items-center bg-neutral-800/80 rounded-full px-2 py-1.5 shadow-sm border border-white/5 relative">
               <input 
                 type="file" 
@@ -193,7 +211,11 @@ export default function ClassroomView() {
                 >
                   <ImageIcon className="w-5 h-5" />
                 </button>
-                <button type="button" className="p-2 text-neutral-400 hover:text-indigo-400 transition-colors rounded-full hover:bg-white/5 flex-shrink-0">
+                <button 
+                  type="button" 
+                  onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                  className={`p-2 transition-colors rounded-full hover:bg-white/5 flex-shrink-0 ${showEmojiPicker ? "text-indigo-400" : "text-neutral-400 hover:text-indigo-400"}`}
+                >
                   <Smile className="w-5 h-5" />
                 </button>
                 <button 
