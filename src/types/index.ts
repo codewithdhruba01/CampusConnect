@@ -9,6 +9,8 @@ export interface Classroom {
   id: string;
   name: string;
   description?: string;
+  category?: string;
+  profile_pic?: string;
   created_at: string;
   created_by: string;
   members_count: number;
