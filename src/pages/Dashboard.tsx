@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { SearchBar } from "@/components/ui/search-bar";
 import { ClassroomCard } from "@/features/classrooms/components/ClassroomCard";
@@ -6,8 +6,21 @@ import { CreateClassroomModal } from "@/features/classrooms/components/CreateCla
 import type { Classroom } from "@/types";
 
 export default function Dashboard() {
-  const [classrooms, setClassrooms] = useState<Classroom[]>([]);
+  const [classrooms, setClassrooms] = useState<Classroom[]>(() => {
+    const saved = localStorage.getItem("classrooms");
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error("Failed to parse classrooms from local storage", e);
+      }
+    }
+    return [];
+  });
 
+  useEffect(() => {
+    localStorage.setItem("classrooms", JSON.stringify(classrooms));
+  }, [classrooms]);
   return (
     <div className="p-8">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">

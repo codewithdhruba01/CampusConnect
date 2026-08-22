@@ -38,21 +38,9 @@ export default function AppLayout() {
           <div className="px-2 py-1.5 text-xs font-semibold text-neutral-500 uppercase tracking-wider mt-6 mb-2">
             Your Classrooms
           </div>
-          {/* Mock Classrooms */}
-          <Link
-            to="/classroom/1"
-            className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-neutral-400 hover:text-white hover:bg-white/5 transition-colors"
-          >
-            <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-            Computer Science 101
-          </Link>
-          <Link
-            to="/classroom/2"
-            className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-neutral-400 hover:text-white hover:bg-white/5 transition-colors"
-          >
-            <span className="w-2 h-2 rounded-full bg-pink-500"></span>
-            Design Club
-          </Link>
+          <div className="px-3 py-2 text-sm font-medium text-neutral-600 italic">
+            No classrooms yet
+          </div>
         </nav>
 
         <div className="p-4 border-t border-neutral-800">
