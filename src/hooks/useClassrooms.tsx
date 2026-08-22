@@ -4,6 +4,7 @@ import type { Classroom } from "@/types";
 interface ClassroomContextType {
   classrooms: Classroom[];
   addClassroom: (classroom: Classroom) => void;
+  joinClassroom: (id: string, name: string, email: string) => boolean;
 }
 
 const ClassroomContext = createContext<ClassroomContextType | undefined>(undefined);
@@ -29,8 +30,18 @@ export function ClassroomProvider({ children }: { children: ReactNode }) {
     setClassrooms((prev) => [classroom, ...prev]);
   };
 
+  const joinClassroom = (id: string, _name: string, _email: string) => {
+    const exists = classrooms.some(c => c.id === id);
+    if (exists) {
+      setClassrooms((prev) => prev.map(c => 
+        c.id === id ? { ...c, members_count: c.members_count + 1 } : c
+      ));
+    }
+    return exists;
+  };
+
   return (
-    <ClassroomContext.Provider value={{ classrooms, addClassroom }}>
+    <ClassroomContext.Provider value={{ classrooms, addClassroom, joinClassroom }}>
       {children}
     </ClassroomContext.Provider>
   );

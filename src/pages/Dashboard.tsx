@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { SearchBar } from "@/components/ui/search-bar";
 import { ClassroomCard } from "@/features/classrooms/components/ClassroomCard";
 import { CreateClassroomModal } from "@/features/classrooms/components/CreateClassroomModal";
+import { JoinClassroomModal } from "@/features/classrooms/components/JoinClassroomModal";
 import { useClassrooms } from "@/hooks/useClassrooms";
 
 export default function Dashboard() {
@@ -15,6 +16,7 @@ export default function Dashboard() {
           <p className="text-neutral-400">Find and join communities or create your own.</p>
         </div>
         <div className="flex flex-wrap items-center gap-2 md:flex-row">
+          <JoinClassroomModal />
           <CreateClassroomModal onCreate={addClassroom} />
         </div>
       </div>
