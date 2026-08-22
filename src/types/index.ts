@@ -23,10 +23,15 @@ export interface Message {
   user_id: string;
   content: string;
   attachment?: {
-    type: 'image' | 'document' | 'audio' | 'contact';
-    url: string;
+    type: 'image' | 'document' | 'audio' | 'contact' | 'poll';
+    url?: string;
     name?: string;
     size?: number;
+    pollData?: {
+      question: string;
+      options: { text: string; votes: number }[];
+      allowMultipleAnswers?: boolean;
+    };
   };
   created_at: string;
   user?: User;

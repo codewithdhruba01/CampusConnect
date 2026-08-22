@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
-import { CheckCheck, FileText, Headphones, UserCircle } from "lucide-react";
+import { CheckCheck, FileText, Headphones, UserCircle, BarChart2 } from "lucide-react";
 import type { Message } from "@/types";
 
 interface MessageItemProps {
   message: Message;
   isOwnMessage: boolean;
+  onVote?: (messageId: string, optionIndex: number) => void;
 }
 
-export function MessageItem({ message, isOwnMessage }: MessageItemProps) {
+export function MessageItem({ message, isOwnMessage, onVote }: MessageItemProps) {
   // Format the time
   const date = new Date(message.created_at);
   const time = isNaN(date.getTime()) 
@@ -94,6 +95,29 @@ export function MessageItem({ message, isOwnMessage }: MessageItemProps) {
                     <div className="overflow-hidden">
                       <p className="text-sm font-medium truncate max-w-[180px] sm:max-w-xs">{message.attachment.name}</p>
                       <p className="text-xs opacity-70">Contact Card</p>
+                    </div>
+                  </div>
+                )}
+                
+                {message.attachment.type === 'poll' && message.attachment.pollData && (
+                  <div className={`flex flex-col gap-3 p-4 rounded-xl border min-w-[200px] sm:min-w-[250px] ${isOwnMessage ? 'bg-pink-600/30 border-pink-400/30' : 'bg-neutral-900 border-neutral-700'}`}>
+                    <div className="flex items-start gap-3">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${isOwnMessage ? 'bg-pink-500' : 'bg-green-500/20 text-green-400'}`}>
+                        <BarChart2 className="w-4 h-4" />
+                      </div>
+                      <p className="text-[15px] font-medium leading-snug">{message.attachment.pollData.question}</p>
+                    </div>
+                    <div className="flex flex-col gap-2 mt-1 w-full">
+                      {message.attachment.pollData.options.map((opt, i) => (
+                        <button 
+                          key={i} 
+                          onClick={() => onVote && onVote(message.id, i)}
+                          className={`flex items-center justify-between p-2.5 rounded-lg border text-sm transition-colors text-left w-full ${isOwnMessage ? 'border-pink-400/30 hover:bg-pink-500/20' : 'border-neutral-700 hover:bg-neutral-800'}`}
+                        >
+                          <span className="truncate pr-2">{opt.text}</span>
+                          <span className="text-[10px] opacity-70 bg-black/20 px-2 py-0.5 rounded-full flex-shrink-0 font-medium">{opt.votes} votes</span>
+                        </button>
+                      ))}
                     </div>
                   </div>
                 )}
