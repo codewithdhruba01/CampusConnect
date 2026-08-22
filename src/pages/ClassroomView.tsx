@@ -114,7 +114,7 @@ export default function ClassroomView() {
         </header>
 
         {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-6">
+        <div className="flex-1 overflow-y-auto p-6 space-y-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {messages.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-neutral-500 space-y-3 opacity-70">
               <div className="w-16 h-16 rounded-full bg-neutral-800/50 flex items-center justify-center">
@@ -161,7 +161,7 @@ export default function ClassroomView() {
           <div className="h-16 border-b border-neutral-800 flex items-center px-5 font-semibold text-white flex-shrink-0">
             Members ({currentClassroom.members_count})
           </div>
-          <div className="flex-1 overflow-y-auto p-5 space-y-4">
+          <div className="flex-1 overflow-y-auto p-5 space-y-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {/* Current User */}
             {[mockUser].map((u) => (
               <div key={u.id} className="flex items-center gap-3">
