@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Send, Users, Info, Hash, BookOpen } from "lucide-react";
+import { Send, Users, Info, Hash, BookOpen, Paperclip, ImageIcon, Smile } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -136,21 +136,34 @@ export default function ClassroomView() {
 
         {/* Message Input */}
         <div className="p-4 bg-neutral-900/50 border-t border-neutral-800 backdrop-blur-md flex-shrink-0">
-          <form onSubmit={handleSendMessage} className="max-w-4xl mx-auto relative flex items-center">
+          <form onSubmit={handleSendMessage} className="max-w-4xl mx-auto flex items-center bg-neutral-800/80 rounded-full px-2 py-1.5 shadow-sm border border-white/5">
+            
+            <button type="button" className="p-2 text-neutral-400 hover:text-indigo-400 transition-colors rounded-full hover:bg-white/5 flex-shrink-0">
+              <Paperclip className="w-5 h-5" />
+            </button>
+            
             <Input 
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
-              placeholder={`Message ${currentClassroom.name}...`} 
-              className="w-full bg-white/5 border-white/10 text-white h-12 pl-4 pr-12 rounded-full focus-visible:ring-purple-500"
+              placeholder="Your message" 
+              className="flex-1 bg-transparent border-0 text-white placeholder:text-neutral-500 focus-visible:ring-0 shadow-none px-2 text-[15px]"
             />
-            <Button 
-              type="submit" 
-              size="icon"
-              disabled={!newMessage.trim()}
-              className="absolute right-1 w-10 h-10 rounded-full bg-purple-600 hover:bg-purple-700 text-white disabled:opacity-50"
-            >
-              <Send className="h-4 w-4" />
-            </Button>
+            
+            <div className="flex items-center gap-1 pr-1">
+              <button type="button" className="p-2 text-neutral-400 hover:text-indigo-400 transition-colors rounded-full hover:bg-white/5 flex-shrink-0">
+                <ImageIcon className="w-5 h-5" />
+              </button>
+              <button type="button" className="p-2 text-neutral-400 hover:text-indigo-400 transition-colors rounded-full hover:bg-white/5 flex-shrink-0">
+                <Smile className="w-5 h-5" />
+              </button>
+              <button 
+                type="submit" 
+                disabled={!newMessage.trim()}
+                className="p-2 text-indigo-500 hover:text-indigo-400 transition-colors rounded-full hover:bg-white/5 flex-shrink-0 disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-indigo-500"
+              >
+                <Send className="w-5 h-5 ml-0.5" />
+              </button>
+            </div>
           </form>
         </div>
       </div>
