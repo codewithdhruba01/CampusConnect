@@ -3,6 +3,12 @@ import { useParams } from "react-router-dom";
 import { Send, Users, Info, Hash, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { MessageItem } from "@/features/classrooms/components/MessageItem";
 import { useClassrooms } from "@/hooks/useClassrooms";
 import type { Message } from "@/types";
@@ -54,6 +60,7 @@ export default function ClassroomView() {
   };
 
   const [showUsers, setShowUsers] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
 
   if (!currentClassroom) {
     return (
@@ -104,7 +111,12 @@ export default function ClassroomView() {
             >
               <Users className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="icon" className="text-neutral-400 hover:text-white">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => setShowInfo(true)}
+              className="text-neutral-400 hover:text-white"
+            >
               <Info className="h-5 w-5" />
             </Button>
           </div>
@@ -165,6 +177,26 @@ export default function ClassroomView() {
           </div>
         </aside>
       )}
+
+      {/* Info Dialog */}
+      <Dialog open={showInfo} onOpenChange={setShowInfo}>
+        <DialogContent className="bg-neutral-900 border-neutral-800 text-white sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Classroom Info</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="flex flex-col gap-2">
+              <label className="text-sm text-neutral-400">Classroom ID (Invite Code)</label>
+              <div className="flex items-center gap-2">
+                <code className="flex-1 bg-black p-3 rounded-md border border-neutral-800 text-lg font-mono text-center tracking-widest text-indigo-400 select-all">
+                  {currentClassroom.id}
+                </code>
+              </div>
+            </div>
+            <p className="text-xs text-neutral-500 text-center">Share this unique code with others so they can join.</p>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

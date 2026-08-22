@@ -36,7 +36,7 @@ export function CreateClassroomModal({ children, onCreate }: CreateClassroomModa
     if (!name.trim()) return;
 
     const newClassroom: Classroom = {
-      id: Date.now().toString(),
+      id: Math.random().toString(36).substring(2, 10).toUpperCase(),
       name,
       category,
       profile_pic: profilePic,
