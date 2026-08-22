@@ -20,7 +20,7 @@ const mockUser = { id: "u-you", name: "You", email: "" };
 export default function ClassroomView() {
   const { id } = useParams();
   const { classrooms } = useClassrooms();
-  
+
   const currentClassroom = classrooms.find(c => c.id === id);
 
   const [messages, setMessages] = useState<Message[]>([]);
@@ -29,14 +29,14 @@ export default function ClassroomView() {
   const [attachmentType, setAttachmentType] = useState<'image' | 'document' | 'audio' | 'contact'>('image');
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [showAttachmentMenu, setShowAttachmentMenu] = useState(false);
-  
+
   const [showPollDialog, setShowPollDialog] = useState(false);
   const [pollQuestion, setPollQuestion] = useState("");
   const generateId = () => Math.random().toString(36).substring(2, 9);
   const [pollOptions, setPollOptions] = useState([{ id: generateId(), text: "" }, { id: generateId(), text: "" }]);
   const [allowMultipleAnswers, setAllowMultipleAnswers] = useState(true);
   const [pollEmojiTarget, setPollEmojiTarget] = useState<'question' | number | null>(null);
-  
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -106,7 +106,7 @@ export default function ClassroomView() {
 
   const handleSendPoll = () => {
     if (!pollQuestion.trim() || pollOptions.filter(o => o.text.trim()).length < 2 || !currentClassroom) return;
-    
+
     const newMsg: Message = {
       id: Date.now().toString(),
       classroom_id: currentClassroom.id,
@@ -123,7 +123,7 @@ export default function ClassroomView() {
       created_at: new Date().toISOString(),
       user: mockUser
     };
-    
+
     setMessages([...messages, newMsg]);
     setShowPollDialog(false);
     setPollQuestion("");
@@ -199,17 +199,17 @@ export default function ClassroomView() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Button 
-              variant={showUsers ? "secondary" : "ghost"} 
-              size="icon" 
+            <Button
+              variant={showUsers ? "secondary" : "ghost"}
+              size="icon"
               onClick={() => setShowUsers(!showUsers)}
               className={showUsers ? "bg-white/10 text-white" : "text-neutral-400 hover:text-white"}
             >
               <Users className="h-5 w-5" />
             </Button>
-            <Button 
-              variant="ghost" 
-              size="icon" 
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={() => setShowInfo(true)}
               className="text-neutral-400 hover:text-white"
             >
@@ -229,10 +229,10 @@ export default function ClassroomView() {
             </div>
           ) : (
             messages.map((msg) => (
-              <MessageItem 
-                key={msg.id} 
-                message={msg} 
-                isOwnMessage={msg.user_id === mockUser.id} 
+              <MessageItem
+                key={msg.id}
+                message={msg}
+                isOwnMessage={msg.user_id === mockUser.id}
                 onVote={handleVote}
               />
             ))
@@ -243,21 +243,21 @@ export default function ClassroomView() {
         {/* Message Input */}
         <div className="p-4 bg-neutral-900/50 border-t border-neutral-800 backdrop-blur-md flex-shrink-0">
           <div className="max-w-4xl mx-auto flex flex-col gap-3 relative">
-            
+
             {/* Attachment Preview */}
             {selectedAttachment && (
               <div className="relative self-start rounded-xl overflow-hidden border border-neutral-800 bg-neutral-900/80 p-3 shadow-lg backdrop-blur-sm animate-in fade-in slide-in-from-bottom-2 flex items-center gap-3 pr-12">
-                <button 
+                <button
                   onClick={() => setSelectedAttachment(null)}
                   className="absolute top-2 right-2 p-1 bg-black/60 hover:bg-black text-white rounded-full transition-colors z-10"
                 >
                   <X className="w-4 h-4" />
                 </button>
-                
+
                 {selectedAttachment.type === 'image' && (
                   <img src={selectedAttachment.url} alt="Selected preview" className="max-h-48 rounded-lg object-contain border border-white/10" />
                 )}
-                
+
                 {selectedAttachment.type === 'document' && (
                   <>
                     <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400">
@@ -269,7 +269,7 @@ export default function ClassroomView() {
                     </div>
                   </>
                 )}
-                
+
                 {selectedAttachment.type === 'audio' && (
                   <>
                     <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400">
@@ -281,7 +281,7 @@ export default function ClassroomView() {
                     </div>
                   </>
                 )}
-                
+
                 {selectedAttachment.type === 'contact' && (
                   <>
                     <div className="w-10 h-10 rounded-lg bg-orange-500/20 flex items-center justify-center text-orange-400">
@@ -293,7 +293,7 @@ export default function ClassroomView() {
                     </div>
                   </>
                 )}
-                
+
                 {selectedAttachment.type === 'poll' && (
                   <>
                     <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center text-green-400">
@@ -307,12 +307,12 @@ export default function ClassroomView() {
                 )}
               </div>
             )}
-            
+
             {showEmojiPicker && (
               <div className="absolute bottom-[70px] right-4 z-50 animate-in fade-in zoom-in-95">
-                <EmojiPicker 
-                  onEmojiClick={onEmojiClick} 
-                  theme={"dark" as any} 
+                <EmojiPicker
+                  onEmojiClick={onEmojiClick}
+                  theme={"dark" as any}
                   width={320}
                   height={400}
                 />
@@ -348,48 +348,48 @@ export default function ClassroomView() {
                 </button>
               </div>
             )}
-            
+
             <form onSubmit={handleSendMessage} className="flex items-center bg-neutral-800/80 rounded-full px-2 py-1.5 shadow-sm border border-white/5 relative z-40">
-              <input 
-                type="file" 
-                ref={fileInputRef} 
-                accept={getAcceptType()} 
-                className="hidden" 
-                onChange={handleFileChange} 
+              <input
+                type="file"
+                ref={fileInputRef}
+                accept={getAcceptType()}
+                className="hidden"
+                onChange={handleFileChange}
               />
-              
-              <button 
-                type="button" 
+
+              <button
+                type="button"
                 onClick={() => setShowAttachmentMenu(!showAttachmentMenu)}
                 className={`p-2 transition-colors rounded-full hover:bg-white/5 flex-shrink-0 ${showAttachmentMenu ? "text-indigo-400 bg-white/5" : "text-neutral-400 hover:text-indigo-400"}`}
               >
                 <Paperclip className="w-5 h-5" />
               </button>
-              
-              <Input 
+
+              <Input
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
-                placeholder="Your message" 
+                placeholder="Your message"
                 className="flex-1 bg-transparent border-0 text-white placeholder:text-neutral-500 focus-visible:ring-0 shadow-none px-2 text-[15px]"
               />
-              
+
               <div className="flex items-center gap-1 pr-1">
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={() => triggerFileInput('image')}
                   className="p-2 text-neutral-400 hover:text-indigo-400 transition-colors rounded-full hover:bg-white/5 flex-shrink-0"
                 >
                   <ImageIcon className="w-5 h-5" />
                 </button>
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={() => setShowEmojiPicker(!showEmojiPicker)}
                   className={`p-2 transition-colors rounded-full hover:bg-white/5 flex-shrink-0 ${showEmojiPicker ? "text-indigo-400" : "text-neutral-400 hover:text-indigo-400"}`}
                 >
                   <Smile className="w-5 h-5" />
                 </button>
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   disabled={!newMessage.trim() && !selectedAttachment}
                   className="p-2 text-indigo-500 hover:text-indigo-400 transition-colors rounded-full hover:bg-white/5 flex-shrink-0 disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-indigo-500"
                 >
@@ -443,10 +443,13 @@ export default function ClassroomView() {
           </div>
         </DialogContent>
       </Dialog>
-      
+
       {/* Poll Dialog */}
       <Dialog open={showPollDialog} onOpenChange={setShowPollDialog}>
-        <DialogContent className="bg-[#1f2326] border-0 text-white sm:max-w-[400px] p-0 overflow-hidden shadow-2xl rounded-2xl h-[90vh] sm:h-auto flex flex-col">
+        <DialogContent
+          showCloseButton={false}
+          className="bg-[#1f2326] border-0 ring-0 text-white sm:max-w-[400px] p-0 overflow-hidden shadow-2xl rounded-2xl h-[90vh] sm:h-auto flex flex-col"
+        >
           {/* Header */}
           <div className="flex items-center gap-5 px-5 py-4 flex-shrink-0">
             <button onClick={() => setShowPollDialog(false)} className="text-neutral-400 hover:text-white transition-colors">
@@ -454,20 +457,20 @@ export default function ClassroomView() {
             </button>
             <h2 className="text-[17px] font-normal text-neutral-100">Create poll</h2>
           </div>
-          
+
           <div className="flex-1 overflow-y-auto pb-24">
             {/* Question */}
             <div className="px-6 py-4">
               <label className="text-[16px] font-medium text-neutral-200 block mb-4">Question</label>
               <div className="relative">
-                <input 
+                <input
                   value={pollQuestion}
                   onChange={(e) => setPollQuestion(e.target.value)}
                   placeholder="Ask question"
                   className="w-full bg-transparent border-b border-neutral-700/80 focus:border-[#25D366] pb-2 text-[15px] text-white placeholder:text-neutral-500 outline-none transition-colors pr-8"
                 />
-                <Smile 
-                  className="w-[18px] h-[18px] absolute right-0 top-0 text-neutral-400 cursor-pointer hover:text-white transition-colors" 
+                <Smile
+                  className="w-[18px] h-[18px] absolute right-0 top-0 text-neutral-400 cursor-pointer hover:text-white transition-colors"
                   onClick={() => setPollEmojiTarget('question')}
                 />
               </div>
@@ -480,13 +483,13 @@ export default function ClassroomView() {
                 {pollOptions.map((opt, i) => (
                   <Reorder.Item key={opt.id} value={opt} className="relative flex items-center gap-4 bg-[#1f2326]">
                     <div className="relative flex-1">
-                      <input 
+                      <input
                         value={opt.text}
                         onChange={(e) => {
                           const newOpts = [...pollOptions];
                           newOpts[i].text = e.target.value;
                           setPollOptions(newOpts);
-                          
+
                           if (i === pollOptions.length - 1 && e.target.value.trim() !== "" && pollOptions.length < 12) {
                             setPollOptions([...newOpts, { id: generateId(), text: "" }]);
                           }
@@ -494,8 +497,8 @@ export default function ClassroomView() {
                         placeholder="Add text"
                         className="w-full bg-transparent border-b border-neutral-700/80 focus:border-[#25D366] pb-2 text-[15px] text-white placeholder:text-neutral-500 outline-none transition-colors pr-8"
                       />
-                      <Smile 
-                        className="w-[18px] h-[18px] absolute right-0 top-0 text-neutral-400 cursor-pointer hover:text-white transition-colors" 
+                      <Smile
+                        className="w-[18px] h-[18px] absolute right-0 top-0 text-neutral-400 cursor-pointer hover:text-white transition-colors"
                         onClick={() => setPollEmojiTarget(i)}
                       />
                     </div>
@@ -508,7 +511,7 @@ export default function ClassroomView() {
             {/* Multiple Answers Toggle */}
             <div className="px-6 py-6 mt-4 flex items-center justify-between border-t border-neutral-800/50">
               <span className="text-[15px] text-neutral-200">Allow multiple answers</span>
-              <div 
+              <div
                 className={`w-10 h-[22px] rounded-full flex items-center px-[3px] cursor-pointer transition-colors duration-300 ${allowMultipleAnswers ? 'bg-[#25D366] justify-end' : 'bg-neutral-600 justify-start'}`}
                 onClick={() => setAllowMultipleAnswers(!allowMultipleAnswers)}
               >
@@ -516,10 +519,10 @@ export default function ClassroomView() {
               </div>
             </div>
           </div>
-          
+
           {/* Footer Area with Send Button */}
-          <div className="absolute bottom-0 left-0 right-0 h-16 bg-[#2a2f32]/80 backdrop-blur-md border-t border-neutral-800/30 flex items-center justify-end px-6">
-            <button 
+          <div className="absolute bottom-0 left-0 right-0 h-16  backdrop-blur-md border-t border-neutral-800/30 flex items-center justify-end px-6">
+            <button
               disabled={!pollQuestion.trim() || pollOptions.filter(o => o.text.trim()).length < 2}
               onClick={handleSendPoll}
               className="absolute -top-6 right-6 w-12 h-12 bg-[#25D366] hover:bg-[#20bd5a] rounded-full flex items-center justify-center text-black disabled:opacity-50 disabled:cursor-not-allowed shadow-lg transition-all duration-300 z-10"
@@ -527,7 +530,7 @@ export default function ClassroomView() {
               <Send className="w-5 h-5 ml-1" />
             </button>
           </div>
-          
+
           {/* Internal Emoji Picker Modal */}
           {pollEmojiTarget !== null && (
             <div className="absolute z-50 bg-[#111b21] border border-neutral-700/50 shadow-2xl rounded-xl overflow-hidden left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px]">
@@ -537,7 +540,7 @@ export default function ClassroomView() {
                   <X className="w-4 h-4" />
                 </button>
               </div>
-              <EmojiPicker 
+              <EmojiPicker
                 onEmojiClick={(emojiData) => {
                   if (pollEmojiTarget === 'question') {
                     setPollQuestion(prev => prev + emojiData.emoji);
@@ -547,8 +550,8 @@ export default function ClassroomView() {
                     setPollOptions(newOpts);
                   }
                   setPollEmojiTarget(null);
-                }} 
-                theme={"dark" as any} 
+                }}
+                theme={"dark" as any}
                 width={300}
                 height={350}
               />
