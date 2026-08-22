@@ -14,15 +14,6 @@ import { useClassrooms } from "@/hooks/useClassrooms";
 import type { Message } from "@/types";
 
 const mockUser = { id: "u-you", name: "You", email: "" };
-const mockAlice = { id: "u-alice", name: "Alice", email: "" };
-const mockBob = { id: "u-bob", name: "Bob", email: "" };
-const mockCharlie = { id: "u-charlie", name: "Charlie", email: "" };
-
-const mockMessages: Message[] = [
-  { id: "1", classroom_id: "c-1", user_id: mockAlice.id, content: "Hey everyone! Has anyone started on the assignment?", created_at: new Date(Date.now() - 3600000).toISOString(), user: mockAlice },
-  { id: "2", classroom_id: "c-1", user_id: mockBob.id, content: "Yeah, I'm about halfway through. The second part is tricky.", created_at: new Date(Date.now() - 3000000).toISOString(), user: mockBob },
-  { id: "3", classroom_id: "c-1", user_id: mockCharlie.id, content: "I can share my notes from yesterday's lecture if it helps.", created_at: new Date(Date.now() - 1500000).toISOString(), user: mockCharlie },
-];
 
 export default function ClassroomView() {
   const { id } = useParams();
@@ -30,7 +21,7 @@ export default function ClassroomView() {
   
   const currentClassroom = classrooms.find(c => c.id === id);
 
-  const [messages, setMessages] = useState(mockMessages);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -124,13 +115,22 @@ export default function ClassroomView() {
 
         {/* Messages Area */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
-          {messages.map((msg) => (
-            <MessageItem 
-              key={msg.id} 
-              message={msg} 
-              isOwnMessage={msg.user_id === mockUser.id} 
-            />
-          ))}
+          {messages.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-full text-neutral-500 space-y-3 opacity-70">
+              <div className="w-16 h-16 rounded-full bg-neutral-800/50 flex items-center justify-center">
+                <Send className="w-6 h-6 text-neutral-600" />
+              </div>
+              <p>No messages yet. Start the conversation!</p>
+            </div>
+          ) : (
+            messages.map((msg) => (
+              <MessageItem 
+                key={msg.id} 
+                message={msg} 
+                isOwnMessage={msg.user_id === mockUser.id} 
+              />
+            ))
+          )}
           <div ref={messagesEndRef} />
         </div>
 
@@ -162,8 +162,8 @@ export default function ClassroomView() {
             Members ({currentClassroom.members_count})
           </div>
           <div className="flex-1 overflow-y-auto p-5 space-y-4">
-            {/* Using mock users for now */}
-            {[mockUser, mockAlice, mockBob, mockCharlie].map((u) => (
+            {/* Current User */}
+            {[mockUser].map((u) => (
               <div key={u.id} className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold text-sm">
                   {u.name.substring(0, 2).toUpperCase()}
