@@ -8,33 +8,40 @@ interface ClassroomCardProps {
 
 export function ClassroomCard({ classroom }: ClassroomCardProps) {
   const color = classroom.color || "bg-blue-500";
-  
+
   return (
-    <Link to={`/classroom/${classroom.id}`} className="block group h-full">
-      <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors h-full flex flex-col">
-        <div className="flex items-start justify-between mb-4">
-          <div className={`w-12 h-12 rounded-xl flex items-center justify-center overflow-hidden ${color}/20 text-white`}>
+    <Link to={`/classroom/${classroom.id}`} className="group block h-full">
+      <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-colors hover:bg-white/10">
+        <div className="mb-4 flex items-start justify-between">
+          <div
+            className={`flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl ${color}/20 text-white`}
+          >
             {classroom.profile_pic ? (
-              <img src={classroom.profile_pic} alt={classroom.name} className="w-full h-full object-cover" />
+              <img
+                src={classroom.profile_pic}
+                alt={classroom.name}
+                className="h-full w-full object-cover"
+              />
             ) : (
-              <BookOpen className={`h-6 w-6 text-${color.replace('bg-', '')}`} />
+              <BookOpen className={`h-6 w-6 text-${color.replace("bg-", "")}`} />
             )}
           </div>
-          <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-white/10 text-neutral-300">
+          <span className="rounded-full bg-white/10 px-2.5 py-1 text-xs font-medium text-neutral-300">
             {classroom.members_count} members
           </span>
         </div>
-        <h3 className="text-lg font-semibold text-white mb-1 group-hover:text-purple-300 transition-colors">
+        <h3 className="mb-1 text-lg font-semibold text-white transition-colors group-hover:text-purple-300">
           {classroom.name}
         </h3>
         {classroom.category && (
-          <div className="flex items-center gap-1.5 text-xs text-indigo-400 mb-3 font-medium">
-            <Hash className="w-3.5 h-3.5" />
+          <div className="mb-3 flex items-center gap-1.5 text-xs font-medium text-indigo-400">
+            <Hash className="h-3.5 w-3.5" />
             {classroom.category}
           </div>
         )}
-        <p className="text-sm text-neutral-400 flex-1">
-          {classroom.description || "Join the discussion and collaborate with other members in real-time."}
+        <p className="flex-1 text-sm text-neutral-400">
+          {classroom.description ||
+            "Join the discussion and collaborate with other members in real-time."}
         </p>
       </div>
     </Link>

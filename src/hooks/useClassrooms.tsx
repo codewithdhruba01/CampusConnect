@@ -31,19 +31,21 @@ export function ClassroomProvider({ children }: { children: ReactNode }) {
   };
 
   const joinClassroom = (id: string, name: string, email: string) => {
-    const exists = classrooms.some(c => c.id === id);
+    const exists = classrooms.some((c) => c.id === id);
     if (exists) {
-      setClassrooms((prev) => prev.map(c => {
-        if (c.id === id) {
-          const newUser = { id: `u-${Date.now()}`, name, email };
-          return {
-            ...c,
-            members_count: c.members_count + 1,
-            members: [...(c.members || []), newUser]
-          };
-        }
-        return c;
-      }));
+      setClassrooms((prev) =>
+        prev.map((c) => {
+          if (c.id === id) {
+            const newUser = { id: `u-${Date.now()}`, name, email };
+            return {
+              ...c,
+              members_count: c.members_count + 1,
+              members: [...(c.members || []), newUser],
+            };
+          }
+          return c;
+        })
+      );
     }
     return exists;
   };

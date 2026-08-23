@@ -24,7 +24,7 @@ export interface Message {
   user_id: string;
   content: string;
   attachment?: {
-    type: 'image' | 'document' | 'audio' | 'contact' | 'poll';
+    type: "image" | "document" | "audio" | "contact" | "poll";
     url?: string;
     name?: string;
     size?: number;

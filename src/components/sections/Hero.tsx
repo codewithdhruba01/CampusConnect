@@ -5,55 +5,63 @@ import { Button } from "@/components/ui/button";
 
 export function HeroSection() {
   return (
-    <div className="text-center space-y-8 max-w-4xl mx-auto">
+    <div className="mx-auto max-w-4xl space-y-8 text-center">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-purple-300"
+        className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-purple-300"
       >
         <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75"></span>
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-purple-500"></span>
         </span>
         Welcome to Campus Connect
       </motion.div>
 
-      <motion.h1 
+      <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="text-5xl md:text-7xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-white/70"
+        className="bg-gradient-to-r from-white via-white to-white/70 bg-clip-text text-5xl font-bold tracking-tight text-transparent md:text-7xl"
       >
         Your Campus Community,{" "}
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
+        <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
           Reimagined.
         </span>
       </motion.h1>
 
-      <motion.p 
+      <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto"
+        className="mx-auto max-w-2xl text-lg text-neutral-400 md:text-xl"
       >
-        Create classrooms, join discussions, and collaborate with peers in real-time. The ultimate platform for modern student communities.
+        Create classrooms, join discussions, and collaborate with peers in real-time. The ultimate
+        platform for modern student communities.
       </motion.p>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
-        className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
+        className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row"
       >
         <Link to="/dashboard">
-          <Button size="lg" className="bg-purple-600 hover:bg-purple-700 text-white rounded-full px-8 h-12 text-base font-semibold w-full sm:w-auto shadow-[0_0_40px_rgba(147,51,234,0.3)] transition-all hover:shadow-[0_0_60px_rgba(147,51,234,0.5)]">
+          <Button
+            size="lg"
+            className="h-12 w-full rounded-full bg-purple-600 px-8 text-base font-semibold text-white shadow-[0_0_40px_rgba(147,51,234,0.3)] transition-all hover:bg-purple-700 hover:shadow-[0_0_60px_rgba(147,51,234,0.5)] sm:w-auto"
+          >
             Get Started
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </Link>
         <Link to="/login">
-          <Button size="lg" variant="outline" className="rounded-full px-8 h-12 text-base font-semibold w-full sm:w-auto border-white/10 hover:bg-white/5 bg-transparent text-white">
+          <Button
+            size="lg"
+            variant="outline"
+            className="h-12 w-full rounded-full border-white/10 bg-transparent px-8 text-base font-semibold text-white hover:bg-white/5 sm:w-auto"
+          >
             Log In
           </Button>
         </Link>

@@ -5,16 +5,16 @@ import { FeaturesSection } from "@/components/sections/Features";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-neutral-950 text-white overflow-hidden relative selection:bg-purple-500/30">
+    <div className="relative min-h-screen overflow-hidden bg-neutral-950 text-white selection:bg-purple-500/30">
       {/* Dynamic Background */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-purple-600/20 blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-blue-600/20 blur-[120px]" />
+        <div className="absolute left-[-10%] top-[-10%] h-[40%] w-[40%] rounded-full bg-purple-600/20 blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] h-[40%] w-[40%] rounded-full bg-blue-600/20 blur-[120px]" />
       </div>
 
       <Navbar />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-24">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 pb-24 pt-32">
         <HeroSection />
         <FeaturesSection />
       </div>

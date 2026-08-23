@@ -45,7 +45,7 @@ export default function Login() {
   const handleGoogleAuth = async () => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
+        provider: "google",
         options: {
           redirectTo: `${window.location.origin}/dashboard`,
         },
@@ -57,125 +57,146 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex w-full font-sans bg-white selection:bg-[#59BCCC]/30">
+    <div className="flex min-h-screen w-full bg-white font-sans selection:bg-[#59BCCC]/30">
       {/* Left Panel */}
-      <div className="flex-1 flex flex-col relative z-10">
+      <div className="relative z-10 flex flex-1 flex-col">
         {/* Logo */}
-        <div className="p-8 absolute top-0 left-0">
-          <Link to="/" className="text-2xl font-extrabold italic tracking-tighter text-black flex items-center gap-1">
-             CampusConnect
+        <div className="absolute left-0 top-0 p-8">
+          <Link
+            to="/"
+            className="flex items-center gap-1 text-2xl font-extrabold italic tracking-tighter text-black"
+          >
+            CampusConnect
           </Link>
         </div>
-        
+
         {/* Form Container */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex-1 flex items-center justify-center p-8 mt-16 md:mt-0"
+          className="mt-16 flex flex-1 items-center justify-center p-8 md:mt-0"
         >
           <div className="w-full max-w-[380px]">
-            <div className="text-center mb-8">
-              <h2 className="text-[32px] font-semibold text-black mb-2 tracking-tight">
+            <div className="mb-8 text-center">
+              <h2 className="mb-2 text-[32px] font-semibold tracking-tight text-black">
                 {isSignUp ? "Create an account" : "Welcome to CampusConnect"}
               </h2>
-              <p className="text-[#6B7280] text-sm">
+              <p className="text-sm text-[#6B7280]">
                 {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
-                <button 
-                  onClick={() => setIsSignUp(!isSignUp)} 
-                  className="text-[#59BCCC] font-medium hover:underline"
+                <button
+                  onClick={() => setIsSignUp(!isSignUp)}
+                  className="font-medium text-[#59BCCC] hover:underline"
                 >
                   {isSignUp ? "Sign in" : "Sign up"}
                 </button>
               </p>
             </div>
-            
+
             {/* Google Auth Button */}
-            <button 
-               type="button" 
-               onClick={handleGoogleAuth}
-               className="w-full flex items-center justify-center gap-2 bg-white border border-[#E5E7EB] rounded-lg py-2.5 text-sm font-medium text-black hover:bg-neutral-50 transition-colors mb-6 shadow-sm"
+            <button
+              type="button"
+              onClick={handleGoogleAuth}
+              className="mb-6 flex w-full items-center justify-center gap-2 rounded-lg border border-[#E5E7EB] bg-white py-2.5 text-sm font-medium text-black shadow-sm transition-colors hover:bg-neutral-50"
             >
-              <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-5 h-5" alt="Google" />
+              <img
+                src="https://www.svgrepo.com/show/475656/google-color.svg"
+                className="h-5 w-5"
+                alt="Google"
+              />
               Sign in with Google
             </button>
 
-            <div className="relative flex items-center py-2 mb-6">
+            <div className="relative mb-6 flex items-center py-2">
               <div className="flex-grow border-t border-[#E5E7EB]"></div>
-              <span className="flex-shrink-0 mx-4 text-[#9CA3AF] text-[11px] uppercase tracking-wider">or</span>
+              <span className="mx-4 flex-shrink-0 text-[11px] uppercase tracking-wider text-[#9CA3AF]">
+                or
+              </span>
               <div className="flex-grow border-t border-[#E5E7EB]"></div>
             </div>
 
             <form onSubmit={handleAuth} className="space-y-4">
               <div className="space-y-3">
-                <Input 
-                  type="email" 
-                  placeholder="janesmith1.mobbin@gmail.com" 
+                <Input
+                  type="email"
+                  placeholder="janesmith1.mobbin@gmail.com"
                   value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  className="w-full border-[#E5E7EB] text-black placeholder:text-[#9CA3AF] h-12 rounded-lg bg-white focus-visible:ring-[#59BCCC] focus-visible:ring-1 focus-visible:ring-offset-0 shadow-sm"
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="h-12 w-full rounded-lg border-[#E5E7EB] bg-white text-black shadow-sm placeholder:text-[#9CA3AF] focus-visible:ring-1 focus-visible:ring-[#59BCCC] focus-visible:ring-offset-0"
                   required
                 />
-                <Input 
-                  type="password" 
-                  placeholder="Password" 
+                <Input
+                  type="password"
+                  placeholder="Password"
                   value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  className="w-full border-[#E5E7EB] text-black placeholder:text-[#9CA3AF] h-12 rounded-lg bg-white focus-visible:ring-[#59BCCC] focus-visible:ring-1 focus-visible:ring-offset-0 shadow-sm"
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="h-12 w-full rounded-lg border-[#E5E7EB] bg-white text-black shadow-sm placeholder:text-[#9CA3AF] focus-visible:ring-1 focus-visible:ring-[#59BCCC] focus-visible:ring-offset-0"
                   required
                 />
               </div>
-              {error && <p className="text-sm text-red-500 text-center">{error}</p>}
-              <Button 
-                type="submit" 
+              {error && <p className="text-center text-sm text-red-500">{error}</p>}
+              <Button
+                type="submit"
                 disabled={loading}
-                className="w-full bg-[#59BCCC] hover:bg-[#4CA5B4] text-white h-12 rounded-lg text-[15px] font-medium flex items-center justify-center gap-2 transition-colors shadow-sm"
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#59BCCC] text-[15px] font-medium text-white shadow-sm transition-colors hover:bg-[#4CA5B4]"
               >
-                <Mail className="w-5 h-5" />
+                <Mail className="h-5 w-5" />
                 {loading ? "Loading..." : isSignUp ? "Sign Up with Email" : "Sign in with Email"}
               </Button>
             </form>
 
             <div className="mt-12 text-center text-[13px] text-[#9CA3AF]">
-              By signing in, you agree to our <Link to="/terms" className="underline hover:text-[#6B7280]">Terms</Link> & <Link to="/privacy" className="underline hover:text-[#6B7280]">Privacy Policy</Link>.
+              By signing in, you agree to our{" "}
+              <Link to="/terms" className="underline hover:text-[#6B7280]">
+                Terms
+              </Link>{" "}
+              &{" "}
+              <Link to="/privacy" className="underline hover:text-[#6B7280]">
+                Privacy Policy
+              </Link>
+              .
             </div>
           </div>
         </motion.div>
       </div>
 
       {/* Right Panel */}
-      <div className="hidden lg:flex flex-1 bg-[#193233] relative overflow-hidden flex-col justify-center items-center p-16 text-center">
+      <div className="relative hidden flex-1 flex-col items-center justify-center overflow-hidden bg-[#193233] p-16 text-center lg:flex">
         {/* Abstract background shapes mimicking the image */}
-        <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-[#1F4142] blur-[100px] opacity-80"></div>
-        <div className="absolute bottom-[-10%] left-[-10%] w-[70%] h-[70%] rounded-full bg-[#183A3B] blur-[120px] opacity-70"></div>
-        <div className="absolute top-[30%] left-[20%] w-[40%] h-[40%] rounded-full bg-[#204748] blur-[100px] opacity-60"></div>
-        
-        {/* Large smooth shape like the one in the reference */}
-        <div className="absolute top-[-10%] right-[-10%] w-[80%] h-[120%] bg-gradient-to-bl from-[#20494A]/40 to-transparent rounded-l-[100%] blur-[40px] transform rotate-12"></div>
+        <div className="absolute right-[-10%] top-[-10%] h-[60%] w-[60%] rounded-full bg-[#1F4142] opacity-80 blur-[100px]"></div>
+        <div className="absolute bottom-[-10%] left-[-10%] h-[70%] w-[70%] rounded-full bg-[#183A3B] opacity-70 blur-[120px]"></div>
+        <div className="absolute left-[20%] top-[30%] h-[40%] w-[40%] rounded-full bg-[#204748] opacity-60 blur-[100px]"></div>
 
-        <motion.div 
+        {/* Large smooth shape like the one in the reference */}
+        <div className="absolute right-[-10%] top-[-10%] h-[120%] w-[80%] rotate-12 transform rounded-l-[100%] bg-gradient-to-bl from-[#20494A]/40 to-transparent blur-[40px]"></div>
+
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="relative z-10 max-w-xl"
         >
-          <h2 className="text-[34px] font-medium text-white mb-16 leading-[1.3] tracking-tight">
+          <h2 className="mb-16 text-[34px] font-medium leading-[1.3] tracking-tight text-white">
             85,000 companies & people like you made more than 1 million apps with CampusConnect.
           </h2>
-          
+
           {/* Logos */}
           <div className="flex flex-wrap items-center justify-center gap-12 opacity-90">
-             <div className="text-white font-extrabold text-2xl tracking-tighter uppercase flex items-center gap-1.5">
-               <div className="w-[22px] h-[22px] bg-white text-[#193233] flex items-center justify-center text-[10px] font-black rounded-[3px]">L</div>
-               LOWE'S
-             </div>
-             <div className="text-white font-bold text-[22px] tracking-tight flex items-center">
-                Whirlpool
-             </div>
-             <div className="text-white font-bold text-2xl tracking-tight italic flex items-center gap-1.5">
-               <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-               _zapier
-             </div>
+            <div className="flex items-center gap-1.5 text-2xl font-extrabold uppercase tracking-tighter text-white">
+              <div className="flex h-[22px] w-[22px] items-center justify-center rounded-[3px] bg-white text-[10px] font-black text-[#193233]">
+                L
+              </div>
+              LOWE'S
+            </div>
+            <div className="flex items-center text-[22px] font-bold tracking-tight text-white">
+              Whirlpool
+            </div>
+            <div className="flex items-center gap-1.5 text-2xl font-bold italic tracking-tight text-white">
+              <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+              </svg>
+              _zapier
+            </div>
           </div>
         </motion.div>
       </div>

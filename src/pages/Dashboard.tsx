@@ -10,9 +10,9 @@ export default function Dashboard() {
 
   return (
     <div className="p-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
+      <div className="mb-10 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight mb-1">Discover Classrooms</h1>
+          <h1 className="mb-1 text-3xl font-bold tracking-tight">Discover Classrooms</h1>
           <p className="text-neutral-400">Find and join communities or create your own.</p>
         </div>
         <div className="flex flex-wrap items-center gap-2 md:flex-row">
@@ -26,11 +26,11 @@ export default function Dashboard() {
       </div>
 
       {classrooms.length === 0 ? (
-        <div className="text-center py-20 text-neutral-500">
+        <div className="py-20 text-center text-neutral-500">
           <p>No classrooms found. Create one to get started!</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {classrooms.map((room, idx) => (
             <motion.div
               key={room.id}
