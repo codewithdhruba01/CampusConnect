@@ -408,8 +408,8 @@ export default function ClassroomView() {
             Members ({currentClassroom.members_count})
           </div>
           <div className="flex-1 overflow-y-auto p-5 space-y-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {/* Current User */}
-            {[mockUser].map((u) => (
+            {/* Members List */}
+            {(currentClassroom.members && currentClassroom.members.length > 0 ? currentClassroom.members : [mockUser]).map((u) => (
               <div key={u.id} className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold text-sm">
                   {u.name.substring(0, 2).toUpperCase()}

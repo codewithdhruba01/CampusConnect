@@ -44,6 +44,7 @@ export function CreateClassroomModal({ children, onCreate }: CreateClassroomModa
       created_at: new Date().toISOString(),
       created_by: "current_user", // Placeholder
       members_count: 1, // Start with 1 member (creator)
+      members: [{ id: "u-you", name: "You", email: "" }],
       color: "bg-indigo-500", // Default color
     };
 

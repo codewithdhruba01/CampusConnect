@@ -14,6 +14,7 @@ export interface Classroom {
   created_at: string;
   created_by: string;
   members_count: number;
+  members?: User[];
   color?: string;
 }
 
