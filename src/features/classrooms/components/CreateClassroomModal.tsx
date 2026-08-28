@@ -11,6 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import type { Classroom } from "@/types";
+import { useClassrooms } from "@/hooks/useClassrooms";
 
 interface CreateClassroomModalProps {
   children?: ReactNode;
@@ -23,6 +24,7 @@ export function CreateClassroomModal({ children, onCreate }: CreateClassroomModa
   const [category, setCategory] = useState("");
   const [profilePic, setProfilePic] = useState("");
   const [description, setDescription] = useState("");
+  const { currentUser } = useClassrooms();
 
   const triggerElement = children ? (
     (children as ReactElement)
@@ -47,7 +49,7 @@ export function CreateClassroomModal({ children, onCreate }: CreateClassroomModa
       created_at: new Date().toISOString(),
       created_by: "current_user", // Placeholder
       members_count: 1, // Start with 1 member (creator)
-      members: [{ id: "u-you", name: "You", email: "" }],
+      members: [currentUser],
       color: "bg-indigo-500", // Default color
     };
 

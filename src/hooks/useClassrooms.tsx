@@ -3,6 +3,8 @@ import type { Classroom } from "@/types";
 
 interface ClassroomContextType {
   classrooms: Classroom[];
+  currentUser: { id: string; name: string; email: string };
+  setCurrentUser: (user: { id: string; name: string; email: string }) => void;
   addClassroom: (classroom: Classroom) => void;
   joinClassroom: (id: string, name: string, email: string) => boolean;
 }
@@ -22,9 +24,25 @@ export function ClassroomProvider({ children }: { children: ReactNode }) {
     return [];
   });
 
+  const [currentUser, setCurrentUser] = useState<{ id: string; name: string; email: string }>(() => {
+    const saved = localStorage.getItem("currentUser");
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error("Failed to parse user from local storage", e);
+      }
+    }
+    return { id: "u-you", name: "You", email: "" };
+  });
+
   useEffect(() => {
     localStorage.setItem("classrooms", JSON.stringify(classrooms));
   }, [classrooms]);
+
+  useEffect(() => {
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+  }, [currentUser]);
 
   const addClassroom = (classroom: Classroom) => {
     setClassrooms((prev) => [classroom, ...prev]);
@@ -33,10 +51,11 @@ export function ClassroomProvider({ children }: { children: ReactNode }) {
   const joinClassroom = (id: string, name: string, email: string) => {
     const exists = classrooms.some((c) => c.id === id);
     if (exists) {
+      const newUser = { id: `u-${Date.now()}`, name, email };
+      setCurrentUser(newUser);
       setClassrooms((prev) =>
         prev.map((c) => {
           if (c.id === id) {
-            const newUser = { id: `u-${Date.now()}`, name, email };
             return {
               ...c,
               members_count: c.members_count + 1,
@@ -51,7 +70,7 @@ export function ClassroomProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <ClassroomContext.Provider value={{ classrooms, addClassroom, joinClassroom }}>
+    <ClassroomContext.Provider value={{ classrooms, currentUser, setCurrentUser, addClassroom, joinClassroom }}>
       {children}
     </ClassroomContext.Provider>
   );

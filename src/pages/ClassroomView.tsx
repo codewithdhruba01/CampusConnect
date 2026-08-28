@@ -25,11 +25,11 @@ import { MessageItem } from "@/features/classrooms/components/MessageItem";
 import { useClassrooms } from "@/hooks/useClassrooms";
 import type { Message } from "@/types";
 
-const mockUser = { id: "u-you", name: "You", email: "" };
+
 
 export default function ClassroomView() {
   const { id } = useParams();
-  const { classrooms } = useClassrooms();
+  const { classrooms, currentUser } = useClassrooms();
 
   const currentClassroom = classrooms.find((c) => c.id === id);
 
@@ -116,11 +116,11 @@ export default function ClassroomView() {
     const newMsg: Message = {
       id: Date.now().toString(),
       classroom_id: currentClassroom.id,
-      user_id: mockUser.id,
+      user_id: currentUser.id,
       content: newMessage,
       attachment: selectedAttachment || undefined,
       created_at: new Date().toISOString(),
-      user: mockUser,
+      user: currentUser,
     };
 
     setMessages([...messages, newMsg]);
@@ -141,7 +141,7 @@ export default function ClassroomView() {
     const newMsg: Message = {
       id: Date.now().toString(),
       classroom_id: currentClassroom.id,
-      user_id: mockUser.id,
+      user_id: currentUser.id,
       content: "",
       attachment: {
         type: "poll",
@@ -154,7 +154,7 @@ export default function ClassroomView() {
         },
       },
       created_at: new Date().toISOString(),
-      user: mockUser,
+      user: currentUser,
     };
 
     setMessages([...messages, newMsg]);
@@ -276,7 +276,7 @@ export default function ClassroomView() {
               <MessageItem
                 key={msg.id}
                 message={msg}
-                isOwnMessage={msg.user_id === mockUser.id}
+                isOwnMessage={msg.user_id === currentUser.id}
                 onVote={handleVote}
               />
             ))
@@ -490,7 +490,7 @@ export default function ClassroomView() {
             {/* Members List */}
             {(currentClassroom.members && currentClassroom.members.length > 0
               ? currentClassroom.members
-              : [mockUser]
+              : [currentUser]
             ).map((u) => (
               <div key={u.id} className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-500/20 text-sm font-bold text-indigo-400">
@@ -499,7 +499,7 @@ export default function ClassroomView() {
                 <div>
                   <p className="text-sm font-medium text-white">{u.name}</p>
                   <p className="text-xs text-neutral-500">
-                    {u.id === mockUser.id ? "You" : "Student"}
+                    {u.id === currentUser.id ? "You" : "Student"}
                   </p>
                 </div>
               </div>
