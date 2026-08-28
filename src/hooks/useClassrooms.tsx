@@ -1,79 +1,69 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+import { create } from "zustand";
 import type { Classroom } from "@/types";
 import { supabase } from "@/lib/supabase";
 
-interface ClassroomContextType {
-  classrooms: Classroom[];
-  currentUser: { id: string; name: string; email: string };
-  setCurrentUser: (user: { id: string; name: string; email: string }) => void;
-  addClassroom: (classroom: Classroom) => Promise<void>;
-  joinClassroom: (id: string, name: string, email: string) => Promise<boolean>;
+interface User {
+  id: string;
+  name: string;
+  email: string;
 }
 
-const ClassroomContext = createContext<ClassroomContextType | undefined>(undefined);
+interface ClassroomStore {
+  classrooms: Classroom[];
+  currentUser: User;
+  setCurrentUser: (user: User) => void;
+  addClassroom: (classroom: Classroom) => Promise<void>;
+  joinClassroom: (id: string, name: string, email: string) => Promise<boolean>;
+  fetchClassrooms: () => Promise<void>;
+}
 
-export function ClassroomProvider({ children }: { children: ReactNode }) {
-  const [classrooms, setClassrooms] = useState<Classroom[]>([]);
-
-  useEffect(() => {
-    const fetchClassrooms = async () => {
-      const { data, error } = await supabase
-        .from("classrooms")
-        .select("*")
-        .order("created_at", { ascending: false });
-        
-      if (error) {
-        console.error("Error fetching classrooms:", error);
-      } else if (data) {
-        setClassrooms(data as Classroom[]);
-      }
-    };
-    
-    fetchClassrooms();
-  }, []);
-
-  const [currentUser, setCurrentUser] = useState<{ id: string; name: string; email: string }>(() => {
-    const saved = localStorage.getItem("currentUser");
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch (e) {
-        console.error("Failed to parse user from local storage", e);
-      }
+const getInitialUser = (): User => {
+  const saved = localStorage.getItem("currentUser");
+  if (saved) {
+    try {
+      return JSON.parse(saved);
+    } catch (e) {
+      console.error("Failed to parse user from local storage", e);
     }
-    return { id: "u-you", name: "You", email: "" };
-  });
+  }
+  return { id: "u-you", name: "You", email: "" };
+};
 
+export const useClassrooms = create<ClassroomStore>((set, get) => ({
+  classrooms: [],
+  currentUser: getInitialUser(),
+  
+  setCurrentUser: (user) => {
+    localStorage.setItem("currentUser", JSON.stringify(user));
+    set({ currentUser: user });
+  },
 
-
-  useEffect(() => {
-    localStorage.setItem("currentUser", JSON.stringify(currentUser));
-  }, [currentUser]);
-
-  const addClassroom = async (classroom: Classroom) => {
-    // Ensure optimistic UI update
-    setClassrooms((prev) => [classroom, ...prev]);
-    
+  addClassroom: async (classroom) => {
+    set((state) => ({ classrooms: [classroom, ...state.classrooms] }));
     const { error } = await supabase.from("classrooms").insert([classroom]);
     if (error) {
       console.error("Error creating classroom:", error);
-      // Revert if error? For now just log it.
     }
-  };
+  },
 
-  const joinClassroom = async (id: string, name: string, email: string) => {
+  joinClassroom: async (id, name, email) => {
+    const { classrooms } = get();
     const classroom = classrooms.find((c) => c.id === id);
     if (classroom) {
       const newUser = { id: `u-${Date.now()}`, name, email };
-      setCurrentUser(newUser);
+      
+      get().setCurrentUser(newUser);
       
       const updatedMembersCount = classroom.members_count + 1;
       const updatedMembers = [...(classroom.members || []), newUser];
 
-      // Optimistic update
-      setClassrooms((prev) =>
-        prev.map((c) => (c.id === id ? { ...c, members_count: updatedMembersCount, members: updatedMembers } : c))
-      );
+      set((state) => ({
+        classrooms: state.classrooms.map((c) => 
+          c.id === id 
+            ? { ...c, members_count: updatedMembersCount, members: updatedMembers } 
+            : c
+        )
+      }));
 
       const { error } = await supabase
         .from("classrooms")
@@ -90,19 +80,18 @@ export function ClassroomProvider({ children }: { children: ReactNode }) {
       return true;
     }
     return false;
-  };
+  },
 
-  return (
-    <ClassroomContext.Provider value={{ classrooms, currentUser, setCurrentUser, addClassroom, joinClassroom }}>
-      {children}
-    </ClassroomContext.Provider>
-  );
-}
-
-export function useClassrooms() {
-  const context = useContext(ClassroomContext);
-  if (context === undefined) {
-    throw new Error("useClassrooms must be used within a ClassroomProvider");
+  fetchClassrooms: async () => {
+    const { data, error } = await supabase
+      .from("classrooms")
+      .select("*")
+      .order("created_at", { ascending: false });
+      
+    if (error) {
+      console.error("Error fetching classrooms:", error);
+    } else if (data) {
+      set({ classrooms: data as Classroom[] });
+    }
   }
-  return context;
-}
+}));
