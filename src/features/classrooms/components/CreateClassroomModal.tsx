@@ -24,6 +24,7 @@ export function CreateClassroomModal({ children, onCreate }: CreateClassroomModa
   const [category, setCategory] = useState("");
   const [profilePic, setProfilePic] = useState("");
   const [description, setDescription] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { currentUser } = useClassrooms();
 
   const triggerElement = children ? (
@@ -37,8 +38,9 @@ export function CreateClassroomModal({ children, onCreate }: CreateClassroomModa
     </Button>
   );
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!name.trim()) return;
+    setIsLoading(true);
 
     const newClassroom: Classroom = {
       id: Math.random().toString(36).substring(2, 10).toUpperCase(),
@@ -54,9 +56,10 @@ export function CreateClassroomModal({ children, onCreate }: CreateClassroomModa
     };
 
     if (onCreate) {
-      onCreate(newClassroom);
+      await onCreate(newClassroom);
     }
 
+    setIsLoading(false);
     setOpen(false);
     setName("");
     setCategory("");
@@ -181,9 +184,10 @@ export function CreateClassroomModal({ children, onCreate }: CreateClassroomModa
 
           <Button
             onClick={handleSubmit}
+            disabled={isLoading}
             className="h-11 w-full bg-indigo-600 text-white shadow-[0_0_15px_rgba(79,70,229,0.3)] transition-all hover:bg-indigo-700 hover:shadow-[0_0_20px_rgba(79,70,229,0.5)] sm:w-auto"
           >
-            <Plus className="mr-2 h-4 w-4" /> Create Classroom
+            <Plus className="mr-2 h-4 w-4" /> {isLoading ? "Creating..." : "Create Classroom"}
           </Button>
         </div>
       </DialogContent>

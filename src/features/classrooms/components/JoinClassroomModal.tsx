@@ -23,6 +23,7 @@ export function JoinClassroomModal({ children }: JoinClassroomModalProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const { joinClassroom } = useClassrooms();
   const navigate = useNavigate();
@@ -35,14 +36,16 @@ export function JoinClassroomModal({ children }: JoinClassroomModalProps) {
     </Button>
   );
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setError("");
     if (!classroomId.trim() || !name.trim() || !email.trim()) {
       setError("Please fill in all fields.");
       return;
     }
 
-    const success = joinClassroom(classroomId.trim(), name.trim(), email.trim());
+    setIsLoading(true);
+    const success = await joinClassroom(classroomId.trim(), name.trim(), email.trim());
+    setIsLoading(false);
 
     if (success) {
       setOpen(false);
@@ -147,9 +150,10 @@ export function JoinClassroomModal({ children }: JoinClassroomModalProps) {
 
           <Button
             onClick={handleSubmit}
+            disabled={isLoading}
             className="h-11 w-full bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.3)] transition-all hover:bg-blue-700 hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] sm:w-auto"
           >
-            <LogIn className="mr-2 h-4 w-4" /> Join Now
+            <LogIn className="mr-2 h-4 w-4" /> {isLoading ? "Joining..." : "Join Now"}
           </Button>
         </div>
       </DialogContent>
