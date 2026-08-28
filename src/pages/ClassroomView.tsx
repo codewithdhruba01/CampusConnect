@@ -24,6 +24,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { MessageItem } from "@/features/classrooms/components/MessageItem";
 import { useClassrooms } from "@/hooks/useClassrooms";
 import type { Message } from "@/types";
+import { supabase } from "@/lib/supabase";
 
 
 
@@ -34,6 +35,7 @@ export default function ClassroomView() {
   const currentClassroom = classrooms.find((c) => c.id === id);
 
   const [messages, setMessages] = useState<Message[]>([]);
+  const [isLoadingMessages, setIsLoadingMessages] = useState(true);
   const [newMessage, setNewMessage] = useState("");
   const [selectedAttachment, setSelectedAttachment] = useState<{
     type: "image" | "document" | "audio" | "contact" | "poll";
@@ -60,6 +62,60 @@ export default function ClassroomView() {
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!currentClassroom) return;
+
+    const fetchMessages = async () => {
+      setIsLoadingMessages(true);
+      const { data, error } = await supabase
+        .from("messages")
+        .select("*")
+        .eq("classroom_id", currentClassroom.id)
+        .order("created_at", { ascending: true });
+
+      if (error) {
+        console.error("Error fetching messages:", error);
+      } else if (data) {
+        setMessages(data as Message[]);
+      }
+      setIsLoadingMessages(false);
+    };
+
+    fetchMessages();
+
+    // Setup realtime subscription
+    const channel = supabase
+      .channel(`messages-${currentClassroom.id}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "messages",
+          filter: `classroom_id=eq.${currentClassroom.id}`,
+        },
+        (payload) => {
+          if (payload.eventType === "INSERT") {
+            setMessages((prev) => {
+              if (prev.find((m) => m.id === payload.new.id)) return prev;
+              return [...prev, payload.new as Message];
+            });
+          } else if (payload.eventType === "UPDATE") {
+            setMessages((prev) =>
+              prev.map((msg) => (msg.id === payload.new.id ? (payload.new as Message) : msg))
+            );
+          } else if (payload.eventType === "DELETE") {
+            setMessages((prev) => prev.filter((msg) => msg.id !== payload.old.id));
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [currentClassroom]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -109,9 +165,11 @@ export default function ClassroomView() {
     }
   };
 
-  const handleSendMessage = (e: React.FormEvent) => {
+  const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if ((!newMessage.trim() && !selectedAttachment) || !currentClassroom) return;
+
+    const newMsgId = Date.now().toString();
 
     const newMsg: Message = {
       id: Date.now().toString(),
@@ -123,14 +181,19 @@ export default function ClassroomView() {
       user: currentUser,
     };
 
-    setMessages([...messages, newMsg]);
+    const { error } = await supabase.from("messages").insert([newMsg]);
+    if (error) {
+      console.error("Error sending message:", error);
+      return;
+    }
+
     setNewMessage("");
     setSelectedAttachment(null);
     setShowEmojiPicker(false);
     setShowAttachmentMenu(false);
   };
 
-  const handleSendPoll = () => {
+  const handleSendPoll = async () => {
     if (
       !pollQuestion.trim() ||
       pollOptions.filter((o) => o.text.trim()).length < 2 ||
@@ -157,7 +220,12 @@ export default function ClassroomView() {
       user: currentUser,
     };
 
-    setMessages([...messages, newMsg]);
+    const { error } = await supabase.from("messages").insert([newMsg]);
+    if (error) {
+      console.error("Error sending poll:", error);
+      return;
+    }
+
     setShowPollDialog(false);
     setPollQuestion("");
     setPollOptions([
@@ -167,26 +235,29 @@ export default function ClassroomView() {
     setAllowMultipleAnswers(true);
   };
 
-  const handleVote = (messageId: string, optionIndex: number) => {
-    setMessages((prev) =>
-      prev.map((msg) => {
-        if (msg.id === messageId && msg.attachment?.type === "poll" && msg.attachment.pollData) {
-          const newOptions = [...msg.attachment.pollData.options];
-          newOptions[optionIndex].votes += 1;
-          return {
-            ...msg,
-            attachment: {
-              ...msg.attachment,
-              pollData: {
-                ...msg.attachment.pollData,
-                options: newOptions,
-              },
-            },
-          };
-        }
-        return msg;
-      })
-    );
+  const handleVote = async (messageId: string, optionIndex: number) => {
+    const msgToUpdate = messages.find((m) => m.id === messageId);
+    if (!msgToUpdate || msgToUpdate.attachment?.type !== "poll" || !msgToUpdate.attachment.pollData) return;
+
+    const newOptions = [...msgToUpdate.attachment.pollData.options];
+    newOptions[optionIndex].votes += 1;
+
+    const updatedAttachment = {
+      ...msgToUpdate.attachment,
+      pollData: {
+        ...msgToUpdate.attachment.pollData,
+        options: newOptions,
+      },
+    };
+
+    const { error } = await supabase
+      .from("messages")
+      .update({ attachment: updatedAttachment })
+      .eq("id", messageId);
+
+    if (error) {
+      console.error("Error voting:", error);
+    }
   };
 
   const onEmojiClick = (emojiData: { emoji: string }) => {
@@ -264,7 +335,11 @@ export default function ClassroomView() {
 
         {/* Messages Area */}
         <div className="flex-1 space-y-6 overflow-y-auto p-6 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {messages.length === 0 ? (
+          {isLoadingMessages ? (
+            <div className="flex h-full items-center justify-center text-neutral-500">
+              <p>Loading messages...</p>
+            </div>
+          ) : messages.length === 0 ? (
             <div className="flex h-full flex-col items-center justify-center space-y-3 text-neutral-500 opacity-70">
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-neutral-800/50">
                 <Send className="h-6 w-6 text-neutral-600" />

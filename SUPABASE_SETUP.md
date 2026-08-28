@@ -68,6 +68,29 @@ CREATE POLICY "Allow public update access"
   FOR UPDATE
   TO public
   USING (true);
+
+-- Create the messages table
+CREATE TABLE public.messages (
+  id text PRIMARY KEY,
+  classroom_id text REFERENCES public.classrooms(id) ON DELETE CASCADE,
+  user_id text,
+  content text,
+  attachment jsonb,
+  created_at timestamp with time zone DEFAULT now(),
+  "user" jsonb
+);
+
+-- Enable RLS for messages
+ALTER TABLE public.messages ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Allow public read messages"
+  ON public.messages FOR SELECT USING (true);
+
+CREATE POLICY "Allow public insert messages"
+  ON public.messages FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Allow public update messages"
+  ON public.messages FOR UPDATE USING (true);
 ```
 
 4. Click **Run** (or press `Cmd/Ctrl + Enter`) to execute the query. You should see a "Success" message.

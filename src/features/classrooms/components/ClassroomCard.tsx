@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BookOpen, Hash } from "lucide-react";
-import type { Classroom } from "@/types";
+import type { Classroom, Message } from "@/types";
+import { supabase } from "@/lib/supabase";
 
 interface ClassroomCardProps {
   classroom: Classroom;
@@ -8,6 +10,44 @@ interface ClassroomCardProps {
 
 export function ClassroomCard({ classroom }: ClassroomCardProps) {
   const color = classroom.color || "bg-blue-500";
+  const [latestMessage, setLatestMessage] = useState<Message | null>(null);
+
+  useEffect(() => {
+    const fetchLatestMessage = async () => {
+      const { data } = await supabase
+        .from("messages")
+        .select("*")
+        .eq("classroom_id", classroom.id)
+        .order("created_at", { ascending: false })
+        .limit(1);
+
+      if (data && data.length > 0) {
+        setLatestMessage(data[0] as Message);
+      }
+    };
+
+    fetchLatestMessage();
+
+    const channel = supabase
+      .channel(`card-${classroom.id}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "messages",
+          filter: `classroom_id=eq.${classroom.id}`,
+        },
+        (payload) => {
+          setLatestMessage(payload.new as Message);
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [classroom.id]);
 
   return (
     <Link to={`/classroom/${classroom.id}`} className="group block h-full">
@@ -39,10 +79,21 @@ export function ClassroomCard({ classroom }: ClassroomCardProps) {
             {classroom.category}
           </div>
         )}
-        <p className="flex-1 text-sm text-neutral-400">
-          {classroom.description ||
-            "Join the discussion and collaborate with other members in real-time."}
-        </p>
+        {latestMessage ? (
+          <div className="mt-2 flex-1 text-sm text-neutral-400">
+            <span className="font-medium text-neutral-300">
+              {latestMessage.user?.name?.split(' ')[0] || "Someone"}:{" "}
+            </span>
+            <span className="line-clamp-1 break-all">
+              {latestMessage.content || (latestMessage.attachment ? `Shared a ${latestMessage.attachment.type}` : "Sent a message")}
+            </span>
+          </div>
+        ) : (
+          <p className="flex-1 text-sm text-neutral-400">
+            {classroom.description ||
+              "Join the discussion and collaborate with other members in real-time."}
+          </p>
+        )}
       </div>
     </Link>
   );
