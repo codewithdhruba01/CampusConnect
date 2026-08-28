@@ -1,5 +1,5 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { BookOpen, LogOut, Users } from "lucide-react";
+import { LogOut, Users } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { useClassrooms } from "@/hooks/useClassrooms";

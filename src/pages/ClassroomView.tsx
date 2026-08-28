@@ -172,7 +172,7 @@ export default function ClassroomView() {
     const newMsgId = Date.now().toString();
 
     const newMsg: Message = {
-      id: Date.now().toString(),
+      id: newMsgId,
       classroom_id: currentClassroom.id,
       user_id: currentUser.id,
       content: newMessage,
