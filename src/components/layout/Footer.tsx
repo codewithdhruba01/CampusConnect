@@ -1,5 +1,3 @@
-
-
 export function Footer() {
   return (
     <footer className="bg-neutral-900- relative z-20 border-t border-white/5 py-16 text-neutral-400">

@@ -82,10 +82,13 @@ export function ClassroomCard({ classroom }: ClassroomCardProps) {
         {latestMessage ? (
           <div className="mt-2 flex-1 text-sm text-neutral-400">
             <span className="font-medium text-neutral-300">
-              {latestMessage.user?.name?.split(' ')[0] || "Someone"}:{" "}
+              {latestMessage.user?.name?.split(" ")[0] || "Someone"}:{" "}
             </span>
             <span className="line-clamp-1 break-all">
-              {latestMessage.content || (latestMessage.attachment ? `Shared a ${latestMessage.attachment.type}` : "Sent a message")}
+              {latestMessage.content ||
+                (latestMessage.attachment
+                  ? `Shared a ${latestMessage.attachment.type}`
+                  : "Sent a message")}
             </span>
           </div>
         ) : (

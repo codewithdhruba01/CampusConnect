@@ -26,8 +26,6 @@ import { useClassrooms } from "@/hooks/useClassrooms";
 import type { Message } from "@/types";
 import { supabase } from "@/lib/supabase";
 
-
-
 export default function ClassroomView() {
   const { id } = useParams();
   const { classrooms, currentUser } = useClassrooms();
@@ -237,7 +235,8 @@ export default function ClassroomView() {
 
   const handleVote = async (messageId: string, optionIndex: number) => {
     const msgToUpdate = messages.find((m) => m.id === messageId);
-    if (!msgToUpdate || msgToUpdate.attachment?.type !== "poll" || !msgToUpdate.attachment.pollData) return;
+    if (!msgToUpdate || msgToUpdate.attachment?.type !== "poll" || !msgToUpdate.attachment.pollData)
+      return;
 
     const newOptions = [...msgToUpdate.attachment.pollData.options];
     newOptions[optionIndex].votes += 1;
