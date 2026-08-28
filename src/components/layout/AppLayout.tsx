@@ -19,9 +19,7 @@ export default function AppLayout() {
       <aside className="flex w-64 flex-shrink-0 flex-col border-r border-neutral-800 bg-neutral-900/50 backdrop-blur-xl">
         <div className="flex h-16 items-center border-b border-neutral-800 px-6">
           <Link to="/" className="flex items-center gap-2 text-lg font-bold tracking-tight">
-            <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-purple-600">
-              <BookOpen className="h-4 w-4 text-white" />
-            </span>
+            <img src="/logo.png" alt="Campus Connect Logo" className="h-8 w-8 object-contain" />
             Campus Connect
           </Link>
         </div>

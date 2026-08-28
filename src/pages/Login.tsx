@@ -64,8 +64,9 @@ export default function Login() {
         <div className="absolute left-0 top-0 p-8">
           <Link
             to="/"
-            className="flex items-center gap-1 text-2xl font-extrabold italic tracking-tighter text-black"
+            className="flex items-center gap-2 text-2xl font-extrabold italic tracking-tighter text-black"
           >
+            <img src="/logo.png" alt="Campus Connect Logo" className="h-8 w-8 object-contain" />
             CampusConnect
           </Link>
         </div>

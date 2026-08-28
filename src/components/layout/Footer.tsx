@@ -7,9 +7,7 @@ export function Footer() {
         {/* Left Side */}
         <div className="flex max-w-lg flex-col gap-4">
           <div className="flex items-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded bg-purple-600">
-              <BookOpen className="h-4 w-4 text-white" />
-            </span>
+            <img src="/logo.png" alt="Campus Connect Logo" className="h-8 w-8 object-contain" />
             <span className="text-lg font-semibold tracking-tight text-white">Campus Connect</span>
           </div>
 
