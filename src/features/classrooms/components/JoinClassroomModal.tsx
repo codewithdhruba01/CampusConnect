@@ -62,9 +62,9 @@ export function JoinClassroomModal({ children }: JoinClassroomModalProps) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={triggerElement} />
 
-      <DialogContent className="overflow-hidden border-none bg-black p-0 shadow-2xl ring-0 sm:max-w-[440px]">
+      <DialogContent className="overflow-hidden border border-neutral-800 bg-neutral-900/50 p-0 shadow-2xl backdrop-blur-xl ring-0 sm:max-w-[440px]">
         <div className="relative overflow-hidden">
-          <div className="relative border-b border-white/5 p-6 pb-5">
+          <div className="relative border-b border-neutral-800 p-6 pb-5">
             <DialogHeader>
               <DialogTitle className="text-2xl font-semibold tracking-tight text-white">
                 Join Classroom
@@ -95,7 +95,7 @@ export function JoinClassroomModal({ children }: JoinClassroomModalProps) {
               value={classroomId}
               onChange={(e) => setClassroomId(e.target.value.toUpperCase())}
               placeholder="e.g. 7A4K9X2P"
-              className="h-11 border-neutral-800/80 bg-black font-mono uppercase tracking-widest text-white transition-all placeholder:text-neutral-600 focus-visible:border-indigo-500 focus-visible:ring-indigo-500/30"
+              className="h-11 border-neutral-800 bg-white/5 font-mono uppercase tracking-widest text-white transition-all placeholder:text-neutral-600 focus-visible:border-indigo-500 focus-visible:ring-indigo-500/30"
             />
           </div>
 
@@ -111,7 +111,7 @@ export function JoinClassroomModal({ children }: JoinClassroomModalProps) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Alex Johnson"
-              className="h-11 border-neutral-800/80 bg-black text-white transition-all placeholder:text-neutral-600 focus-visible:border-blue-500 focus-visible:ring-blue-500/30"
+              className="h-11 border-neutral-800 bg-white/5 text-white transition-all placeholder:text-neutral-600 focus-visible:border-blue-500 focus-visible:ring-blue-500/30"
             />
           </div>
 
@@ -128,12 +128,12 @@ export function JoinClassroomModal({ children }: JoinClassroomModalProps) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="alex@example.com"
-              className="h-11 border-neutral-800/80 bg-black text-white transition-all placeholder:text-neutral-600 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/30"
+              className="h-11 border-neutral-800 bg-white/5 text-white transition-all placeholder:text-neutral-600 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/30"
             />
           </div>
         </div>
 
-        <div className="flex flex-col-reverse justify-end gap-3 border-t border-white/5 bg-black p-5 sm:flex-row">
+        <div className="flex flex-col-reverse justify-end gap-3 border-t border-neutral-800 p-5 sm:flex-row">
           <Button
             variant="outline"
             onClick={() => setOpen(false)}
