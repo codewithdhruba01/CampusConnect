@@ -71,18 +71,10 @@ export function CreateClassroomModal({ children, onCreate }: CreateClassroomModa
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={triggerElement} />
 
-      <DialogContent className="overflow-hidden border-none bg-black p-0 shadow-2xl ring-0 sm:max-w-[480px]">
-        {/* Nice header with gradient background */}
+      <DialogContent className="overflow-hidden border border-neutral-800 bg-neutral-900/50 p-0 shadow-2xl backdrop-blur-xl ring-0 sm:max-w-[480px]">
         <div className="relative overflow-hidden">
-          {/* Background effects */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-indigo-600/20 via-purple-600/10 to-transparent" />
-          <div className="pointer-events-none absolute -right-24 -top-24 h-48 w-48 rounded-full bg-indigo-500/20 blur-3xl" />
-
-          <div className="relative border-b border-white/5 p-6 pb-5">
+          <div className="relative border-b border-neutral-800 p-6 pb-5">
             <DialogHeader>
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-indigo-500/20 bg-indigo-500/10 text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.15)] ring-1 ring-inset ring-white/10 backdrop-blur-md">
-                <BookOpen className="h-6 w-6" />
-              </div>
               <DialogTitle className="text-2xl font-semibold tracking-tight text-white">
                 Create Classroom
               </DialogTitle>
@@ -106,7 +98,7 @@ export function CreateClassroomModal({ children, onCreate }: CreateClassroomModa
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Advanced Machine Learning"
-              className="h-11 border-neutral-800/80 bg-black text-white transition-all placeholder:text-neutral-600 focus-visible:border-indigo-500 focus-visible:ring-indigo-500/30"
+              className="h-11 border-neutral-800 bg-white/5 text-white transition-all placeholder:text-neutral-600 focus-visible:border-indigo-500 focus-visible:ring-indigo-500/30"
             />
           </div>
 
@@ -122,7 +114,7 @@ export function CreateClassroomModal({ children, onCreate }: CreateClassroomModa
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               placeholder="e.g. Computer Science"
-              className="h-11 border-neutral-800/80 bg-black text-white transition-all placeholder:text-neutral-600 focus-visible:border-purple-500 focus-visible:ring-purple-500/30"
+              className="h-11 border-neutral-800 bg-white/5 text-white transition-all placeholder:text-neutral-600 focus-visible:border-purple-500 focus-visible:ring-purple-500/30"
             />
           </div>
 
@@ -151,7 +143,7 @@ export function CreateClassroomModal({ children, onCreate }: CreateClassroomModa
                     reader.readAsDataURL(file);
                   }
                 }}
-                className="h-11 border-neutral-800/80 bg-black pt-2 text-sm text-white transition-all file:mr-3 file:rounded-md file:border-0 file:bg-neutral-900 file:px-3 file:py-1 file:text-sm file:text-white hover:file:bg-neutral-800 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/30"
+                className="h-11 border-neutral-800 bg-white/5 pt-2 text-sm text-white transition-all file:mr-3 file:rounded-md file:border-0 file:bg-neutral-900 file:px-3 file:py-1 file:text-sm file:text-white hover:file:bg-neutral-800 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/30"
               />
             </div>
           </div>
@@ -168,12 +160,12 @@ export function CreateClassroomModal({ children, onCreate }: CreateClassroomModa
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="What will you learn here?"
-              className="focus-visible:ring-3 flex min-h-[100px] w-full resize-y rounded-lg border border-neutral-800/80 bg-black px-3 py-2 text-sm text-white transition-colors placeholder:text-neutral-600 focus-visible:border-pink-500 focus-visible:outline-none focus-visible:ring-pink-500/30"
+              className="focus-visible:ring-3 flex min-h-[100px] w-full resize-y rounded-lg border border-neutral-800 bg-white/5 px-3 py-2 text-sm text-white transition-colors placeholder:text-neutral-600 focus-visible:border-pink-500 focus-visible:outline-none focus-visible:ring-pink-500/30"
             />
           </div>
         </div>
 
-        <div className="flex flex-col-reverse justify-end gap-3 border-t border-white/5 bg-black p-5 sm:flex-row">
+        <div className="flex flex-col-reverse justify-end gap-3 border-t border-neutral-800 p-5 sm:flex-row">
           <Button
             variant="outline"
             onClick={() => setOpen(false)}
