@@ -1,5 +1,5 @@
 import { useState, type ReactNode, type ReactElement } from "react";
-import { Plus, BookOpen, Users, Hash, FileText, ImageIcon } from "lucide-react";
+import { Plus, Users, Hash, FileText, ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
