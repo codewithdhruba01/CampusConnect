@@ -23,12 +23,18 @@ import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { MessageItem } from "@/features/classrooms/components/MessageItem";
 import { useClassrooms } from "@/hooks/useClassrooms";
+import { useAuth } from "@/hooks/useAuth";
 import type { Message } from "@/types";
 import { supabase } from "@/lib/supabase";
 
 export default function ClassroomView() {
   const { id } = useParams();
   const { classrooms, currentUser } = useClassrooms();
+  const { user: authUser } = useAuth();
+  
+  const activeUserId = authUser?.id || currentUser.id;
+  const activeUserName = authUser?.user_metadata?.full_name || currentUser.name;
+  const activeUserEmail = authUser?.email || currentUser.email;
 
   const currentClassroom = classrooms.find((c) => c.id === id);
 
@@ -172,11 +178,11 @@ export default function ClassroomView() {
     const newMsg: Message = {
       id: newMsgId,
       classroom_id: currentClassroom.id,
-      user_id: currentUser.id,
+      user_id: activeUserId,
       content: newMessage,
       attachment: selectedAttachment || undefined,
       created_at: new Date().toISOString(),
-      user: currentUser,
+      user: { id: activeUserId, name: activeUserName, email: activeUserEmail },
     };
 
     const { error } = await supabase.from("messages").insert([newMsg]);
@@ -215,7 +221,7 @@ export default function ClassroomView() {
         },
       },
       created_at: new Date().toISOString(),
-      user: currentUser,
+      user: { id: activeUserId, name: activeUserName, email: activeUserEmail },
     };
 
     const { error } = await supabase.from("messages").insert([newMsg]);
@@ -350,7 +356,7 @@ export default function ClassroomView() {
               <MessageItem
                 key={msg.id}
                 message={msg}
-                isOwnMessage={msg.user_id === currentUser.id}
+                isOwnMessage={msg.user_id === activeUserId}
                 onVote={handleVote}
               />
             ))
@@ -564,7 +570,7 @@ export default function ClassroomView() {
             {/* Members List */}
             {(currentClassroom.members && currentClassroom.members.length > 0
               ? currentClassroom.members
-              : [currentUser]
+              : [{ id: activeUserId, name: activeUserName, email: activeUserEmail }]
             ).map((u) => (
               <div key={u.id} className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-500/20 text-sm font-bold text-indigo-400">
@@ -573,7 +579,7 @@ export default function ClassroomView() {
                 <div>
                   <p className="text-sm font-medium text-white">{u.name}</p>
                   <p className="text-xs text-neutral-500">
-                    {u.id === currentUser.id ? "You" : "Student"}
+                    {u.id === activeUserId ? "You" : "Student"}
                   </p>
                 </div>
               </div>
