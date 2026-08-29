@@ -31,7 +31,10 @@ export function JoinClassroomModal({ children }: JoinClassroomModalProps) {
   const triggerElement = children ? (
     (children as ReactElement)
   ) : (
-    <Button className="h-10 bg-white px-4 py-2 font-medium text-black shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:bg-neutral-200">
+    <Button
+      variant="outline"
+      className="h-10 border-neutral-700 bg-neutral-900 px-4 py-2 font-medium text-white shadow-sm hover:bg-neutral-800"
+    >
       <LogIn className="mr-2 h-4 w-4" /> Join Room
     </Button>
   );
