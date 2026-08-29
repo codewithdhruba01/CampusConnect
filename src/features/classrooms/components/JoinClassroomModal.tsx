@@ -64,14 +64,8 @@ export function JoinClassroomModal({ children }: JoinClassroomModalProps) {
 
       <DialogContent className="overflow-hidden border-none bg-black p-0 shadow-2xl ring-0 sm:max-w-[440px]">
         <div className="relative overflow-hidden">
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-indigo-600/20 via-blue-600/10 to-transparent" />
-          <div className="pointer-events-none absolute -right-24 -top-24 h-48 w-48 rounded-full bg-blue-500/20 blur-3xl" />
-
           <div className="relative border-b border-white/5 p-6 pb-5">
             <DialogHeader>
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/10 text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.15)] ring-1 ring-inset ring-white/10 backdrop-blur-md">
-                <LogIn className="ml-0.5 h-6 w-6" />
-              </div>
               <DialogTitle className="text-2xl font-semibold tracking-tight text-white">
                 Join Classroom
               </DialogTitle>
