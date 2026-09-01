@@ -65,10 +65,7 @@ export default function Login() {
     <div className="flex h-[100dvh] w-full bg-[#111111] font-sans text-white overflow-hidden selection:bg-zinc-800">
       {/* Left Panel - Form Area */}
       <div className="relative flex w-full lg:w-1/2 flex-col overflow-y-auto">
-        {/* N Logo at bottom left */}
-        <div className="absolute bottom-6 left-6 hidden lg:flex h-8 w-8 items-center justify-center rounded-full bg-[#1A1A1A] border border-[#27272A] text-xs font-bold text-zinc-300">
-          N
-        </div>
+
 
         <div className="mx-auto flex w-full max-w-[360px] flex-1 flex-col justify-center py-12 px-6 lg:px-0">
           <Link to="/" className="mb-10 inline-flex items-center gap-2 text-[13px] text-zinc-400 hover:text-white transition-colors w-fit">
