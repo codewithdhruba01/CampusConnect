@@ -169,15 +169,16 @@ export function CreateClassroomModal({ children, onCreate }: CreateClassroomModa
           <Button
             variant="outline"
             onClick={() => setOpen(false)}
-            className="h-11 w-full border-neutral-700 text-neutral-300 hover:bg-neutral-800 sm:w-auto"
+            className="h-10 w-full border-neutral-700 bg-neutral-900 px-4 py-2 font-medium text-white shadow-sm hover:bg-neutral-800 sm:w-auto"
           >
             Cancel
           </Button>
 
           <Button
+            variant="outline"
             onClick={handleSubmit}
             disabled={isLoading}
-            className="h-11 w-full bg-indigo-600 text-white shadow-[0_0_15px_rgba(79,70,229,0.3)] transition-all hover:bg-indigo-700 hover:shadow-[0_0_20px_rgba(79,70,229,0.5)] sm:w-auto"
+            className="h-10 w-full border-neutral-700 bg-neutral-900 px-4 py-2 font-medium text-white shadow-sm hover:bg-neutral-800 sm:w-auto"
           >
             <Plus className="mr-2 h-4 w-4" /> {isLoading ? "Creating..." : "Create Classroom"}
           </Button>
