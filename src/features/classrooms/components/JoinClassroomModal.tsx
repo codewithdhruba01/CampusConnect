@@ -140,15 +140,16 @@ export function JoinClassroomModal({ children }: JoinClassroomModalProps) {
           <Button
             variant="outline"
             onClick={() => setOpen(false)}
-            className="h-11 w-full border-neutral-700 text-neutral-300 hover:bg-neutral-800 sm:w-auto"
+            className="h-10 w-full border-neutral-700 bg-neutral-900 px-4 py-2 font-medium text-white shadow-sm hover:bg-neutral-800 sm:w-auto"
           >
             Cancel
           </Button>
 
           <Button
+            variant="outline"
             onClick={handleSubmit}
             disabled={isLoading}
-            className="h-11 w-full bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.3)] transition-all hover:bg-blue-700 hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] sm:w-auto"
+            className="h-10 w-full border-neutral-700 bg-neutral-900 px-4 py-2 font-medium text-white shadow-sm hover:bg-neutral-800 sm:w-auto"
           >
             <LogIn className="mr-2 h-4 w-4" /> {isLoading ? "Joining..." : "Join Now"}
           </Button>
