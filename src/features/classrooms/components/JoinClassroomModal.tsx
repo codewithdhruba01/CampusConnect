@@ -47,17 +47,17 @@ export function JoinClassroomModal({ children }: JoinClassroomModalProps) {
     }
 
     setIsLoading(true);
-    const success = await joinClassroom(classroomId.trim(), name.trim(), email.trim());
+    const result = await joinClassroom(classroomId.trim(), name.trim(), email.trim());
     setIsLoading(false);
 
-    if (success) {
+    if (result.success) {
       setOpen(false);
       setClassroomId("");
       setName("");
       setEmail("");
       navigate(`/classroom/${classroomId.trim()}`);
     } else {
-      setError("Classroom not found. Please check the ID and try again.");
+      setError(result.error || "An unexpected error occurred.");
     }
   };
 

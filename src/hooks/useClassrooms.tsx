@@ -13,7 +13,11 @@ interface ClassroomStore {
   currentUser: User;
   setCurrentUser: (user: User) => void;
   addClassroom: (classroom: Classroom) => Promise<void>;
-  joinClassroom: (id: string, name: string, email: string) => Promise<boolean>;
+  joinClassroom: (
+    id: string,
+    name: string,
+    email: string
+  ) => Promise<{ success: boolean; error?: string }>;
   fetchClassrooms: () => Promise<void>;
 }
 
@@ -50,6 +54,14 @@ export const useClassrooms = create<ClassroomStore>((set, get) => ({
     const { classrooms } = get();
     const classroom = classrooms.find((c) => c.id === id);
     if (classroom) {
+      const isAlreadyMember = classroom.members?.some(
+        (m) => m.email.toLowerCase() === email.toLowerCase()
+      );
+
+      if (isAlreadyMember) {
+        return { success: false, error: "You are already a member of this classroom." };
+      }
+
       const newUser = { id: `u-${Date.now()}`, name, email };
 
       get().setCurrentUser(newUser);
@@ -73,11 +85,11 @@ export const useClassrooms = create<ClassroomStore>((set, get) => ({
 
       if (error) {
         console.error("Error joining classroom:", error);
-        return false;
+        return { success: false, error: "Failed to join classroom. Please try again later." };
       }
-      return true;
+      return { success: true };
     }
-    return false;
+    return { success: false, error: "Classroom not found. Please check the ID and try again." };
   },
 
   fetchClassrooms: async () => {
