@@ -17,11 +17,11 @@ export function HeroMockup() {
           <div className="h-3 w-3 rounded-full bg-green-500/80"></div>
         </div>
         <div className="mx-auto flex h-6 w-64 items-center justify-center rounded-md bg-white/5 text-xs text-neutral-400">
-          campusconnect.app
+          campusconnect.in
         </div>
       </div>
 
-      <div className="flex h-[400px] text-left">
+      <div className="flex h-[550px] text-left">
         {/* Sidebar */}
         <div className="hidden w-1/3 max-w-[240px] flex-col border-r border-white/5 bg-[#171717] p-4 sm:flex">
           <div className="mb-8 flex items-center justify-between text-white">
@@ -35,7 +35,7 @@ export function HeroMockup() {
                 <circle cx="6" cy="15.5" r="2.5" fill="#A855F7" />
                 <circle cx="18" cy="15.5" r="2.5" fill="#A855F7" />
               </svg>
-              <span className="font-bold text-lg tracking-tight">Campus Connect</span>
+              <span className="font-bold text-base tracking-tight">Campus Connect</span>
             </div>
             <PanelLeftClose className="h-5 w-5 text-neutral-400 hover:text-white cursor-pointer transition-colors" />
           </div>
@@ -57,7 +57,7 @@ export function HeroMockup() {
               </p>
               <div className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-white/5 hover:text-neutral-300">
                 <div className="h-2 w-2 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(168,85,247,0.8)]"></div>
-                <span># General</span>
+                <span># Community</span>
               </div>
               <div className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-white/5 hover:text-neutral-300">
                 <div className="h-2 w-2 rounded-full bg-neutral-600"></div>
@@ -115,6 +115,24 @@ export function HeroMockup() {
               </div>
               <div className="max-w-[80%] rounded-2xl rounded-tl-none bg-white/5 p-3 text-sm text-neutral-300 shadow-sm">
                 That would be awesome. Let's hop on a call later tonight?
+              </div>
+            </div>
+
+            <div className="flex flex-row-reverse items-start gap-3">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-purple-500/50 text-xs font-bold text-white ring-2 ring-purple-500/30 ring-offset-2 ring-offset-neutral-900">
+                Me
+              </div>
+              <div className="max-w-[80%] rounded-2xl rounded-tr-none bg-purple-600 p-3 text-sm text-white shadow-[0_0_15px_rgba(147,51,234,0.3)]">
+                Sure, 8 PM works for me. Here's the link to the study material: <span className="cursor-pointer text-purple-200 underline hover:text-white">docs.campusconnect.app/os</span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-orange-500/20 text-xs font-bold text-orange-400">
+                RK
+              </div>
+              <div className="max-w-[80%] rounded-2xl rounded-tl-none bg-white/5 p-3 text-sm text-neutral-300 shadow-sm">
+                Thanks! See you both at 8. 🚀
               </div>
             </div>
           </div>
