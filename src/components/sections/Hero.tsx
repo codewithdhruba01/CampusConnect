@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { HeroMockup } from "./HeroMockup";
 
 export function HeroSection() {
   return (
@@ -66,6 +67,8 @@ export function HeroSection() {
           </Button>
         </Link>
       </motion.div>
+
+      <HeroMockup />
     </div>
   );
 }
