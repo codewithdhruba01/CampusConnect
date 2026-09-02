@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Users, Paperclip, Smile, Send, PanelLeftClose } from "lucide-react";
+import { Users, Paperclip, Smile, Send, PanelLeftClose, LayoutDashboard, BookOpen, Lightbulb } from "lucide-react";
 
 export function HeroMockup() {
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'chat'>('chat');
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -17,11 +20,11 @@ export function HeroMockup() {
           <div className="h-3 w-3 rounded-full bg-green-500/80"></div>
         </div>
         <div className="mx-auto flex h-6 w-64 items-center justify-center rounded-md bg-white/5 text-xs text-neutral-400">
-          campusconnect.in
+          campusconnect.app
         </div>
       </div>
 
-      <div className="flex h-[550px] text-left">
+      <div className="flex h-[600px] text-left">
         {/* Sidebar */}
         <div className="hidden w-1/3 max-w-[240px] flex-col border-r border-white/5 bg-[#171717] p-4 sm:flex">
           <div className="mb-8 flex items-center justify-between text-white">
@@ -45,8 +48,11 @@ export function HeroMockup() {
               <p className="mb-3 px-2 text-xs font-semibold uppercase tracking-wider text-neutral-500">
                 MAIN MENU
               </p>
-              <div className="flex items-center gap-3 rounded-lg bg-white/5 px-3 py-2.5 text-white">
-                <Users className="h-4 w-4" />
+              <div 
+                onClick={() => setActiveTab('dashboard')}
+                className={`flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 transition-colors ${activeTab === 'dashboard' ? 'bg-white/10 text-white' : 'hover:bg-white/5 hover:text-neutral-300'}`}
+              >
+                <LayoutDashboard className="h-4 w-4" />
                 <span className="font-medium">Dashboard</span>
               </div>
             </div>
@@ -55,15 +61,18 @@ export function HeroMockup() {
               <p className="mb-3 px-2 text-xs font-semibold uppercase tracking-wider text-neutral-500">
                 YOUR CLASSROOMS
               </p>
-              <div className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-white/5 hover:text-neutral-300">
+              <div 
+                onClick={() => setActiveTab('chat')}
+                className={`flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 transition-colors ${activeTab === 'chat' ? 'bg-white/10 text-white' : 'hover:bg-white/5 hover:text-neutral-300'}`}
+              >
                 <div className="h-2 w-2 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(168,85,247,0.8)]"></div>
                 <span># Community</span>
               </div>
-              <div className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-white/5 hover:text-neutral-300">
+              <div className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-white/5 hover:text-neutral-300">
                 <div className="h-2 w-2 rounded-full bg-neutral-600"></div>
                 <span># Study Group</span>
               </div>
-              <div className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-white/5 hover:text-neutral-300">
+              <div className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-white/5 hover:text-neutral-300">
                 <div className="h-2 w-2 rounded-full bg-neutral-600"></div>
                 <span># Project ideas</span>
               </div>
@@ -72,92 +81,164 @@ export function HeroMockup() {
         </div>
 
         {/* Main Content */}
-        <div className="flex flex-1 flex-col bg-neutral-900/30">
-          {/* Chat Header */}
-          <div className="flex items-center justify-between border-b border-white/5 px-6 py-4">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-500/20 text-purple-400">
-                <Users className="h-5 w-5" />
+        {activeTab === 'chat' ? (
+          <div className="flex flex-1 flex-col bg-neutral-900/30">
+            {/* Chat Header */}
+            <div className="flex items-center justify-between border-b border-white/5 px-6 py-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-500/20 text-purple-400">
+                  <Users className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="font-medium text-white">Community</h3>
+                  <p className="text-xs text-neutral-400">32 members online</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-medium text-white">Community</h3>
-                <p className="text-xs text-neutral-400">32 members online</p>
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/5 text-neutral-400">
+                <div className="h-2 w-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]"></div>
               </div>
             </div>
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/5 text-neutral-400">
-              <div className="h-2 w-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]"></div>
+
+            {/* Chat Messages */}
+            <div className="scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/10 flex-1 space-y-6 overflow-y-auto p-6">
+              <div className="flex items-start gap-3">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-500/20 text-xs font-bold text-blue-400">
+                  JD
+                </div>
+                <div className="max-w-[80%] rounded-2xl rounded-tl-none bg-white/5 p-3 text-sm text-neutral-300 shadow-sm">
+                  Hey everyone! Has anyone started working on the OS assignment?
+                </div>
+              </div>
+
+              <div className="flex flex-row-reverse items-start gap-3">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-purple-500/50 text-xs font-bold text-white ring-2 ring-purple-500/30 ring-offset-2 ring-offset-neutral-900">
+                  Me
+                </div>
+                <div className="max-w-[80%] rounded-2xl rounded-tr-none bg-purple-600 p-3 text-sm text-white shadow-[0_0_15px_rgba(147,51,234,0.3)]">
+                  Yeah, I just finished the first part. Let me know if you need help!
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-green-500/20 text-xs font-bold text-green-400">
+                  AS
+                </div>
+                <div className="max-w-[80%] rounded-2xl rounded-tl-none bg-white/5 p-3 text-sm text-neutral-300 shadow-sm">
+                  That would be awesome. Let's hop on a call later tonight?
+                </div>
+              </div>
+
+              <div className="flex flex-row-reverse items-start gap-3">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-purple-500/50 text-xs font-bold text-white ring-2 ring-purple-500/30 ring-offset-2 ring-offset-neutral-900">
+                  Me
+                </div>
+                <div className="max-w-[80%] rounded-2xl rounded-tr-none bg-purple-600 p-3 text-sm text-white shadow-[0_0_15px_rgba(147,51,234,0.3)]">
+                  Sure, 8 PM works for me. Here's the link to the study material: <span className="cursor-pointer text-purple-200 underline hover:text-white">docs.campusconnect.app/os</span>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-orange-500/20 text-xs font-bold text-orange-400">
+                  RK
+                </div>
+                <div className="max-w-[80%] rounded-2xl rounded-tl-none bg-white/5 p-3 text-sm text-neutral-300 shadow-sm">
+                  Thanks! See you both at 8. 🚀
+                </div>
+              </div>
+            </div>
+
+            {/* Chat Input */}
+            <div className="border-t border-white/5 p-4">
+              <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/40 p-2">
+                <button className="flex h-8 w-8 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-white/10 hover:text-white">
+                  <Paperclip className="h-4 w-4" />
+                </button>
+                <button className="flex h-8 w-8 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-white/10 hover:text-white">
+                  <Smile className="h-4 w-4" />
+                </button>
+                <input
+                  type="text"
+                  placeholder="Message #Community..."
+                  className="flex-1 bg-transparent px-2 text-sm text-white outline-none placeholder:text-neutral-500"
+                  disabled
+                />
+                <button className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-600 text-white shadow-[0_0_10px_rgba(147,51,234,0.4)] transition-transform hover:scale-105">
+                  <Send className="ml-0.5 h-4 w-4" />
+                </button>
+              </div>
             </div>
           </div>
+        ) : (
+          <div className="scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/10 flex-1 overflow-y-auto bg-neutral-900/30 p-8">
+            <h2 className="mb-6 text-2xl font-semibold text-white">Dashboard</h2>
+            
+            <div className="mb-8">
+              <h3 className="mb-4 text-sm font-medium uppercase tracking-wider text-neutral-400">Your Classrooms</h3>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                {/* Community Card */}
+                <div 
+                  onClick={() => setActiveTab('chat')}
+                  className="group relative cursor-pointer overflow-hidden rounded-xl border border-white/10 bg-white/5 p-5 transition-all hover:bg-white/10 hover:shadow-[0_0_20px_rgba(168,85,247,0.15)]"
+                >
+                  <div className="mb-4 flex items-center justify-between">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-purple-500/20 text-purple-400">
+                      <Users className="h-6 w-6" />
+                    </div>
+                    <span className="rounded-full bg-white/5 px-2.5 py-1 text-xs font-medium text-neutral-400">
+                      32 Members
+                    </span>
+                  </div>
+                  <h4 className="mb-1 text-lg font-semibold text-white transition-colors group-hover:text-purple-300">Community</h4>
+                  <p className="text-sm text-neutral-400">General discussions, announcements, and campus news.</p>
+                </div>
 
-          {/* Chat Messages */}
-          <div className="flex-1 space-y-6 overflow-hidden p-6">
-            <div className="flex items-start gap-3">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-500/20 text-xs font-bold text-blue-400">
-                JD
-              </div>
-              <div className="max-w-[80%] rounded-2xl rounded-tl-none bg-white/5 p-3 text-sm text-neutral-300 shadow-sm">
-                Hey everyone! Has anyone started working on the OS assignment?
+                {/* Study Group Card */}
+                <div className="group relative cursor-pointer overflow-hidden rounded-xl border border-white/10 bg-white/5 p-5 transition-all hover:bg-white/10 hover:shadow-[0_0_20px_rgba(59,130,246,0.15)]">
+                  <div className="mb-4 flex items-center justify-between">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/20 text-blue-400">
+                      <BookOpen className="h-6 w-6" />
+                    </div>
+                    <span className="rounded-full bg-white/5 px-2.5 py-1 text-xs font-medium text-neutral-400">
+                      12 Members
+                    </span>
+                  </div>
+                  <h4 className="mb-1 text-lg font-semibold text-white transition-colors group-hover:text-blue-300">Study Group</h4>
+                  <p className="text-sm text-neutral-400">Operating Systems and Database Management notes.</p>
+                </div>
+
+                {/* Project Ideas Card */}
+                <div className="group relative cursor-pointer overflow-hidden rounded-xl border border-white/10 bg-white/5 p-5 transition-all hover:bg-white/10 hover:shadow-[0_0_20px_rgba(234,179,8,0.15)]">
+                  <div className="mb-4 flex items-center justify-between">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-500/20 text-yellow-400">
+                      <Lightbulb className="h-6 w-6" />
+                    </div>
+                    <span className="rounded-full bg-white/5 px-2.5 py-1 text-xs font-medium text-neutral-400">
+                      8 Members
+                    </span>
+                  </div>
+                  <h4 className="mb-1 text-lg font-semibold text-white transition-colors group-hover:text-yellow-300">Project Ideas</h4>
+                  <p className="text-sm text-neutral-400">Brainstorming and collaboration for final year projects.</p>
+                </div>
               </div>
             </div>
-
-            <div className="flex flex-row-reverse items-start gap-3">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-purple-500/50 text-xs font-bold text-white ring-2 ring-purple-500/30 ring-offset-2 ring-offset-neutral-900">
-                Me
-              </div>
-              <div className="max-w-[80%] rounded-2xl rounded-tr-none bg-purple-600 p-3 text-sm text-white shadow-[0_0_15px_rgba(147,51,234,0.3)]">
-                Yeah, I just finished the first part. Let me know if you need help!
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-green-500/20 text-xs font-bold text-green-400">
-                AS
-              </div>
-              <div className="max-w-[80%] rounded-2xl rounded-tl-none bg-white/5 p-3 text-sm text-neutral-300 shadow-sm">
-                That would be awesome. Let's hop on a call later tonight?
-              </div>
-            </div>
-
-            <div className="flex flex-row-reverse items-start gap-3">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-purple-500/50 text-xs font-bold text-white ring-2 ring-purple-500/30 ring-offset-2 ring-offset-neutral-900">
-                Me
-              </div>
-              <div className="max-w-[80%] rounded-2xl rounded-tr-none bg-purple-600 p-3 text-sm text-white shadow-[0_0_15px_rgba(147,51,234,0.3)]">
-                Sure, 8 PM works for me. Here's the link to the study material: <span className="cursor-pointer text-purple-200 underline hover:text-white">docs.campusconnect.app/os</span>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-orange-500/20 text-xs font-bold text-orange-400">
-                RK
-              </div>
-              <div className="max-w-[80%] rounded-2xl rounded-tl-none bg-white/5 p-3 text-sm text-neutral-300 shadow-sm">
-                Thanks! See you both at 8. 🚀
+            
+            <div>
+              <h3 className="mb-4 text-sm font-medium uppercase tracking-wider text-neutral-400">Recent Activity</h3>
+              <div className="space-y-3">
+                <div className="flex items-center gap-4 rounded-lg border border-white/5 bg-black/20 p-4">
+                   <div className="h-2 w-2 rounded-full bg-purple-500"></div>
+                   <p className="text-sm text-neutral-300"><span className="font-medium text-white">JD</span> posted in <span className="font-medium text-purple-300"># Community</span></p>
+                   <span className="ml-auto text-xs text-neutral-500">2h ago</span>
+                </div>
+                <div className="flex items-center gap-4 rounded-lg border border-white/5 bg-black/20 p-4">
+                   <div className="h-2 w-2 rounded-full bg-blue-500"></div>
+                   <p className="text-sm text-neutral-300"><span className="font-medium text-white">AS</span> shared a file in <span className="font-medium text-blue-300"># Study Group</span></p>
+                   <span className="ml-auto text-xs text-neutral-500">5h ago</span>
+                </div>
               </div>
             </div>
           </div>
-
-          {/* Chat Input */}
-          <div className="p-4">
-            <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/40 p-2">
-              <button className="flex h-8 w-8 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-white/10 hover:text-white">
-                <Paperclip className="h-4 w-4" />
-              </button>
-              <button className="flex h-8 w-8 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-white/10 hover:text-white">
-                <Smile className="h-4 w-4" />
-              </button>
-              <input
-                type="text"
-                placeholder="Message #general..."
-                className="flex-1 bg-transparent px-2 text-sm text-white outline-none placeholder:text-neutral-500"
-                disabled
-              />
-              <button className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-600 text-white shadow-[0_0_10px_rgba(147,51,234,0.4)] transition-transform hover:scale-105">
-                <Send className="ml-0.5 h-4 w-4" />
-              </button>
-            </div>
-          </div>
-        </div>
+        )}
       </div>
     </motion.div>
   );
