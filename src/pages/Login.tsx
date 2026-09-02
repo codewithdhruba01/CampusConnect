@@ -27,8 +27,8 @@ export default function Login() {
           options: {
             data: {
               full_name: name,
-            }
-          }
+            },
+          },
         });
         if (error) throw error;
         alert("Check your email for the confirmation link!");
@@ -62,13 +62,14 @@ export default function Login() {
   };
 
   return (
-    <div className="flex h-[100dvh] w-full bg-[#111111] font-sans text-white overflow-hidden selection:bg-zinc-800">
+    <div className="flex h-[100dvh] w-full overflow-hidden bg-[#111111] font-sans text-white selection:bg-zinc-800">
       {/* Left Panel - Form Area */}
-      <div className="relative flex w-full lg:w-1/2 flex-col overflow-y-auto">
-
-
-        <div className="mx-auto flex w-full max-w-[360px] flex-1 flex-col justify-center py-12 px-6 lg:px-0">
-          <Link to="/" className="mb-10 inline-flex items-center gap-2 text-[13px] text-zinc-400 hover:text-white transition-colors w-fit">
+      <div className="relative flex w-full flex-col overflow-y-auto lg:w-1/2">
+        <div className="mx-auto flex w-full max-w-[360px] flex-1 flex-col justify-center px-6 py-12 lg:px-0">
+          <Link
+            to="/"
+            className="mb-10 inline-flex w-fit items-center gap-2 text-[13px] text-zinc-400 transition-colors hover:text-white"
+          >
             <ArrowLeft className="h-4 w-4" />
             Home
           </Link>
@@ -82,7 +83,9 @@ export default function Login() {
               {isSignUp ? "Get Started" : "Welcome Back"}
             </h1>
             <p className="mb-8 text-[14px] text-zinc-400">
-              {isSignUp ? "Create your account and start editing with AI" : "Sign in to continue editing with AI"}
+              {isSignUp
+                ? "Create your account and start editing with AI"
+                : "Sign in to continue editing with AI"}
             </p>
 
             <form onSubmit={handleAuth} className="space-y-4">
@@ -94,7 +97,7 @@ export default function Login() {
                     placeholder="Enter your full name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="h-11 w-full rounded-lg bg-[#18181B] border border-[#27272A] px-3.5 text-[14px] text-zinc-100 placeholder:text-zinc-600 focus:border-zinc-500 focus:outline-none transition-colors"
+                    className="h-11 w-full rounded-lg border border-[#27272A] bg-[#18181B] px-3.5 text-[14px] text-zinc-100 transition-colors placeholder:text-zinc-600 focus:border-zinc-500 focus:outline-none"
                     required
                   />
                 </div>
@@ -107,7 +110,7 @@ export default function Login() {
                   placeholder="Enter your email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="h-11 w-full rounded-lg bg-[#18181B] border border-[#27272A] px-3.5 text-[14px] text-zinc-100 placeholder:text-zinc-600 focus:border-zinc-500 focus:outline-none transition-colors"
+                  className="h-11 w-full rounded-lg border border-[#27272A] bg-[#18181B] px-3.5 text-[14px] text-zinc-100 transition-colors placeholder:text-zinc-600 focus:border-zinc-500 focus:outline-none"
                   required
                 />
               </div>
@@ -120,13 +123,13 @@ export default function Login() {
                     placeholder={isSignUp ? "Create a password" : "Enter your password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="h-11 w-full rounded-lg bg-[#18181B] border border-[#27272A] pl-3.5 pr-10 text-[14px] text-zinc-100 placeholder:text-zinc-600 focus:border-zinc-500 focus:outline-none transition-colors"
+                    className="h-11 w-full rounded-lg border border-[#27272A] bg-[#18181B] pl-3.5 pr-10 text-[14px] text-zinc-100 transition-colors placeholder:text-zinc-600 focus:border-zinc-500 focus:outline-none"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 transition-colors hover:text-zinc-300"
                   >
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
@@ -138,7 +141,7 @@ export default function Login() {
               <button
                 type="submit"
                 disabled={loading}
-                className="mt-6 flex h-11 w-full items-center justify-center rounded-lg bg-[#FFDAC6] text-[14px] font-medium text-[#111111] hover:bg-[#FFCEB3] transition-colors disabled:opacity-70"
+                className="mt-6 flex h-11 w-full items-center justify-center rounded-lg bg-[#FFDAC6] text-[14px] font-medium text-[#111111] transition-colors hover:bg-[#FFCEB3] disabled:opacity-70"
               >
                 {loading ? "Loading..." : isSignUp ? "Create Account" : "Sign In"}
               </button>
@@ -153,7 +156,7 @@ export default function Login() {
             <button
               type="button"
               onClick={handleGoogleAuth}
-              className="flex h-11 w-full items-center justify-center gap-2.5 rounded-lg border border-[#27272A] bg-transparent text-[14px] font-medium text-zinc-300 hover:bg-[#18181B] transition-colors"
+              className="flex h-11 w-full items-center justify-center gap-2.5 rounded-lg border border-[#27272A] bg-transparent text-[14px] font-medium text-zinc-300 transition-colors hover:bg-[#18181B]"
             >
               <img
                 src="https://www.svgrepo.com/show/475656/google-color.svg"
@@ -167,7 +170,7 @@ export default function Login() {
               {isSignUp ? "Already have an account? " : "Don't have an account? "}
               <button
                 onClick={() => setIsSignUp(!isSignUp)}
-                className="font-medium text-[#8B5CF6] hover:text-[#7C3AED] transition-colors"
+                className="font-medium text-[#8B5CF6] transition-colors hover:text-[#7C3AED]"
               >
                 {isSignUp ? "Sign In" : "Sign Up"}
               </button>
@@ -177,7 +180,7 @@ export default function Login() {
       </div>
 
       {/* Right Panel - Image Area */}
-      <div className="hidden lg:flex w-1/2 p-4 lg:p-5 lg:pl-0">
+      <div className="hidden w-1/2 p-4 lg:flex lg:p-5 lg:pl-0">
         <div className="relative h-full w-full overflow-hidden rounded-[24px]">
           <img
             src="/loginCover.jpg"
@@ -186,10 +189,8 @@ export default function Login() {
           />
 
           {/* Review Cards Overlay */}
-
         </div>
       </div>
     </div>
   );
 }
-

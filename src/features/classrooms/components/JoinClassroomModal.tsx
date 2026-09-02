@@ -65,7 +65,7 @@ export function JoinClassroomModal({ children }: JoinClassroomModalProps) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={triggerElement} />
 
-      <DialogContent className="overflow-hidden border border-neutral-800 bg-neutral-900/50 p-0 shadow-2xl backdrop-blur-xl ring-0 sm:max-w-[440px]">
+      <DialogContent className="overflow-hidden border border-neutral-800 bg-neutral-900/50 p-0 shadow-2xl ring-0 backdrop-blur-xl sm:max-w-[440px]">
         <div className="relative overflow-hidden">
           <div className="relative border-b border-neutral-800 p-6 pb-5">
             <DialogHeader>

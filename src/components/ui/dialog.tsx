@@ -60,10 +60,10 @@ function DialogContent({
           <DialogPrimitive.Close
             data-slot="dialog-close"
             render={
-              <Button 
-                variant="ghost" 
-                className="absolute right-4 top-4 rounded-full bg-white/5 text-neutral-400 hover:bg-white/10 hover:text-white" 
-                size="icon-sm" 
+              <Button
+                variant="ghost"
+                className="absolute right-4 top-4 rounded-full bg-white/5 text-neutral-400 hover:bg-white/10 hover:text-white"
+                size="icon-sm"
               />
             }
           >

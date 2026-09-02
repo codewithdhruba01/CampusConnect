@@ -31,7 +31,7 @@ export default function ClassroomView() {
   const { id } = useParams();
   const { classrooms, currentUser } = useClassrooms();
   const { user: authUser } = useAuth();
-  
+
   const activeUserId = authUser?.id || currentUser.id;
   const activeUserName = authUser?.user_metadata?.full_name || currentUser.name;
   const activeUserEmail = authUser?.email || currentUser.email;
