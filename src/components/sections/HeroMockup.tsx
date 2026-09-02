@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Users, Paperclip, Smile, Send, PanelLeftClose, LayoutDashboard, BookOpen, Lightbulb, Search, MoreVertical, LogIn, Plus } from "lucide-react";
+import { Paperclip, Smile, Send, PanelLeftClose, LayoutDashboard, Search, MoreVertical, LogIn, Plus } from "lucide-react";
 
 type Tab = 'dashboard' | 'community' | 'study-group' | 'project-ideas';
 
@@ -67,21 +67,21 @@ export function HeroMockup() {
                 onClick={() => setActiveTab('community')}
                 className={`flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 transition-colors ${activeTab === 'community' ? 'bg-white/10 text-white' : 'hover:bg-white/5 hover:text-neutral-300'}`}
               >
-                <div className="h-2 w-2 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(168,85,247,0.8)]"></div>
+                <img src="/community/image1.png" alt="Community" className="h-4 w-4 rounded-sm object-cover" />
                 <span># Community</span>
               </div>
               <div
                 onClick={() => setActiveTab('study-group')}
                 className={`flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 transition-colors ${activeTab === 'study-group' ? 'bg-white/10 text-white' : 'hover:bg-white/5 hover:text-neutral-300'}`}
               >
-                <div className="h-2 w-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
+                <img src="/community/image3.png" alt="Study Group" className="h-4 w-4 rounded-sm object-cover" />
                 <span># Study Group</span>
               </div>
               <div
                 onClick={() => setActiveTab('project-ideas')}
                 className={`flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 transition-colors ${activeTab === 'project-ideas' ? 'bg-white/10 text-white' : 'hover:bg-white/5 hover:text-neutral-300'}`}
               >
-                <div className="h-2 w-2 rounded-full bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.8)]"></div>
+                <img src="/community/image2.png" alt="Project Ideas" className="h-4 w-4 rounded-sm object-cover" />
                 <span># Project ideas</span>
               </div>
             </div>
@@ -96,7 +96,7 @@ export function HeroMockup() {
               <div className="flex items-center gap-3">
                 {activeTab === 'community' && (
                   <>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-500/20 text-purple-400"><Users className="h-5 w-5" /></div>
+                    <img src="/community/image1.png" alt="Community" className="h-10 w-10 shrink-0 rounded-xl object-cover ring-1 ring-white/10" />
                     <div>
                       <h3 className="font-medium text-white">Community</h3>
                       <p className="text-xs text-neutral-400">32 members online</p>
@@ -105,7 +105,7 @@ export function HeroMockup() {
                 )}
                 {activeTab === 'study-group' && (
                   <>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500/20 text-blue-400"><BookOpen className="h-5 w-5" /></div>
+                    <img src="/community/image3.png" alt="Study Group" className="h-10 w-10 shrink-0 rounded-xl object-cover ring-1 ring-white/10" />
                     <div>
                       <h3 className="font-medium text-white">Study Group</h3>
                       <p className="text-xs text-neutral-400">12 members online</p>
@@ -114,7 +114,7 @@ export function HeroMockup() {
                 )}
                 {activeTab === 'project-ideas' && (
                   <>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-yellow-500/20 text-yellow-400"><Lightbulb className="h-5 w-5" /></div>
+                    <img src="/community/image2.png" alt="Project Ideas" className="h-10 w-10 shrink-0 rounded-xl object-cover ring-1 ring-white/10" />
                     <div>
                       <h3 className="font-medium text-white">Project Ideas</h3>
                       <p className="text-xs text-neutral-400">8 members online</p>
@@ -264,9 +264,7 @@ export function HeroMockup() {
                   className="group relative cursor-pointer overflow-hidden rounded-xl border border-white/10 bg-white/5 p-5 transition-all hover:bg-white/10 hover:shadow-[0_0_20px_rgba(168,85,247,0.15)]"
                 >
                   <div className="mb-4 flex items-center justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-purple-500/20 text-purple-400">
-                      <Users className="h-6 w-6" />
-                    </div>
+                    <img src="/community/image1.png" alt="Community" className="h-12 w-12 shrink-0 rounded-xl object-cover ring-1 ring-white/10" />
                     <span className="rounded-full bg-white/5 px-2.5 py-1 text-xs font-medium text-neutral-400">
                       32 Members
                     </span>
@@ -281,9 +279,7 @@ export function HeroMockup() {
                   className="group relative cursor-pointer overflow-hidden rounded-xl border border-white/10 bg-white/5 p-5 transition-all hover:bg-white/10 hover:shadow-[0_0_20px_rgba(59,130,246,0.15)]"
                 >
                   <div className="mb-4 flex items-center justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/20 text-blue-400">
-                      <BookOpen className="h-6 w-6" />
-                    </div>
+                    <img src="/community/image3.png" alt="Study Group" className="h-12 w-12 shrink-0 rounded-xl object-cover ring-1 ring-white/10" />
                     <span className="rounded-full bg-white/5 px-2.5 py-1 text-xs font-medium text-neutral-400">
                       12 Members
                     </span>
@@ -298,9 +294,7 @@ export function HeroMockup() {
                   className="group relative cursor-pointer overflow-hidden rounded-xl border border-white/10 bg-white/5 p-5 transition-all hover:bg-white/10 hover:shadow-[0_0_20px_rgba(234,179,8,0.15)]"
                 >
                   <div className="mb-4 flex items-center justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-500/20 text-yellow-400">
-                      <Lightbulb className="h-6 w-6" />
-                    </div>
+                    <img src="/community/image2.png" alt="Project Ideas" className="h-12 w-12 shrink-0 rounded-xl object-cover ring-1 ring-white/10" />
                     <span className="rounded-full bg-white/5 px-2.5 py-1 text-xs font-medium text-neutral-400">
                       8 Members
                     </span>
