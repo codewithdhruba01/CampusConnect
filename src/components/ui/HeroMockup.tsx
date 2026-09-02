@@ -12,7 +12,7 @@ export function HeroMockup() {
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay: 0.5 }}
-      className="mx-auto mt-16 w-full max-w-4xl overflow-hidden rounded-xl border border-white/10 bg-neutral-900/80 shadow-2xl backdrop-blur-xl"
+      className="mx-auto mt-16 w-full max-w-4xl overflow-hidden rounded-xl border-4 border-white/10 bg-neutral-900/80 shadow-2xl backdrop-blur-xl"
     >
       {/* Window Header */}
       <div className="flex items-center border-b border-white/5 bg-black/40 px-4 py-3">
@@ -42,7 +42,7 @@ export function HeroMockup() {
               </svg>
               <span className="font-bold text-base tracking-tight">Campus Connect</span>
             </div>
-            <PanelLeftClose className="h-5 w-5 text-neutral-400 hover:text-white cursor-pointer transition-colors" />
+            <PanelLeftClose className="h-4 w-4 text-neutral-400 hover:text-white cursor-pointer transition-colors" />
           </div>
 
           <div className="space-y-6 text-sm text-neutral-400">
@@ -261,7 +261,7 @@ export function HeroMockup() {
                 {/* Community Card */}
                 <div
                   onClick={() => setActiveTab('community')}
-                  className="group relative cursor-pointer overflow-hidden rounded-xl border border-white/10 bg-white/5 p-5 transition-all hover:bg-white/10 hover:shadow-[0_0_20px_rgba(168,85,247,0.15)]"
+                  className="group relative cursor-pointer overflow-hidden rounded-xl border-2 border-white/10 bg-white/5 p-5 transition-all hover:bg-white/10 hover:shadow-[0_0_20px_rgba(168,85,247,0.15)]"
                 >
                   <div className="mb-4 flex items-center justify-between">
                     <img src="/community/image1.png" alt="Community" className="h-12 w-12 shrink-0 rounded-xl object-cover ring-1 ring-white/10" />
@@ -269,14 +269,14 @@ export function HeroMockup() {
                       32 Members
                     </span>
                   </div>
-                  <h4 className="mb-1 text-lg font-semibold text-white transition-colors group-hover:text-purple-300">Community</h4>
+                  <h4 className="mb-1 text-lg font-semibold text-white transition-colors">Community</h4>
                   <p className="text-sm text-neutral-400">General discussions, announcements</p>
                 </div>
 
                 {/* Study Group Card */}
                 <div
                   onClick={() => setActiveTab('study-group')}
-                  className="group relative cursor-pointer overflow-hidden rounded-xl border border-white/10 bg-white/5 p-5 transition-all hover:bg-white/10 hover:shadow-[0_0_20px_rgba(59,130,246,0.15)]"
+                  className="group relative cursor-pointer overflow-hidden rounded-xl border-2 border-white/10 bg-white/5 p-5 transition-all hover:bg-white/10 hover:shadow-[0_0_20px_rgba(59,130,246,0.15)]"
                 >
                   <div className="mb-4 flex items-center justify-between">
                     <img src="/community/image3.png" alt="Study Group" className="h-12 w-12 shrink-0 rounded-xl object-cover ring-1 ring-white/10" />
@@ -284,14 +284,14 @@ export function HeroMockup() {
                       12 Members
                     </span>
                   </div>
-                  <h4 className="mb-1 text-lg font-semibold text-white transition-colors group-hover:text-blue-300">Study Group</h4>
+                  <h4 className="mb-1 text-lg font-semibold text-white transition-colors">Study Group</h4>
                   <p className="text-sm text-neutral-400">CS Last Min Study Group</p>
                 </div>
 
                 {/* Project Ideas Card */}
                 <div
                   onClick={() => setActiveTab('project-ideas')}
-                  className="group relative cursor-pointer overflow-hidden rounded-xl border border-white/10 bg-white/5 p-5 transition-all hover:bg-white/10 hover:shadow-[0_0_20px_rgba(234,179,8,0.15)]"
+                  className="group relative cursor-pointer overflow-hidden rounded-xl border-2 border-white/10 bg-white/5 p-5 transition-all hover:bg-white/10 hover:shadow-[0_0_20px_rgba(234,179,8,0.15)]"
                 >
                   <div className="mb-4 flex items-center justify-between">
                     <img src="/community/image2.png" alt="Project Ideas" className="h-12 w-12 shrink-0 rounded-xl object-cover ring-1 ring-white/10" />
@@ -299,7 +299,7 @@ export function HeroMockup() {
                       8 Members
                     </span>
                   </div>
-                  <h4 className="mb-1 text-lg font-semibold text-white transition-colors group-hover:text-yellow-300">Project Ideas</h4>
+                  <h4 className="mb-1 text-lg font-semibold text-white transition-colors">Project Ideas</h4>
                   <p className="text-sm text-neutral-400">Brainstorming and collaboration</p>
                 </div>
               </div>
@@ -308,14 +308,14 @@ export function HeroMockup() {
             <div>
               <h3 className="mb-4 text-sm font-medium uppercase tracking-wider text-neutral-400">Recent Activity</h3>
               <div className="space-y-3">
-                <div className="flex items-center gap-4 rounded-lg border border-white/5 bg-black/20 p-4">
-                  <div className="h-2 w-2 rounded-full bg-purple-500"></div>
-                  <p className="text-sm text-neutral-300"><span className="font-medium text-white">JD</span> posted in <span className="font-medium text-purple-300"># Community</span></p>
+                <div className="flex items-center gap-4 rounded-lg border-2 border-white/10 bg-white/5 p-4">
+                  <div className="h-2 w-2 rounded-full bg-white"></div>
+                  <p className="text-sm text-neutral-300"><span className="font-medium text-white">JD</span> posted in <span className="font-medium text-gray-200"># Community</span></p>
                   <span className="ml-auto text-xs text-neutral-500">2h ago</span>
                 </div>
-                <div className="flex items-center gap-4 rounded-lg border border-white/5 bg-black/20 p-4">
-                  <div className="h-2 w-2 rounded-full bg-blue-500"></div>
-                  <p className="text-sm text-neutral-300"><span className="font-medium text-white">AS</span> shared a file in <span className="font-medium text-blue-300"># Study Group</span></p>
+                <div className="flex items-center gap-4 rounded-lg border-2 border-white/10 bg-white/5 p-4">
+                  <div className="h-2 w-2 rounded-full bg-white"></div>
+                  <p className="text-sm text-neutral-300"><span className="font-medium text-white">AS</span> shared a file in <span className="font-medium text-gray-200"># Study Group</span></p>
                   <span className="ml-auto text-xs text-neutral-500">5h ago</span>
                 </div>
               </div>

@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { HeroMockup } from "./HeroMockup";
+import { HeroMockup } from "@/components/ui/HeroMockup";
 
 export function HeroSection() {
   return (
