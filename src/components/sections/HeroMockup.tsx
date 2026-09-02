@@ -138,31 +138,31 @@ export function HeroMockup() {
               {activeTab === 'community' && (
                 <>
                   <div className="flex items-start gap-3">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-500/20 text-xs font-bold text-blue-400">JD</div>
+                    <img src="/user/user1.png" alt="JD" className="h-8 w-8 shrink-0 rounded-full object-cover ring-1 ring-white/10" />
                     <div className="max-w-[80%] rounded-2xl rounded-tl-none bg-white/5 p-3 text-sm text-neutral-300 shadow-sm">
                       Hey everyone! Has anyone started working on the OS assignment?
                     </div>
                   </div>
                   <div className="flex flex-row-reverse items-start gap-3">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-purple-500/50 text-xs font-bold text-white ring-2 ring-purple-500/30 ring-offset-2 ring-offset-neutral-900">Me</div>
+                    <img src="/user/user4.png" alt="Me" className="h-8 w-8 shrink-0 rounded-full object-cover ring-2 ring-purple-500/50 ring-offset-2 ring-offset-neutral-900" />
                     <div className="max-w-[80%] rounded-2xl rounded-tr-none bg-purple-600 p-3 text-sm text-white shadow-[0_0_15px_rgba(147,51,234,0.3)]">
                       Yeah, I just finished the first part. Let me know if you need help!
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-green-500/20 text-xs font-bold text-green-400">AS</div>
+                    <img src="/user/user3.png" alt="AS" className="h-8 w-8 shrink-0 rounded-full object-cover ring-1 ring-white/10" />
                     <div className="max-w-[80%] rounded-2xl rounded-tl-none bg-white/5 p-3 text-sm text-neutral-300 shadow-sm">
                       That would be awesome. Let's hop on a call later tonight?
                     </div>
                   </div>
                   <div className="flex flex-row-reverse items-start gap-3">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-purple-500/50 text-xs font-bold text-white ring-2 ring-purple-500/30 ring-offset-2 ring-offset-neutral-900">Me</div>
+                    <img src="/user/user4.png" alt="Me" className="h-8 w-8 shrink-0 rounded-full object-cover ring-2 ring-purple-500/50 ring-offset-2 ring-offset-neutral-900" />
                     <div className="max-w-[80%] rounded-2xl rounded-tr-none bg-purple-600 p-3 text-sm text-white shadow-[0_0_15px_rgba(147,51,234,0.3)]">
                       Sure, 8 PM works for me. Here's the link to the study material: <span className="cursor-pointer text-purple-200 underline hover:text-white">docs.campusconnect.app/os</span>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-orange-500/20 text-xs font-bold text-orange-400">RK</div>
+                    <img src="/user/user2.png" alt="RK" className="h-8 w-8 shrink-0 rounded-full object-cover ring-1 ring-white/10" />
                     <div className="max-w-[80%] rounded-2xl rounded-tl-none bg-white/5 p-3 text-sm text-neutral-300 shadow-sm">
                       Thanks! See you both at 8. 🚀
                     </div>
@@ -173,19 +173,19 @@ export function HeroMockup() {
               {activeTab === 'study-group' && (
                 <>
                   <div className="flex items-start gap-3">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-pink-500/20 text-xs font-bold text-pink-400">SK</div>
+                    <img src="/user/user1.png" alt="SK" className="h-8 w-8 shrink-0 rounded-full object-cover ring-1 ring-white/10" />
                     <div className="max-w-[80%] rounded-2xl rounded-tl-none bg-white/5 p-3 text-sm text-neutral-300 shadow-sm">
                       Did anyone understand the Database Normalization lecture today? I'm completely lost on 3NF.
                     </div>
                   </div>
                   <div className="flex flex-row-reverse items-start gap-3">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-purple-500/50 text-xs font-bold text-white ring-2 ring-purple-500/30 ring-offset-2 ring-offset-neutral-900">Me</div>
+                    <img src="/user/user2.png" alt="Me" className="h-8 w-8 shrink-0 rounded-full object-cover ring-2 ring-purple-500/50 ring-offset-2 ring-offset-neutral-900" />
                     <div className="max-w-[80%] rounded-2xl rounded-tr-none bg-purple-600 p-3 text-sm text-white shadow-[0_0_15px_rgba(147,51,234,0.3)]">
                       I think so! 3NF is basically removing transitive dependencies. So non-key attributes shouldn't depend on other non-key attributes.
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-500/20 text-xs font-bold text-blue-400">JD</div>
+                    <img src="/user/user3.png" alt="JD" className="h-8 w-8 shrink-0 rounded-full object-cover ring-1 ring-white/10" />
                     <div className="max-w-[80%] rounded-2xl rounded-tl-none bg-white/5 p-3 text-sm text-neutral-300 shadow-sm">
                       Exactly. I have some handwritten notes with examples, I'll scan and send them here.
                     </div>
@@ -196,19 +196,19 @@ export function HeroMockup() {
               {activeTab === 'project-ideas' && (
                 <>
                   <div className="flex items-start gap-3">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-orange-500/20 text-xs font-bold text-orange-400">RK</div>
+                    <img src="/user/user2.png" alt="RK" className="h-8 w-8 shrink-0 rounded-full object-cover ring-1 ring-white/10" />
                     <div className="max-w-[80%] rounded-2xl rounded-tl-none bg-white/5 p-3 text-sm text-neutral-300 shadow-sm">
                       How about an AI-powered resume analyzer for our final year project?
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-green-500/20 text-xs font-bold text-green-400">AS</div>
+                    <img src="/user/user3.png" alt="AS" className="h-8 w-8 shrink-0 rounded-full object-cover ring-1 ring-white/10" />
                     <div className="max-w-[80%] rounded-2xl rounded-tl-none bg-white/5 p-3 text-sm text-neutral-300 shadow-sm">
                       That sounds cool, but it might be hard to train a good model from scratch in just 2 months.
                     </div>
                   </div>
                   <div className="flex flex-row-reverse items-start gap-3">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-purple-500/50 text-xs font-bold text-white ring-2 ring-purple-500/30 ring-offset-2 ring-offset-neutral-900">Me</div>
+                    <img src="/user/user4.png" alt="Me" className="h-8 w-8 shrink-0 rounded-full object-cover ring-2 ring-purple-500/50 ring-offset-2 ring-offset-neutral-900" />
                     <div className="max-w-[80%] rounded-2xl rounded-tr-none bg-purple-600 p-3 text-sm text-white shadow-[0_0_15px_rgba(147,51,234,0.3)]">
                       What if we use an existing API like Gemini and focus heavily on building a great dashboard UI/UX instead of the model training part?
                     </div>
