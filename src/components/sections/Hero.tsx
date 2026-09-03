@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HeroMockup } from "@/components/ui/HeroMockup";
 
@@ -51,19 +50,18 @@ export function HeroSection() {
         <Link to="/dashboard">
           <Button
             size="lg"
-            className="h-12 w-full rounded-full bg-purple-600 px-8 text-base font-semibold font-outfit text-white hover:bg-purple-700 sm:w-auto"
+            className="h-12 w-full rounded-xl bg-white px-8 text-base font-medium font-outfit text-black hover:bg-neutral-200 sm:w-auto"
           >
-            Get Started
-            <ArrowRight className="ml-2 h-4 w-4" />
+            Get started
           </Button>
         </Link>
         <Link to="/login">
           <Button
             size="lg"
             variant="outline"
-            className="h-12 w-full rounded-full border-white/10 bg-transparent px-8 text-base font-semibold font-outfit text-white hover:bg-white/5 sm:w-auto"
+            className="h-12 w-full rounded-xl border border-white/20 bg-white/10 px-8 text-base font-medium font-outfit text-white backdrop-blur-md transition-all hover:bg-white/20 hover:border-white/30 sm:w-auto shadow-[0_8px_30px_rgb(0,0,0,0.12)]"
           >
-            Log In
+            Log in
           </Button>
         </Link>
       </motion.div>

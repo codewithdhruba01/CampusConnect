@@ -39,8 +39,8 @@ export function Navbar() {
             Log in
           </Link>
           <Link to="/dashboard">
-            <Button className="h-9 rounded-full bg-white px-5 text-sm font-medium font-outfit text-black shadow-none transition-colors hover:bg-neutral-200">
-              Get Started
+            <Button className="h-9 rounded-xl bg-white px-5 text-sm font-medium font-outfit text-black shadow-none transition-colors hover:bg-neutral-200">
+              Dashboard
             </Button>
           </Link>
         </motion.div>
