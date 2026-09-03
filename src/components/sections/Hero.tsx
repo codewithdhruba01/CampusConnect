@@ -49,17 +49,15 @@ export function HeroSection() {
       >
         <Link to="/dashboard">
           <Button
-            size="lg"
-            className="h-12 w-full rounded-xl bg-white px-8 text-base font-medium font-outfit text-black hover:bg-neutral-200 sm:w-auto"
+            className="h-10 w-full rounded-xl bg-white px-6 text-sm font-medium font-outfit text-black hover:bg-neutral-200 sm:w-auto"
           >
             Get started
           </Button>
         </Link>
         <Link to="/login">
           <Button
-            size="lg"
             variant="outline"
-            className="h-12 w-full rounded-xl border border-white/20 bg-white/10 px-8 text-base font-medium font-outfit text-white backdrop-blur-md transition-all hover:bg-white/20 hover:border-white/30 sm:w-auto shadow-[0_8px_30px_rgb(0,0,0,0.12)]"
+            className="h-10 w-full rounded-xl border border-white/20 bg-white/10 px-6 text-sm font-medium font-outfit text-white backdrop-blur-md transition-all hover:bg-white/20 hover:border-white/30 sm:w-auto shadow-[0_8px_30px_rgb(0,0,0,0.12)]"
           >
             Log in
           </Button>

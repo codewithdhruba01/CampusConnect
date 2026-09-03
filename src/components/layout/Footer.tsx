@@ -28,7 +28,7 @@ export function Footer() {
         {/* Right Side */}
         <div className="mt-2 flex flex-col items-start gap-4 md:mt-0 md:items-end">
           <div className="flex gap-6 text-sm font-medium">
-            <a href="#" className="flex items-center gap-1 transition-colors hover:text-white">
+            <a href="https://x.com/codewithdhruba" className="flex items-center gap-1 transition-colors hover:text-white">
               <span>𝕏</span> @codewithdhruba
             </a>
             <a href="#" className="transition-colors hover:text-white">

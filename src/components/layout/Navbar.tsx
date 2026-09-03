@@ -32,11 +32,13 @@ export function Navbar() {
         </motion.div>
 
         <motion.div layout className="flex items-center gap-4">
-          <Link
-            to="/login"
-            className="text-sm font-medium font-outfit text-neutral-400 transition-colors hover:text-white"
-          >
-            Log in
+          <Link to="/login">
+            <Button
+              variant="ghost"
+              className="h-9 rounded-xl border border-white/10 bg-transparent px-5 text-sm font-medium font-outfit text-neutral-400 transition-all hover:border-white/20 hover:bg-white/10 hover:text-white hover:backdrop-blur-md"
+            >
+              Log in
+            </Button>
           </Link>
           <Link to="/dashboard">
             <Button className="h-9 rounded-xl bg-white px-5 text-sm font-medium font-outfit text-black shadow-none transition-colors hover:bg-neutral-200">
