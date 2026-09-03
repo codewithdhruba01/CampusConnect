@@ -11,7 +11,7 @@ export function HeroSection() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-purple-300"
+        className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium font-poppins text-purple-300"
       >
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75"></span>
@@ -24,7 +24,7 @@ export function HeroSection() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="bg-gradient-to-r from-white via-white to-white/70 bg-clip-text text-5xl font-bold tracking-tight text-transparent md:text-7xl"
+        className="bg-gradient-to-r from-white via-white to-white/70 bg-clip-text text-3xl font-extrabold font-bricolage tracking-tight text-transparent md:text-7xl"
       >
         Your Campus Community,{" "}
         <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
@@ -36,7 +36,7 @@ export function HeroSection() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="mx-auto max-w-2xl text-lg text-neutral-400 md:text-xl"
+        className="mx-auto max-w-2xl text-[#909092] leading-relaxed text-sm font-hanken md:text-lg font-regular"
       >
         Create classrooms, join discussions, and collaborate with peers in real-time. The ultimate
         platform for modern student communities.
@@ -51,7 +51,7 @@ export function HeroSection() {
         <Link to="/dashboard">
           <Button
             size="lg"
-            className="h-12 w-full rounded-full bg-purple-600 px-8 text-base font-semibold text-white shadow-[0_0_40px_rgba(147,51,234,0.3)] transition-all hover:bg-purple-700 hover:shadow-[0_0_60px_rgba(147,51,234,0.5)] sm:w-auto"
+            className="h-12 w-full rounded-full bg-purple-600 px-8 text-base font-semibold font-outfit text-white hover:bg-purple-700 sm:w-auto"
           >
             Get Started
             <ArrowRight className="ml-2 h-4 w-4" />
@@ -61,7 +61,7 @@ export function HeroSection() {
           <Button
             size="lg"
             variant="outline"
-            className="h-12 w-full rounded-full border-white/10 bg-transparent px-8 text-base font-semibold text-white hover:bg-white/5 sm:w-auto"
+            className="h-12 w-full rounded-full border-white/10 bg-transparent px-8 text-base font-semibold font-outfit text-white hover:bg-white/5 sm:w-auto"
           >
             Log In
           </Button>

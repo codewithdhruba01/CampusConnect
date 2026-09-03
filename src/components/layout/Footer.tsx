@@ -6,10 +6,10 @@ export function Footer() {
         <div className="flex max-w-lg flex-col gap-4">
           <div className="flex items-center gap-2">
             <img src="/logo.png" alt="Campus Connect Logo" className="h-8 w-8 object-contain" />
-            <span className="text-lg font-semibold tracking-tight text-white">Campus Connect</span>
+            <span className="text-lg font-semibold tracking-tight font-bricolage text-white">Campus Connect</span>
           </div>
 
-          <p className="text-sm leading-relaxed text-neutral-400">
+          <p className="text-sm leading-relaxed font-hanken text-neutral-400">
             Your ultimate student community platform. No hidden fees, no tracking. One platform to
             create classrooms, chat in real-time, and collaborate with peers seamlessly.
           </p>
