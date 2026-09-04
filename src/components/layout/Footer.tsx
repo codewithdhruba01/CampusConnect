@@ -6,10 +6,12 @@ export function Footer() {
         <div className="flex max-w-lg flex-col gap-4">
           <div className="flex items-center gap-2">
             <img src="/logo.png" alt="Campus Connect Logo" className="h-8 w-8 object-contain" />
-            <span className="text-lg font-semibold tracking-tight font-bricolage text-white">Campus Connect</span>
+            <span className="font-bricolage text-lg font-semibold tracking-tight text-white">
+              Campus Connect
+            </span>
           </div>
 
-          <p className="text-sm leading-relaxed font-hanken text-neutral-400">
+          <p className="font-hanken text-sm leading-relaxed text-neutral-400">
             Your ultimate student community platform. No hidden fees, no tracking. One platform to
             create classrooms, chat in real-time, and collaborate with peers seamlessly.
           </p>
@@ -28,7 +30,10 @@ export function Footer() {
         {/* Right Side */}
         <div className="mt-2 flex flex-col items-start gap-4 md:mt-0 md:items-end">
           <div className="flex gap-6 text-sm font-medium">
-            <a href="https://x.com/codewithdhruba" className="flex items-center gap-1 transition-colors hover:text-white">
+            <a
+              href="https://x.com/codewithdhruba"
+              className="flex items-center gap-1 transition-colors hover:text-white"
+            >
               <span>𝕏</span> @codewithdhruba
             </a>
             <a href="#" className="transition-colors hover:text-white">

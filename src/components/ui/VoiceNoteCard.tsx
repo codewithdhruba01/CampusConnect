@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Volume2, Pause } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -23,11 +23,9 @@ export function VoiceNoteCard({ title, description, icon }: VoiceNoteCardProps) 
         <div className="mb-4 flex items-start justify-between gap-4">
           <div className="flex-1">
             <h3 className="mb-2 font-bricolage text-xl font-semibold text-white">{title}</h3>
-            <p className="font-outfit text-sm leading-relaxed text-neutral-300">
-              {description}
-            </p>
+            <p className="font-outfit text-sm leading-relaxed text-neutral-300">{description}</p>
           </div>
-          
+
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#1a2e22] text-[#4ade80]">
             {icon}
           </div>
@@ -36,7 +34,7 @@ export function VoiceNoteCard({ title, description, icon }: VoiceNoteCardProps) 
         {/* Player Controls */}
         <div className="mt-auto flex items-center justify-between gap-3 rounded-full border border-white/5 bg-[#111111] p-2 pl-4">
           <Volume2 className="h-5 w-5 text-neutral-400" />
-          
+
           {/* Waveform */}
           <div className="flex flex-1 items-center justify-center gap-[3px] overflow-hidden px-2">
             {waveformHeights.map((height, i) => (

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 
 interface DashboardNoteCardProps {
@@ -19,11 +19,9 @@ export function DashboardNoteCard({ title, description, icon }: DashboardNoteCar
         <div className="mb-4 flex items-start justify-between gap-4">
           <div className="flex-1">
             <h3 className="mb-2 font-bricolage text-xl font-semibold text-white">{title}</h3>
-            <p className="font-outfit text-sm leading-relaxed text-neutral-300">
-              {description}
-            </p>
+            <p className="font-outfit text-sm leading-relaxed text-neutral-300">{description}</p>
           </div>
-          
+
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-purple-500/10 text-purple-400">
             {icon}
           </div>
@@ -39,19 +37,19 @@ export function DashboardNoteCard({ title, description, icon }: DashboardNoteCar
           </div>
           {/* Main Area */}
           <div className="flex flex-1 flex-col gap-3 p-4">
-             <div className="h-2.5 w-1/3 rounded-full bg-purple-500/50"></div>
-             <div className="mt-1 flex flex-1 grid-cols-2 gap-2 grid">
-                <motion.div 
-                   animate={{ y: [0, -3, 0] }} 
-                   transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }} 
-                   className="rounded-lg border border-white/5 bg-white/5"
-                ></motion.div>
-                <motion.div 
-                   animate={{ y: [0, -3, 0] }} 
-                   transition={{ duration: 2.5, repeat: Infinity, delay: 0.5, ease: "easeInOut" }} 
-                   className="rounded-lg border border-white/5 bg-white/5"
-                ></motion.div>
-             </div>
+            <div className="h-2.5 w-1/3 rounded-full bg-purple-500/50"></div>
+            <div className="mt-1 flex grid flex-1 grid-cols-2 gap-2">
+              <motion.div
+                animate={{ y: [0, -3, 0] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                className="rounded-lg border border-white/5 bg-white/5"
+              ></motion.div>
+              <motion.div
+                animate={{ y: [0, -3, 0] }}
+                transition={{ duration: 2.5, repeat: Infinity, delay: 0.5, ease: "easeInOut" }}
+                className="rounded-lg border border-white/5 bg-white/5"
+              ></motion.div>
+            </div>
           </div>
         </div>
       </div>
