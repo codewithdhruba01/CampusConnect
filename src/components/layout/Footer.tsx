@@ -1,17 +1,17 @@
 export function Footer() {
   return (
-    <footer className="bg-neutral-900- relative z-20 border-t border-white/5 py-16 text-neutral-400">
+    <footer className="relative z-20 border-t border-border py-16 text-muted-foreground">
       <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-12 px-6 md:flex-row md:gap-6">
         {/* Left Side */}
         <div className="flex max-w-lg flex-col gap-4">
           <div className="flex items-center gap-2">
             <img src="/logo.png" alt="Campus Connect Logo" className="h-8 w-8 object-contain" />
-            <span className="font-bricolage text-lg font-semibold tracking-tight text-white">
+            <span className="font-bricolage text-lg font-semibold tracking-tight text-foreground">
               Campus Connect
             </span>
           </div>
 
-          <p className="font-hanken text-sm leading-relaxed text-neutral-400">
+          <p className="font-hanken text-sm leading-relaxed text-muted-foreground">
             Your ultimate student community platform. No hidden fees, no tracking. One platform to
             create classrooms, chat in real-time, and collaborate with peers seamlessly.
           </p>

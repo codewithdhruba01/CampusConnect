@@ -286,9 +286,9 @@ export default function ClassroomView() {
 
   return (
     <div className="flex h-full w-full">
-      <div className="flex min-w-0 flex-1 flex-col bg-neutral-950/50">
+      <div className="flex min-w-0 flex-1 flex-col bg-background">
         {/* Header */}
-        <header className="flex h-16 flex-shrink-0 items-center justify-between border-b border-neutral-800 bg-neutral-900/50 px-6 backdrop-blur-md">
+        <header className="flex h-16 flex-shrink-0 items-center justify-between border-b border-border bg-card/50 px-6 backdrop-blur-md">
           <div className="flex items-center gap-4">
             <div
               className={`flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl ${color}/20`}
@@ -365,7 +365,7 @@ export default function ClassroomView() {
         </div>
 
         {/* Message Input */}
-        <div className="flex-shrink-0 border-t border-neutral-800 bg-neutral-900/50 p-4 backdrop-blur-md">
+        <div className="flex-shrink-0 border-t border-border bg-card/50 p-4 backdrop-blur-md">
           <div className="relative mx-auto flex max-w-4xl flex-col gap-3">
             {/* Attachment Preview */}
             {selectedAttachment && (
@@ -562,8 +562,8 @@ export default function ClassroomView() {
 
       {/* Users Sidebar */}
       {showUsers && (
-        <aside className="flex w-72 flex-shrink-0 flex-col border-l border-neutral-800 bg-neutral-900/30 backdrop-blur-md">
-          <div className="flex h-16 flex-shrink-0 items-center border-b border-neutral-800 px-5 font-semibold text-white">
+        <aside className="flex w-72 flex-shrink-0 flex-col border-l border-border bg-card/30 backdrop-blur-md">
+          <div className="flex h-16 flex-shrink-0 items-center border-b border-border px-5 font-semibold text-foreground">
             Members ({currentClassroom.members_count})
           </div>
           <div className="flex-1 space-y-4 overflow-y-auto p-5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">

@@ -8,7 +8,7 @@ export function SearchBar({ className, ...props }: SearchBarProps) {
     <Input
       type="search"
       placeholder="Search documentation..."
-      className={`h-10 rounded-xl border border-[#27272a] bg-[#171717] px-4 font-medium text-[#f4f4f5] shadow-sm placeholder:text-[#d1d1d7] focus-visible:border-[#3f3f46] focus-visible:ring-1 focus-visible:ring-[#3f3f46] ${className || ""}`}
+      className={`h-10 rounded-xl border border-border bg-background px-4 font-medium text-foreground shadow-sm placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring ${className || ""}`}
       {...props}
     />
   );

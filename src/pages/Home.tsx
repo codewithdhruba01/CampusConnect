@@ -5,7 +5,7 @@ import { FeaturesSection } from "@/components/sections/Features";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-neutral-950 text-white selection:bg-purple-500/30">
+    <div className="relative min-h-screen overflow-hidden bg-background text-foreground selection:bg-primary/30">
       {/* Dynamic Background */}
       <div className="absolute inset-0 z-0">
         <div className="absolute left-[-10%] top-[-10%] h-[40%] w-[40%] rounded-full bg-purple-600/20 blur-[120px]" />

@@ -11,10 +11,10 @@ export function ClassroomCard({ classroom }: ClassroomCardProps) {
 
   return (
     <Link to={`/classroom/${classroom.id}`} className="group block h-full">
-      <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-colors hover:bg-white/10">
+      <div className="flex h-full flex-col rounded-2xl border border-border bg-card p-6 backdrop-blur-sm transition-colors hover:bg-muted">
         <div className="mb-4 flex items-start justify-between">
           <div
-            className={`flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl ${color}/20 text-white`}
+            className={`flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl ${color}/20 text-foreground`}
           >
             {classroom.profile_pic ? (
               <img
@@ -26,11 +26,11 @@ export function ClassroomCard({ classroom }: ClassroomCardProps) {
               <BookOpen className={`h-6 w-6 text-${color.replace("bg-", "")}`} />
             )}
           </div>
-          <span className="rounded-full bg-white/10 px-2.5 py-1 text-xs font-medium text-neutral-300">
+          <span className="rounded-full bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground">
             {classroom.members_count} members
           </span>
         </div>
-        <h3 className="mb-1 text-lg font-semibold text-white transition-colors group-hover:text-purple-300">
+        <h3 className="mb-1 text-lg font-semibold text-foreground transition-colors group-hover:text-primary">
           {classroom.name}
         </h3>
         {classroom.category && (
@@ -39,7 +39,7 @@ export function ClassroomCard({ classroom }: ClassroomCardProps) {
             {classroom.category}
           </div>
         )}
-        <p className="mt-2 flex-1 text-sm text-neutral-400">
+        <p className="mt-2 flex-1 text-sm text-muted-foreground">
           {classroom.description ||
             "Join the discussion and collaborate with other members in real-time."}
         </p>

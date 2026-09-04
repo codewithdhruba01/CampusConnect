@@ -30,10 +30,7 @@ export function CreateClassroomModal({ children, onCreate }: CreateClassroomModa
   const triggerElement = children ? (
     (children as ReactElement)
   ) : (
-    <Button
-      variant="outline"
-      className="h-10 border-neutral-700 bg-neutral-900 px-4 py-2 font-medium text-white shadow-sm hover:bg-neutral-800"
-    >
+    <Button variant="outline" className="h-10 px-4 py-2 font-medium shadow-sm">
       <Plus className="mr-1 h-4 w-4" /> Create Room
     </Button>
   );
@@ -71,14 +68,14 @@ export function CreateClassroomModal({ children, onCreate }: CreateClassroomModa
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={triggerElement} />
 
-      <DialogContent className="overflow-hidden border border-neutral-800 bg-neutral-900/50 p-0 shadow-2xl ring-0 backdrop-blur-xl sm:max-w-[480px]">
+      <DialogContent className="overflow-hidden border border-border bg-background p-0 shadow-2xl ring-0 sm:max-w-[480px]">
         <div className="relative overflow-hidden">
-          <div className="relative border-b border-neutral-800 p-6 pb-5">
+          <div className="relative border-b border-border p-6 pb-5">
             <DialogHeader>
-              <DialogTitle className="text-2xl font-semibold tracking-tight text-white">
+              <DialogTitle className="text-2xl font-semibold tracking-tight text-foreground">
                 Create Classroom
               </DialogTitle>
-              <DialogDescription className="mt-1.5 text-sm text-neutral-400">
+              <DialogDescription className="mt-1.5 text-sm text-muted-foreground">
                 Set up a new space for learning, sharing, and collaborating with your peers.
               </DialogDescription>
             </DialogHeader>
@@ -89,45 +86,45 @@ export function CreateClassroomModal({ children, onCreate }: CreateClassroomModa
           <div className="space-y-2.5">
             <label
               htmlFor="name"
-              className="flex items-center gap-2 text-sm font-medium text-neutral-300"
+              className="flex items-center gap-2 text-sm font-medium text-foreground"
             >
-              <Users className="h-4 w-4 text-indigo-400" /> Classroom Name
+              <Users className="h-4 w-4 text-indigo-500" /> Classroom Name
             </label>
             <Input
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Advanced Machine Learning"
-              className="h-11 border-neutral-800 bg-white/5 text-white transition-all placeholder:text-neutral-600 focus-visible:border-indigo-500 focus-visible:ring-indigo-500/30"
+              className="h-11 border-border bg-transparent text-foreground transition-all placeholder:text-muted-foreground focus-visible:border-indigo-500 focus-visible:ring-indigo-500/30"
             />
           </div>
 
           <div className="space-y-2.5">
             <label
               htmlFor="subject"
-              className="flex items-center gap-2 text-sm font-medium text-neutral-300"
+              className="flex items-center gap-2 text-sm font-medium text-foreground"
             >
-              <Hash className="h-4 w-4 text-purple-400" /> Classroom Category
+              <Hash className="h-4 w-4 text-purple-500" /> Classroom Category
             </label>
             <Input
               id="subject"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               placeholder="e.g. Computer Science"
-              className="h-11 border-neutral-800 bg-white/5 text-white transition-all placeholder:text-neutral-600 focus-visible:border-purple-500 focus-visible:ring-purple-500/30"
+              className="h-11 border-border bg-transparent text-foreground transition-all placeholder:text-muted-foreground focus-visible:border-purple-500 focus-visible:ring-purple-500/30"
             />
           </div>
 
           <div className="space-y-2.5">
             <label
               htmlFor="profilePic"
-              className="flex items-center gap-2 text-sm font-medium text-neutral-300"
+              className="flex items-center gap-2 text-sm font-medium text-foreground"
             >
-              <ImageIcon className="h-4 w-4 text-emerald-400" /> Upload Profile Photo
+              <ImageIcon className="h-4 w-4 text-emerald-500" /> Upload Profile Photo
             </label>
             <div className="flex items-center gap-4">
               {profilePic && (
-                <div className="h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900">
+                <div className="h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-border bg-muted">
                   <img src={profilePic} alt="Preview" className="h-full w-full object-cover" />
                 </div>
               )}
@@ -143,7 +140,7 @@ export function CreateClassroomModal({ children, onCreate }: CreateClassroomModa
                     reader.readAsDataURL(file);
                   }
                 }}
-                className="h-11 border-neutral-800 bg-white/5 pt-2 text-sm text-white transition-all file:mr-3 file:rounded-md file:border-0 file:bg-neutral-900 file:px-3 file:py-1 file:text-sm file:text-white hover:file:bg-neutral-800 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/30"
+                className="h-11 border-border bg-transparent pt-2 text-sm text-foreground transition-all file:mr-3 file:rounded-md file:border-0 file:bg-muted file:px-3 file:py-1 file:text-sm file:text-foreground hover:file:bg-accent focus-visible:border-emerald-500 focus-visible:ring-emerald-500/30"
               />
             </div>
           </div>
@@ -151,25 +148,25 @@ export function CreateClassroomModal({ children, onCreate }: CreateClassroomModa
           <div className="space-y-2.5">
             <label
               htmlFor="description"
-              className="flex items-center gap-2 text-sm font-medium text-neutral-300"
+              className="flex items-center gap-2 text-sm font-medium text-foreground"
             >
-              <FileText className="h-4 w-4 text-pink-400" /> Description
+              <FileText className="h-4 w-4 text-pink-500" /> Description
             </label>
             <textarea
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="What will you learn here?"
-              className="focus-visible:ring-3 flex min-h-[100px] w-full resize-y rounded-lg border border-neutral-800 bg-white/5 px-3 py-2 text-sm text-white transition-colors placeholder:text-neutral-600 focus-visible:border-pink-500 focus-visible:outline-none focus-visible:ring-pink-500/30"
+              className="focus-visible:ring-3 flex min-h-[100px] w-full resize-y rounded-lg border border-border bg-transparent px-3 py-2 text-sm text-foreground transition-colors placeholder:text-muted-foreground focus-visible:border-pink-500 focus-visible:outline-none focus-visible:ring-pink-500/30"
             />
           </div>
         </div>
 
-        <div className="flex flex-col-reverse justify-end gap-3 border-t border-neutral-800 p-5 sm:flex-row">
+        <div className="flex flex-col-reverse justify-end gap-3 border-t border-border p-5 sm:flex-row">
           <Button
             variant="outline"
             onClick={() => setOpen(false)}
-            className="h-10 w-full border-neutral-700 bg-neutral-900 px-4 py-2 font-medium text-white shadow-sm hover:bg-neutral-800 sm:w-auto"
+            className="h-10 w-full px-4 py-2 font-medium shadow-sm sm:w-auto"
           >
             Cancel
           </Button>
@@ -178,7 +175,7 @@ export function CreateClassroomModal({ children, onCreate }: CreateClassroomModa
             variant="outline"
             onClick={handleSubmit}
             disabled={isLoading}
-            className="h-10 w-full border-neutral-700 bg-neutral-900 px-4 py-2 font-medium text-white shadow-sm hover:bg-neutral-800 sm:w-auto"
+            className="h-10 w-full px-4 py-2 font-medium shadow-sm sm:w-auto"
           >
             <Plus className="mr-2 h-4 w-4" /> {isLoading ? "Creating..." : "Create Classroom"}
           </Button>

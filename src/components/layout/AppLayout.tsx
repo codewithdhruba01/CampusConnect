@@ -4,6 +4,7 @@ import { LogOut, Users, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { useClassrooms } from "@/hooks/useClassrooms";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export default function AppLayout() {
   const navigate = useNavigate();
@@ -16,15 +17,15 @@ export default function AppLayout() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden bg-neutral-950 text-white selection:bg-purple-500/30">
+    <div className="flex h-screen overflow-hidden bg-background text-foreground selection:bg-primary/30">
       {/* Sidebar */}
       <aside
-        className={`flex flex-shrink-0 flex-col border-r border-neutral-800 bg-neutral-900/50 backdrop-blur-xl transition-all duration-300 ease-in-out ${
+        className={`flex flex-shrink-0 flex-col border-r border-border bg-card/50 backdrop-blur-xl transition-all duration-300 ease-in-out ${
           isSidebarOpen ? "w-64" : "w-16"
         }`}
       >
         <div
-          className={`flex h-16 shrink-0 items-center border-b border-neutral-800 ${isSidebarOpen ? "justify-between px-4" : "justify-center"}`}
+          className={`flex h-16 shrink-0 items-center border-b border-border ${isSidebarOpen ? "justify-between px-4" : "justify-center"}`}
         >
           {isSidebarOpen && (
             <Link
@@ -43,7 +44,7 @@ export default function AppLayout() {
             variant="ghost"
             size="icon"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="shrink-0 text-neutral-400 hover:bg-white/10 hover:text-white"
+            className="shrink-0 text-muted-foreground hover:bg-accent hover:text-accent-foreground"
           >
             {isSidebarOpen ? (
               <PanelLeftClose className="h-5 w-5" />
@@ -55,7 +56,7 @@ export default function AppLayout() {
 
         <nav className="flex-1 space-y-2 overflow-y-auto p-3">
           {isSidebarOpen ? (
-            <div className="mb-2 px-2 py-1.5 text-xs font-semibold uppercase tracking-wider text-neutral-500">
+            <div className="mb-2 px-2 py-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Main Menu
             </div>
           ) : (
@@ -64,7 +65,7 @@ export default function AppLayout() {
 
           <Link
             to="/dashboard"
-            className={`flex items-center rounded-lg bg-white/5 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10 ${
+            className={`flex items-center rounded-lg bg-accent py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent/80 ${
               isSidebarOpen ? "gap-3 px-3" : "justify-center"
             }`}
             title={!isSidebarOpen ? "Dashboard" : undefined}
@@ -74,16 +75,16 @@ export default function AppLayout() {
           </Link>
 
           {isSidebarOpen ? (
-            <div className="mb-2 mt-6 px-2 py-1.5 text-xs font-semibold uppercase tracking-wider text-neutral-500">
+            <div className="mb-2 mt-6 px-2 py-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Your Classrooms
             </div>
           ) : (
-            <div className="mb-2 mt-6 h-4 border-t border-neutral-800/50" />
+            <div className="mb-2 mt-6 h-4 border-t border-border/50" />
           )}
 
           {classrooms.length === 0
             ? isSidebarOpen && (
-                <div className="px-3 py-2 text-sm font-medium italic text-neutral-600">
+                <div className="px-3 py-2 text-sm font-medium italic text-muted-foreground">
                   No classrooms yet
                 </div>
               )
@@ -91,7 +92,7 @@ export default function AppLayout() {
                 <Link
                   key={room.id}
                   to={`/classroom/${room.id}`}
-                  className={`flex items-center rounded-lg py-2 text-sm font-medium text-neutral-400 transition-colors hover:bg-white/5 hover:text-white ${
+                  className={`flex items-center rounded-lg py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground ${
                     isSidebarOpen ? "gap-3 px-3" : "justify-center"
                   }`}
                   title={!isSidebarOpen ? room.name : undefined}
@@ -104,10 +105,11 @@ export default function AppLayout() {
               ))}
         </nav>
 
-        <div className="border-t border-neutral-800 p-3">
+        <div className="space-y-2 border-t border-border p-3">
+          <ThemeToggle isExpanded={isSidebarOpen} />
           <Button
             variant="ghost"
-            className={`w-full text-neutral-400 hover:bg-white/5 hover:text-white ${
+            className={`w-full text-muted-foreground hover:bg-accent hover:text-accent-foreground ${
               isSidebarOpen ? "justify-start px-3" : "justify-center px-0"
             }`}
             onClick={handleLogout}

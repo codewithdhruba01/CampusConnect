@@ -13,7 +13,7 @@ export default function Dashboard() {
       <div className="mb-10 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
         <div>
           <h1 className="mb-1 text-3xl font-bold tracking-tight">Discover Classrooms</h1>
-          <p className="text-neutral-400">Find and join communities or create your own.</p>
+          <p className="text-muted-foreground">Find and join communities or create your own.</p>
         </div>
         <div className="flex flex-wrap items-center gap-2 md:flex-row">
           <JoinClassroomModal />
@@ -26,7 +26,7 @@ export default function Dashboard() {
       </div>
 
       {classrooms.length === 0 ? (
-        <div className="py-20 text-center text-neutral-500">
+        <div className="py-20 text-center text-muted-foreground">
           <p>No classrooms found. Create one to get started!</p>
         </div>
       ) : (

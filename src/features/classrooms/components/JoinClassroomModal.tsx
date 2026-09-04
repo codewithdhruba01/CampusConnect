@@ -31,10 +31,7 @@ export function JoinClassroomModal({ children }: JoinClassroomModalProps) {
   const triggerElement = children ? (
     (children as ReactElement)
   ) : (
-    <Button
-      variant="outline"
-      className="h-10 border-neutral-700 bg-neutral-900 px-4 py-2 font-medium text-white shadow-sm hover:bg-neutral-800"
-    >
+    <Button variant="outline" className="h-10 px-4 py-2 font-medium shadow-sm">
       <LogIn className="mr-2 h-4 w-4" /> Join Room
     </Button>
   );
@@ -65,14 +62,14 @@ export function JoinClassroomModal({ children }: JoinClassroomModalProps) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={triggerElement} />
 
-      <DialogContent className="overflow-hidden border border-neutral-800 bg-neutral-900/50 p-0 shadow-2xl ring-0 backdrop-blur-xl sm:max-w-[440px]">
+      <DialogContent className="overflow-hidden border border-border bg-background p-0 shadow-2xl ring-0 sm:max-w-[440px]">
         <div className="relative overflow-hidden">
-          <div className="relative border-b border-neutral-800 p-6 pb-5">
+          <div className="relative border-b border-border p-6 pb-5">
             <DialogHeader>
-              <DialogTitle className="text-2xl font-semibold tracking-tight text-white">
+              <DialogTitle className="text-2xl font-semibold tracking-tight text-foreground">
                 Join Classroom
               </DialogTitle>
-              <DialogDescription className="mt-1.5 text-sm text-neutral-400">
+              <DialogDescription className="mt-1.5 text-sm text-muted-foreground">
                 Enter an invite code and your details to join an existing classroom.
               </DialogDescription>
             </DialogHeader>
@@ -89,41 +86,41 @@ export function JoinClassroomModal({ children }: JoinClassroomModalProps) {
           <div className="space-y-2.5">
             <label
               htmlFor="join-id"
-              className="flex items-center gap-2 text-sm font-medium text-neutral-300"
+              className="flex items-center gap-2 text-sm font-medium text-foreground"
             >
-              <Hash className="h-4 w-4 text-indigo-400" /> Classroom ID
+              <Hash className="h-4 w-4 text-indigo-500" /> Classroom ID
             </label>
             <Input
               id="join-id"
               value={classroomId}
               onChange={(e) => setClassroomId(e.target.value.toUpperCase())}
               placeholder="e.g. 7A4K9X2P"
-              className="h-11 border-neutral-800 bg-white/5 font-mono uppercase tracking-widest text-white transition-all placeholder:text-neutral-600 focus-visible:border-indigo-500 focus-visible:ring-indigo-500/30"
+              className="h-11 border-border bg-transparent font-mono uppercase tracking-widest text-foreground transition-all placeholder:text-muted-foreground focus-visible:border-indigo-500 focus-visible:ring-indigo-500/30"
             />
           </div>
 
           <div className="space-y-2.5">
             <label
               htmlFor="join-name"
-              className="flex items-center gap-2 text-sm font-medium text-neutral-300"
+              className="flex items-center gap-2 text-sm font-medium text-foreground"
             >
-              <User className="h-4 w-4 text-blue-400" /> Your Name
+              <User className="h-4 w-4 text-blue-500" /> Your Name
             </label>
             <Input
               id="join-name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Alex Johnson"
-              className="h-11 border-neutral-800 bg-white/5 text-white transition-all placeholder:text-neutral-600 focus-visible:border-blue-500 focus-visible:ring-blue-500/30"
+              className="h-11 border-border bg-transparent text-foreground transition-all placeholder:text-muted-foreground focus-visible:border-blue-500 focus-visible:ring-blue-500/30"
             />
           </div>
 
           <div className="space-y-2.5">
             <label
               htmlFor="join-email"
-              className="flex items-center gap-2 text-sm font-medium text-neutral-300"
+              className="flex items-center gap-2 text-sm font-medium text-foreground"
             >
-              <Mail className="h-4 w-4 text-emerald-400" /> Email Address
+              <Mail className="h-4 w-4 text-emerald-500" /> Email Address
             </label>
             <Input
               id="join-email"
@@ -131,16 +128,16 @@ export function JoinClassroomModal({ children }: JoinClassroomModalProps) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="alex@example.com"
-              className="h-11 border-neutral-800 bg-white/5 text-white transition-all placeholder:text-neutral-600 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/30"
+              className="h-11 border-border bg-transparent text-foreground transition-all placeholder:text-muted-foreground focus-visible:border-emerald-500 focus-visible:ring-emerald-500/30"
             />
           </div>
         </div>
 
-        <div className="flex flex-col-reverse justify-end gap-3 border-t border-neutral-800 p-5 sm:flex-row">
+        <div className="flex flex-col-reverse justify-end gap-3 border-t border-border p-5 sm:flex-row">
           <Button
             variant="outline"
             onClick={() => setOpen(false)}
-            className="h-10 w-full border-neutral-700 bg-neutral-900 px-4 py-2 font-medium text-white shadow-sm hover:bg-neutral-800 sm:w-auto"
+            className="h-10 w-full px-4 py-2 font-medium shadow-sm sm:w-auto"
           >
             Cancel
           </Button>
@@ -149,7 +146,7 @@ export function JoinClassroomModal({ children }: JoinClassroomModalProps) {
             variant="outline"
             onClick={handleSubmit}
             disabled={isLoading}
-            className="h-10 w-full border-neutral-700 bg-neutral-900 px-4 py-2 font-medium text-white shadow-sm hover:bg-neutral-800 sm:w-auto"
+            className="h-10 w-full px-4 py-2 font-medium shadow-sm sm:w-auto"
           >
             <LogIn className="mr-2 h-4 w-4" /> {isLoading ? "Joining..." : "Join Now"}
           </Button>
