@@ -1,8 +1,8 @@
 export function Footer() {
   return (
-    <footer className="relative z-20 px-4 py-10 text-white sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-[#17191b] px-4 pb-7 pt-4 shadow-2xl sm:px-6 sm:pb-8 sm:pt-6">
-        <div className="relative overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#b35cff] via-[#7c3aed] to-[#3157d5] px-6 py-8 sm:px-10 sm:py-10 lg:px-12">
+    <footer className="relative z-20 px-4 py-10 text-foreground sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-card px-4 pb-7 pt-4 shadow-2xl sm:px-6 sm:pb-8 sm:pt-6">
+        <div className="relative overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#b35cff] via-[#7c3aed] to-[#3157d5] px-6 py-8 text-white sm:px-10 sm:py-10 lg:px-12">
           <div
             className="pointer-events-none absolute inset-0"
             style={{
@@ -75,7 +75,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="pt-5 text-center text-xs text-white/60">
+        <div className="pt-5 text-center text-xs text-muted-foreground">
           &copy; {new Date().getFullYear()} Campus Connect. All rights reserved.
         </div>
       </div>
