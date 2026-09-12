@@ -19,7 +19,7 @@ export function Footer() {
           <p className="mt-1 text-sm text-neutral-500">
             built by{" "}
             <a
-              href="#"
+              href="https://codewithdhruba.in/"
               className="text-blue-500 transition-colors hover:text-blue-400 hover:underline"
             >
               @codewithdhruba
@@ -36,7 +36,10 @@ export function Footer() {
             >
               <span>𝕏</span> @codewithdhruba
             </a>
-            <a href="#" className="transition-colors hover:text-white">
+            <a
+              href="https://github.com/codewithdhruba01/CampusConnect"
+              className="transition-colors hover:text-white"
+            >
               GitHub
             </a>
             <a href="#" className="transition-colors hover:text-white">
