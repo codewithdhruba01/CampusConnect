@@ -25,6 +25,12 @@ type StackOption = {
   color: string;
 };
 
+type RoadmapDetail = {
+  topics: string[];
+  practice: string;
+  outcome: string;
+};
+
 const categories: { name: StackCategory; icon: typeof Code2 }[] = [
   { name: "Frontend", icon: Code2 },
   { name: "Backend", icon: Layers3 },
@@ -384,6 +390,21 @@ function RoadmapResult({
         </div>
       </div>
 
+      <div className="grid gap-px border-b border-border bg-border sm:grid-cols-3">
+        <div className="bg-card px-5 py-4 sm:px-7">
+          <p className="text-xs text-muted-foreground">Learning stages</p>
+          <p className="mt-1 text-lg font-semibold">{selectedOptions.length} technologies</p>
+        </div>
+        <div className="bg-card px-5 py-4 sm:px-7">
+          <p className="text-xs text-muted-foreground">Recommended pace</p>
+          <p className="mt-1 text-lg font-semibold">8-12 weeks</p>
+        </div>
+        <div className="bg-card px-5 py-4 sm:px-7">
+          <p className="text-xs text-muted-foreground">Final outcome</p>
+          <p className="mt-1 text-lg font-semibold">Portfolio-ready project</p>
+        </div>
+      </div>
+
       <div className="overflow-x-auto">
         <div className="relative min-w-[700px] px-5 py-8 sm:px-10 sm:py-10">
           <div className="absolute bottom-10 left-1/2 top-10 w-0.5 -translate-x-1/2 bg-primary/35" />
@@ -399,7 +420,7 @@ function RoadmapResult({
 }
 
 function RoadmapStage({ option, index }: { option: StackOption; index: number }) {
-  const topics = topicsFor(option);
+  const detail = detailFor(option);
   const isLeft = index % 2 === 0;
 
   return (
@@ -410,7 +431,7 @@ function RoadmapStage({ option, index }: { option: StackOption; index: number })
       className="grid grid-cols-[1fr_170px_1fr] items-center gap-4"
     >
       <div className={isLeft ? "flex justify-end" : "invisible"}>
-        {isLeft && <TopicPanel topics={topics} />}
+        {isLeft && <TopicPanel detail={detail} />}
       </div>
 
       <div className="relative z-10 flex justify-center">
@@ -420,16 +441,19 @@ function RoadmapStage({ option, index }: { option: StackOption; index: number })
       </div>
 
       <div className={!isLeft ? "flex justify-start" : "invisible"}>
-        {!isLeft && <TopicPanel topics={topics} />}
+        {!isLeft && <TopicPanel detail={detail} />}
       </div>
     </motion.div>
   );
 }
 
-function TopicPanel({ topics }: { topics: string[] }) {
+function TopicPanel({ detail }: { detail: RoadmapDetail }) {
   return (
-    <div className="w-full max-w-[260px] rounded-lg border-2 border-foreground/80 bg-background p-2 shadow-sm">
-      {topics.map((topic, index) => (
+    <div className="w-full max-w-[290px] rounded-lg border-2 border-foreground/80 bg-background p-2 shadow-sm">
+      <div className="border-b border-foreground/15 px-3 pb-2 pt-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+        Core topics
+      </div>
+      {detail.topics.map((topic, index) => (
         <div
           key={topic}
           className={`flex items-center gap-2 border-b border-foreground/10 px-3 py-2 text-xs font-medium last:border-0 ${
@@ -442,17 +466,48 @@ function TopicPanel({ topics }: { topics: string[] }) {
           {topic}
         </div>
       ))}
+      <div className="mt-2 rounded-md bg-primary/10 px-3 py-2 text-[11px] leading-relaxed">
+        <span className="font-semibold text-primary">Practice:</span> {detail.practice}
+      </div>
+      <div className="mt-2 rounded-md bg-emerald-500/10 px-3 py-2 text-[11px] leading-relaxed">
+        <span className="font-semibold text-emerald-700 dark:text-emerald-400">Outcome:</span>{" "}
+        {detail.outcome}
+      </div>
     </div>
   );
 }
 
-function topicsFor(option: StackOption) {
-  const topicMap: Record<StackCategory, string[]> = {
-    Frontend: ["Core concepts", "Components & UI", "Routing & state"],
-    Backend: ["Language basics", "APIs & services", "Authentication"],
-    Database: ["Data modeling", "Queries & relations", "Indexes & security"],
-    DevOps: ["Core workflow", "Deployment", "Monitoring & scale"],
+function detailFor(option: StackOption): RoadmapDetail {
+  const detailMap: Record<StackCategory, Omit<RoadmapDetail, "topics"> & { topics: string[] }> = {
+    Frontend: {
+      topics: ["HTML, CSS & accessibility", "Components & UI patterns", "Routing, state & forms"],
+      practice: `Build a responsive ${option.name} dashboard with reusable components.`,
+      outcome: "You can ship a polished, accessible frontend.",
+    },
+    Backend: {
+      topics: ["Language & runtime basics", "REST APIs and validation", "Auth, errors & testing"],
+      practice: `Create a ${option.name} API for users, projects and progress tracking.`,
+      outcome: "You can design and secure a production-style API.",
+    },
+    Database: {
+      topics: [
+        "Data modeling & relationships",
+        "Queries, filters & pagination",
+        "Indexes, backups & security",
+      ],
+      practice: `Model a learning platform schema in ${option.name} and connect it to your API.`,
+      outcome: "You can store, query and protect application data.",
+    },
+    DevOps: {
+      topics: [
+        "Local workflow & environments",
+        "Build, deploy & secrets",
+        "Logs, monitoring & scale",
+      ],
+      practice: `Deploy your learning platform with ${option.name} and document the workflow.`,
+      outcome: "You can repeatably ship and operate your project.",
+    },
   };
 
-  return topicMap[option.category].map((topic) => `${option.name}: ${topic}`);
+  return detailMap[option.category];
 }
