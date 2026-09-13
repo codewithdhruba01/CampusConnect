@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { LogOut, Users, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { LogOut, Users, PanelLeftClose, PanelLeftOpen, Route } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { useClassrooms } from "@/hooks/useClassrooms";
@@ -72,6 +72,17 @@ export default function AppLayout() {
           >
             <Users className="h-4 w-4 shrink-0" />
             {isSidebarOpen && <span className="whitespace-nowrap">Dashboard</span>}
+          </Link>
+
+          <Link
+            to="/roadmap"
+            className={`flex items-center rounded-lg py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground ${
+              isSidebarOpen ? "gap-3 px-3" : "justify-center"
+            }`}
+            title={!isSidebarOpen ? "Roadmap" : undefined}
+          >
+            <Route className="h-4 w-4 shrink-0" />
+            {isSidebarOpen && <span className="whitespace-nowrap">Roadmap</span>}
           </Link>
 
           {isSidebarOpen ? (

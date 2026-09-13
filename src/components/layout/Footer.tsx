@@ -94,7 +94,11 @@ function FooterColumn({ title, links }: { title: string; links: string[] }) {
     <div className="flex flex-col gap-3">
       <h2 className="font-semibold text-white">{title}</h2>
       {links.map((link) => (
-        <a key={link} href="#" className="text-white/75 transition-colors hover:text-white">
+        <a
+          key={link}
+          href={link === "Roadmap" ? "/roadmap" : "#"}
+          className="text-white/75 transition-colors hover:text-white"
+        >
           {link}
         </a>
       ))}

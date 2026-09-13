@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ClassroomView from "./pages/ClassroomView";
+import Roadmap from "./pages/Roadmap";
 import AppLayout from "./components/layout/AppLayout";
 import { useClassrooms } from "./hooks/useClassrooms";
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route element={<AppLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/roadmap" element={<Roadmap />} />
           <Route path="/classroom/:id" element={<ClassroomView />} />
         </Route>
         <Route path="/login" element={<Login />} />
