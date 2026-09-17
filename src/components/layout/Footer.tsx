@@ -2,7 +2,7 @@ export function Footer() {
   return (
     <footer className="relative z-20 px-4 py-10 text-foreground sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-card px-4 pb-7 pt-4 shadow-2xl sm:px-6 sm:pb-8 sm:pt-6">
-        <div className="relative overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#b35cff] via-[#7c3aed] to-[#3157d5] px-6 py-8 text-white sm:px-10 sm:py-10 lg:px-12">
+        <div className="relative overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#b35cff] via-[#7c3aed] to-[#3157d5] px-6 py-8 text-white sm:px-10 sm:py-12 lg:px-12">
           <div
             className="pointer-events-none absolute inset-0"
             style={{
@@ -11,8 +11,8 @@ export function Footer() {
             }}
           />
 
-          <div className="relative flex flex-col justify-between gap-10 lg:flex-row lg:gap-16">
-            <div className="max-w-sm">
+          <div className="relative flex flex-col justify-between gap-12 lg:flex-row lg:gap-16">
+            <div className="mx-auto flex max-w-sm flex-col items-center text-center lg:mx-0 lg:items-start lg:text-left">
               <a
                 href="/"
                 className="flex items-center gap-2.5 text-xl font-semibold tracking-tight"
@@ -64,7 +64,7 @@ export function Footer() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-x-10 gap-y-8 text-sm sm:grid-cols-3 sm:gap-x-14 lg:pt-1">
+            <div className="grid w-full grid-cols-2 gap-x-6 gap-y-10 text-sm sm:grid-cols-3 sm:gap-x-10 lg:w-auto lg:pt-1">
               <FooterColumn
                 title="Product"
                 links={["Features", "Classrooms", "Messaging", "Updates", "Roadmap"]}
@@ -76,6 +76,7 @@ export function Footer() {
               <FooterColumn
                 title="Resources"
                 links={["Documentation", "Help Center", "Community", "Blog", "Status"]}
+                className="col-span-2 sm:col-span-1"
               />
             </div>
           </div>
@@ -89,9 +90,17 @@ export function Footer() {
   );
 }
 
-function FooterColumn({ title, links }: { title: string; links: string[] }) {
+function FooterColumn({
+  title,
+  links,
+  className = "",
+}: {
+  title: string;
+  links: string[];
+  className?: string;
+}) {
   return (
-    <div className="flex flex-col gap-3">
+    <div className={`flex flex-col gap-3 ${className}`}>
       <h2 className="font-semibold text-white">{title}</h2>
       {links.map((link) => (
         <a
