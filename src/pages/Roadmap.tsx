@@ -169,11 +169,17 @@ export default function Roadmap() {
   };
 
   return (
-    <div className="min-h-full p-5 sm:p-8 lg:p-10">
+    <motion.div
+      initial={{ opacity: 0, y: 20, filter: "blur(5px)" }}
+      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="min-h-full p-5 sm:p-8 lg:p-10"
+    >
       <div className="mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
           className="mb-8 flex flex-col justify-between gap-5 md:flex-row md:items-end"
         >
           <div>
@@ -340,7 +346,7 @@ export default function Roadmap() {
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
